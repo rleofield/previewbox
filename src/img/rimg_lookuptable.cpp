@@ -921,7 +921,7 @@ namespace rlf {
          std::vector<cRGBAlpha> v( RGBlutSize );
 
          for( size_t i = 0; i < v.size(); i++ ) {
-            v[ i ] = cRGBAlpha( 0, i, 0 );
+            v[ i ] = cRGBAlpha( 0, static_cast<uint8_t>(i), 0 ); // changed win
          }
 
          return v;
@@ -964,7 +964,7 @@ namespace rlf {
          std::vector<cRGBAlpha> v( RGBlutSize );
 
          for( size_t i = 0; i < v.size(); i++ ) {
-            int i1 = 255 - i;
+            size_t i1 = 255 - i;
             v[ i1 ].R( v[ i ].R() );
             v[ i1 ].G( v[ i ].G() );
             v[ i1 ].B( v[ i ].B() );

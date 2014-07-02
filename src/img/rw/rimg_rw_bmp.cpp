@@ -31,6 +31,7 @@ Lib: librimgrw
 #include <string>
 #include <boost/range/algorithm_ext/iota.hpp>
 
+
 #include "boost_cstdint.h"
 #include "rimg_read_write_bin.h"
 #include "rimg_rgb_bgra_types.h"
@@ -41,6 +42,9 @@ Lib: librimgrw
 #include "rimg_fs.h"
 #include "rimg_read_write.h"
 #include "rimg_rw_exceptions.h"
+#include "rimg_t_read.h"
+#include "rimg_t_write.h"
+#include "rBin.h"
 
 using namespace std;
 
@@ -269,11 +273,11 @@ namespace rlf {
       //char s0 = *((char*)bitmapfileheader);
       //char s1 = *((char*)(bitmapfileheader)+1);
 
-      size_t info_width( INFO const&   info ) {
+      uint32_t info_width( INFO const&   info ) {
          return info.width < 0 ? -info.width : info.width;
       }
 
-      size_t info_height( INFO const&   info ) {
+      uint32_t info_height( INFO const&   info ) {
          return info.height < 0 ? -info.height : info.height;
       }
    } // end of ns bmp_intern
@@ -377,22 +381,18 @@ namespace rlf {
 
       void fromFile( const std::string& filename, string& s0 ) {
          std::ifstream stream( filename.c_str() );
-         s0.assign( std::istreambuf_iterator<char>( stream ) ,  std::istreambuf_iterator<char>() );
+         s0.assign(
+                  std::istreambuf_iterator<char>( stream ),
+                  std::istreambuf_iterator<char>() );
       }
 
-      void read( string fn, tImgLinear& rimg ) {
+      void read( string fn, tImgLinear& rimg   ) {
 
-         string buf0;
-         vector<uint8_t> buf;
 
-         try {
-            bin_data::tReadBin()( fn, buf );
-            //fromFile( fn, buf0 );
+          std::vector<uint8_t> buf;
 
-         }  catch( bin_data::tBinReadEx ex ) {
-            throw tImgReadEx( bin_data::msg::file_not_exists( fn ) );
-            //throw ;
-         }
+          bin_read::t_bin_read reader;
+          reader( fn, buf );
 
 
          FILEHEADER const& fileheader = referenceToFILEHEADER( buf );
@@ -406,8 +406,8 @@ namespace rlf {
          if( buf.size() == fileheader.size ) {
             try {
                INFO const& bitmapinfoheader = referenceToINFO( buf );
-               size_t w = info_width( bitmapinfoheader );
-               size_t h = info_height( bitmapinfoheader );
+               uint32_t w = info_width( bitmapinfoheader );
+							 uint32_t h = info_height(bitmapinfoheader);
                // copy data to tImgLinear
                rimg.size() = tSize( w, h );
 
@@ -468,7 +468,7 @@ namespace rlf {
 
          FILEHEADER& bitmapfileheader = referenceToFILEHEADER( buf );
          bitmapfileheader.signature = BMP_signature;
-         bitmapfileheader.size =   buf.size();
+         bitmapfileheader.size =   static_cast<uint32_t>(buf.size());
          bitmapfileheader.reserved1 = 0;
          bitmapfileheader.reserved2 = 0;
          bitmapfileheader.offset_bits = offsetpixeldata8;
@@ -497,8 +497,8 @@ namespace rlf {
          }
 
          uint8_t* dataptr = &buf[0] + bitmapfileheader.offset_bits;
-         size_t h = info_height( bitmapinfoheader );
-         size_t w = info_width( bitmapinfoheader );
+				 uint32_t h = info_height(bitmapinfoheader);
+				 uint32_t w = info_width(bitmapinfoheader);
          size_t aligned_w = bmp_intern::align32( w );
 
          for( size_t y = 0; y < h; y++ ) {
@@ -562,7 +562,7 @@ namespace rlf {
       }
       void write_rgba( vector<uint8_t>& buf, tSize size, vector<uint8_t*> const& rows )  {
 
-         size_t aligned_w = bmp_intern::align32( size.x() );
+         uint32_t aligned_w = bmp_intern::align32( size.x() );
          uint32_t size_image = aligned_w * size.y();
 
          uint32_t aligned_bgr_line_size = bmp_intern::align32( size.x()  * sizeof( tBGRA ) );
@@ -658,15 +658,19 @@ namespace rlf {
       convert( img, temp );
       write( fn, temp ) ;
    }
-   void t_read_bmp::read( string const& fn, tImgLinear& rimg )  {
-      bmp_read_local::read( fn, rimg );
+
+   void t_read_bmp::_read( tImgLinear& rimg )  {
+      bmp_read_local::read( _fn, rimg );
    }
 
-
-   void t_read_bmp::read( string const& fn, tImgPlanar& planar )  {
-      tImgLinear temp;
-      bmp_read_local::read( fn, temp );
-      convert( temp, planar );
+   void t_read_bmp::read( tImgLinear& lin )  {
+      _read( lin );
+   }
+   void t_read_bmp::read( tImgPlanar& planar )  {
+      tImgLinear img_read;
+      read( img_read );
+      tImgViewLinear vlin( img_read );
+      convert( vlin, planar );
    }
 
 

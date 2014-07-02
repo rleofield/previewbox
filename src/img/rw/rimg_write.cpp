@@ -44,6 +44,8 @@ Lib: librimgrw
 #include "rimg_read_write.h"
 #include "rimg_fs.h"
 #include "rimg_resolve_image_type.h"
+#include "rimg_t_write.h"
+#include "e_file_type.h"
 
 using namespace std;
 

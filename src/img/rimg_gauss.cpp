@@ -58,10 +58,10 @@ namespace rlf {
       void rimginterface::Gauss3( tImgPlanar& img ) {
          assert( img.is_mono8() );
 
-         size_t sx = img.sx();
-         size_t sy = img.sy();
-         size_t nsx = sx + 2;
-         size_t nsy = sy + 2;
+				 uint32_t sx = img.sx();
+				 uint32_t sy = img.sy();
+				 uint32_t nsx = sx + 2;
+				 uint32_t nsy = sy + 2;
 
          tPlane16 newf( nsy, tLine16( nsx ) );
          tPlane16 news( nsy, tLine16( nsx ) );
@@ -76,8 +76,8 @@ namespace rlf {
          /* -- copy image to extended first im
               */
          uint16_t* bword = first_im + sx + 3;
-         size_t ycount = sy;
-         size_t ix, iy;
+				 uint32_t ycount = sy;
+				 uint32_t ix, iy;
 
 
 
@@ -124,7 +124,7 @@ namespace rlf {
          ycount = sy;
 
          while( ycount-- ) {
-            int xcount = sx;
+					 uint32_t xcount = sx;
 
             while( xcount-- ) {
                *ptr_target++ = ( uint16_t )( *( ptr_source - 1 )            // 1
@@ -162,7 +162,7 @@ namespace rlf {
 
          while( ycount-- ) {
             /* -- the cols         */
-            int xcount = sx;
+					 auto xcount = sx;
 
             while( xcount-- ) {
                *ptr_target = ( uint16_t )(

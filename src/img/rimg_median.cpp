@@ -44,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "str_util.h"
 
+#ifdef _WIN32
+#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
+#endif
 using namespace std;
 
 
@@ -58,8 +61,8 @@ namespace rlf {
       void getkernel( vector<size_t> & arr, tPlaneLinear8 const& extended, uint32_xy xy, int kernel ) {
 
          int hk = kernel / 2;
-         size_t xcount  = xy.x() - hk;
-         size_t xcountmax  = xy.x() + hk;
+				 uint32_t xcount = xy.x() - hk;
+				 uint32_t xcountmax = xy.x() + hk;
 
          vector<size_t>::iterator parr = arr.begin();
 
@@ -69,7 +72,7 @@ namespace rlf {
             int ycount  = xy.y() - hk;
             int ycountmax  = xy.y() + hk;
 
-            int y = ycount * extended.pitch() + xcount;
+						int y = ycount * extended.pitch() + xcount;
 
             while( ycount <= ycountmax ) {
                *parr++ = extended[ y ];
@@ -525,8 +528,8 @@ namespace rlf {
 
          size_t x = im.size();
          size_t y = im[0].size();
-         size_t x2 = x + halfkernel * 2;
-         size_t y2 = y + halfkernel * 2;
+         //size_t x2 = x + halfkernel * 2;
+         //size_t y2 = y + halfkernel * 2;
 
 
 

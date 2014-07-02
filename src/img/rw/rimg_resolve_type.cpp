@@ -36,6 +36,7 @@ Lib: librimgrw
 
 #include "rBin.h"
 #include "rimg_resolve_image_type.h"
+#include "rimg_t_read.h"
 
 using namespace std;
 
@@ -78,11 +79,9 @@ namespace rlf {
 
 
 
-      char const* IntelLogo = "II";
-      char const* MacLogo = "MM";
-      uint8_t jpeg0 = 0xFF;
-      uint8_t jpeg1 = 0xD8;
-      uint8_t jpeg2 = 0xFF;
+      const string IntelLogo = "II";
+      const string MacLogo = "MM";
+      vector<uint8_t> vjpeg = {0xff,0xd8,0xff};
 
       inline uint8_t const* toUint8Ptr( std::vector<uint8_t> &b ) {
          return &b[0];
@@ -90,10 +89,11 @@ namespace rlf {
 
 
 
-      e_file_type findtype( string fn, vector<uint8_t> &v ) {
+      e_file_type findtype( string fn ) {
 
+         vector<uint8_t> v;
          bin_read::t_bin_read reader;
-         reader( fn, v );
+         reader( fn, v, 10 );
 
          if( v.size() < 10 ) {
             return e_file_type::none;
@@ -102,31 +102,29 @@ namespace rlf {
 
          // TIF
          char const* logo = bin_read::rhelper::toCharPtr( v );
-
-         if( strncmp( static_cast<char const*>( logo ), MacLogo, 2 ) == 0
-               || strncmp( static_cast<char const*>( logo ), IntelLogo, 2 ) == 0 ) {
+         string l2(v.begin(), v.begin() + 2);
+         if( l2 == MacLogo  || l2 == IntelLogo ) {
             return e_file_type::tif;
          }
 
          // FF D8 FF
          // jpeg
-         uint8_t j0 = *logo;
-         uint8_t j1 = *( logo + 1 );
-         uint8_t j2 = *( logo + 2 );
-
-         if( j0 ==  jpeg0 && j1 ==  jpeg1 && j2 ==  jpeg2 ) {
+         vector<uint8_t> l3(v.begin(), v.begin() + 3);
+         if( vjpeg ==  l3 ) {
             return e_file_type::jpeg;
          }
 
          // PNG
          // 89 50 4E 47
-         if( strncmp( static_cast<char const*>( logo + 1 ), "PNG", 3 ) == 0 ) {
+         string sl3(l3.begin(),l3.end());
+         if( sl3 == "PNG" ) {
             return e_file_type::png;
          }
 
          // 42 4D == BM, 0x4d42
          // BMP
-         if( strncmp( static_cast<char const*>( logo ), "BM", 2 ) == 0 ) {
+         string sl2 (l2.begin(),l2.end());
+         if( sl2 == "BM" ) {
             return e_file_type::bmp;
          }
 

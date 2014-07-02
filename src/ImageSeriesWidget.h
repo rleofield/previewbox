@@ -46,7 +46,13 @@ signals:
 private slots:
    void on_button_clicked( bool checked );
 
-private:
+   void on_button_clicked();
+
+   void on_pushButton_clicked();
+
+   void on_actionButton_file_pressed_triggered();
+
+   private:
    Ui::ImageSeriesWidget* ui;
 };
 #pragma GCC diagnostic pop

@@ -53,6 +53,8 @@ using namespace std;
 #include "rimg_convert.h"
 #include "rimg_read_write_bin.h"
 #include "rimg_read_write.h"
+#include "rimg_t_read.h"
+#include "rimg_t_write.h"
 
 using namespace rlf::rimg_convert;
 using rlf::rimg_linear::tImgLinear;
@@ -314,23 +316,23 @@ namespace rlf {
    }
 
 
-   void t_read_jpeg::read( string  const& fn, tImgLinear& img )  {
+   void t_read_jpeg::read( tImgLinear& img ){
 
 
       try {
-         jpeg_local::read( fn, img );
+         jpeg_local::read( _fn, img );
       } catch( rImgEx& ) {
          throw;
       }
    }
 
    // read write planar, simple forward to tImgLinear
-   void t_read_jpeg::read( string const& fn, tImgPlanar& planar )  {
+   void t_read_jpeg::read( tImgPlanar& planar )  {
 
       tImgLinear img_read;
-      read( fn, img_read );
-      tImgViewLinear v( img_read );
-      convert( v, planar );
+      read(  img_read );
+      tImgViewLinear vlin( img_read );
+      convert( vlin, planar );
    }
 
 

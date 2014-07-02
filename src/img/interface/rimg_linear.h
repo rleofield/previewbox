@@ -124,6 +124,7 @@ namespace rlf {
             if( _val == mono8().val() ) {
                return "mono8";
             }
+
             if( _val == palette().val() ) {
                return "palette";
             }
@@ -187,17 +188,21 @@ namespace rlf {
          ~tImgLinear() {
             free_data_buffer() ;
          }
+         tImgLinear( tImgLinear const& imgIn );
+         tImgLinear& operator=( tImgLinear const& imgIn ) ;
+
          tSize size()const {
             return _size;
          }
          tSize& size() {
             return _size;
          }
-         tImgLinear( tImgLinear const& imgIn );
-         tImgLinear& operator=( tImgLinear const& imgIn ) ;
-         vector<tRGBA> const& palette()const{ return    _palette; }
-         void palette(vector<tRGBA> const& p){ _palette = p; }
-
+         vector<tRGBA> const& palette()const {
+            return    _palette;
+         }
+         void palette( vector<tRGBA> const& p ) {
+            _palette = p;
+         }
 
          uint8_t    const* row_ptr( size_t y )const {
             if( y >= _row_pointer.size() ) {
@@ -206,7 +211,6 @@ namespace rlf {
                                   + "' max: "
                                   + boost::lexical_cast<string>( size().y() ) );
             }
-
             return _row_pointer[ y ];
          }
          uint8_t* row_ptr( size_t y ) {
@@ -224,7 +228,7 @@ namespace rlf {
          void description( string const& d ) {
             _description = d;
          }
-         void clear( uint8_t val = 0 ) {
+         void fill( uint8_t val = 0 ) {
             if( _data != 0 ) {
                memset( _data, val , bytes() );
             }
@@ -282,6 +286,8 @@ namespace rlf {
          }
 
          void alloc_data_buffer();
+         void reset();
+
       protected:
          uint8_t    const* get_data()const;
          uint8_t*     get_data();
@@ -340,7 +346,9 @@ namespace rlf {
          uint8_t const* row_ptr( size_t y )const {
             return _source.row_ptr( y );
          }
-         vector<tRGBA> const& palette()const{ return    _source.palette(); }
+         vector<tRGBA> const& palette()const {
+            return    _source.palette();
+         }
          bool is_mono8()const {
             return _source.is_mono8();
          }

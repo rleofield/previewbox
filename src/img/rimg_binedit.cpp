@@ -764,7 +764,7 @@ namespace rlf {
       const int ERODE  = 0;
 
 
-      bool rimginterface::Closing( tPlane8& im, int strength, int color ) {
+			bool rimginterface::Closing(tPlane8& im, int strength, uint32_t color) {
          bool b = Dilate( im, strength, color );
 
          if( !b ) {
@@ -773,7 +773,7 @@ namespace rlf {
 
          return b;
       }
-      bool rimginterface::Closing( tImgPlanar& source, int strength, int color ) {
+			bool rimginterface::Closing(tImgPlanar& source, int strength, uint32_t color) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -789,7 +789,7 @@ namespace rlf {
 
       }
 
-      bool rimginterface::Opening( tPlane8& im, int strength, int color ) {
+			bool rimginterface::Opening(tPlane8& im, int strength, uint32_t color) {
          bool b = Erode( im, strength, color );
 
          if( !b ) {
@@ -798,7 +798,7 @@ namespace rlf {
 
          return b;
       }
-      bool rimginterface::Opening( tImgPlanar& source, int strength, int color ) {
+			bool rimginterface::Opening(tImgPlanar& source, int strength, uint32_t color) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -815,14 +815,14 @@ namespace rlf {
       }
 
 
-      bool rimginterface::Dilate( tPlane8& im, int strength, int color ) {
+			bool rimginterface::Dilate(tPlane8& im, int strength, uint32_t color) {
          return BinEdit( im, strength, color, DILATE );
       }
 
-      bool rimginterface::Erode( tPlane8& im, int strength, int color ) {
+			bool rimginterface::Erode(tPlane8& im, int strength, uint32_t color) {
          return BinEdit( im, strength, color, ERODE );
       }
-      bool rimginterface::Dilate( tImgPlanar& source, int strength, int color ) {
+			bool rimginterface::Dilate(tImgPlanar& source, int strength, uint32_t color) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -838,7 +838,7 @@ namespace rlf {
 
 
       }
-      bool rimginterface::Erode( tImgPlanar& source, int strength, int color ) {
+			bool rimginterface::Erode(tImgPlanar& source, int strength, uint32_t color) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -982,7 +982,7 @@ namespace rlf {
          }
       }
 
-      void rimginterface::BinEdit( tImgPlanar& source, int strength, int color, int edit_case ) {
+			void rimginterface::BinEdit(tImgPlanar& source, int strength, uint32_t color, int edit_case) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -998,7 +998,7 @@ namespace rlf {
       }
 
 
-      bool rimginterface::BinEdit( tPlane8& source, int strength, int color, int edit_case ) {
+			bool rimginterface::BinEdit(tPlane8& source, int strength, uint32_t color, int edit_case) {
 
 
          int dilation = 1;
@@ -1049,10 +1049,10 @@ namespace rlf {
          }
 
          uint32_t halfkernel  = 1;
-         int x = source.size();
-         int y = source[0].size();
-         int x2 = x + halfkernel * 2;
-         int y2 = y + halfkernel * 2;
+         size_t x = source.size();
+         size_t y = source[0].size();
+         size_t x2 = x + halfkernel * 2;
+         size_t y2 = y + halfkernel * 2;
 
          /* -- allocate buffer ( each col/row = image+2 )
          */
@@ -1075,8 +1075,8 @@ namespace rlf {
 
          Clear( source, 0 );
 
-         for( int iy = 0; iy < y ; iy++ ) {
-            for( int ix = 0; ix < x ; ix++ ) {
+         for( size_t iy = 0; iy < y ; iy++ ) {
+            for( size_t ix = 0; ix < x ; ix++ ) {
                if( edit_case == dilation ) {
                   source[iy][ix] = dilate( temp, ix + 1, iy + 1, table, color );
                } else {

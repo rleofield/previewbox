@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef t_2D_xy_H
 #define t_2D_xy_H
 
+#include <algorithm>
 #include <assert.h>
 #include <string>
 #include <float.h>

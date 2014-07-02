@@ -24,6 +24,10 @@ File: GetAreaWidget.h
 #ifndef GETAREAWIDGET_H
 #define GETAREAWIDGET_H
 
+#include "timer.h"
+
+using namespace rlf_htime;
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Weffc++"
 #include <QWidget>
@@ -54,6 +58,7 @@ private slots:
    Ui::GetAreaWidget* ui;
 
    int areaHorizontalScrollBar;
+   tTimer t;
 
 };
 #pragma GCC diagnostic pop

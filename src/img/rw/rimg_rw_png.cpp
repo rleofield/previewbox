@@ -47,11 +47,15 @@ using namespace std;
 
 #include "rimg_read_write_bin.h"
 #include "rimg_linear.h"
-//#include "rimg_read_write.h"
 #include "rimg_convert.h"
 #include "rimg_fs.h"
 #include "rimg_rw_exceptions.h"
+#include "rimg_t_read.h"
+#include "rimg_t_write.h"
 
+#ifdef _WIN32
+#pragma warning( disable:4996 4100) // _CRT_SECURE_NO_WARNINGS
+#endif
 
 using rlf::rimg_planar::tImgPlanar;
 using rlf::rimg_linear::tImgLinear;
@@ -403,12 +407,9 @@ namespace rlf {
    }
 
 
-   void t_read_png::read( string  const& fn, tImgLinear& img )  {
-
-
-
+   void t_read_png::read( tImgLinear& img )  {
       try {
-         png_local::read( fn, img );
+         png_local::read( _fn, img );
          return;
       } catch( rImgEx& ex ) {
 
@@ -417,12 +418,12 @@ namespace rlf {
    }
 
    // read write planar, simple forward to tImgLinear
-   void t_read_png::read( string const& fn, tImgPlanar& planar )  {
+   void t_read_png::read( tImgPlanar& planar )  {
 
       tImgLinear img_read;
-      png_local::read( fn, img_read );
-      tImgViewLinear v( img_read );
-      convert( v, planar );
+      read( img_read );
+      tImgViewLinear vlin( img_read );
+      convert( vlin, planar );
    }
 
 

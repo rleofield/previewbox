@@ -136,7 +136,7 @@ namespace bin_read {
       t_bin_read() {}
       ~t_bin_read() {}
 
-      void operator()( const std::string& file, std::vector<uint8_t> &buf )  {
+      void operator()( const std::string& file, std::vector<uint8_t> &buf, uint64_t size_ = -1 )  {
 
          if( !rhelper::file_exists_r( file ) ) {
             std::string s = err::file_not_exists( file );
@@ -158,10 +158,11 @@ namespace bin_read {
          //buf.assign(start, end);
 
          // fast
-         auto size = boost::filesystem::file_size( file );
-         buf.resize( static_cast<size_t>( size ), 0 );
+         uintmax_t size = boost::filesystem::file_size( file );
+         if( size < size_ ) size_ = size;
+         buf.resize( static_cast<size_t>( size_ ), 0 );
          auto buffer = rhelper::toCharPtr( buf );
-         fp.read( buffer, size );
+         fp.read( buffer, size_ );
 
          if( fp.eof() ) {
             auto s = err::read_file( file );

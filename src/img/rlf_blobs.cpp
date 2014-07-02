@@ -224,13 +224,13 @@ namespace rlf {
 
 
       void calculateMidpnt() {
-         for( auto& b : _blobs){
+for( auto & b : _blobs ) {
             b.calculateMidpnt();
          }
       }
 
       void calculateSize() {
-         for( auto& b : _blobs){
+for( auto & b : _blobs ) {
             b.calculateSize();
          }
       }
@@ -239,7 +239,7 @@ namespace rlf {
 
 
       void calculateIntegral() {
-         for( auto& b : _blobs){
+for( auto & b : _blobs ) {
             b.calculateIntegral( _background );
          }
       }
@@ -248,7 +248,7 @@ namespace rlf {
 
 
       void calculateArea() {
-         for( auto& b : _blobs){
+for( auto & b : _blobs ) {
             b.calculateArea();
          }
       }
@@ -256,7 +256,7 @@ namespace rlf {
 
 
       void calculatePeakValue() {
-         for( auto& b : _blobs){
+for( auto & b : _blobs ) {
             b.calculatePeakValue();
          }
       }
@@ -379,8 +379,8 @@ namespace rlf {
    }
 
 
-   size_t tBlobs::count()const {
-      return _impl->_blobs.size();
+	 uint32_t tBlobs::count()const {
+		 return static_cast<uint32_t>(_impl->_blobs.size());
    }
    vector<tBlob> const& tBlobs::blobs()const {
       return _impl->_blobs;
@@ -407,17 +407,17 @@ namespace rlf {
    namespace {
 
 
-      void extraxt_streaks( vector<tStreak> & streaks, tPlane8 const& b, int thre ) {
+		 void extraxt_streaks(vector<tStreak> & streaks, tPlane8 const& b, uint32_t thre) {
 
 
-         auto y = auto_null;
+				uint32_t y = 0;
          tStreak s;
          auto ybegin = b.begin();
          auto yend = b.size();
 
          while( y < yend ) {
             auto isstreak =   false;
-            auto x     = auto_null;
+            uint32_t x     = 0;
 
             auto begin = ybegin->begin();
             auto end = ybegin->end();
@@ -548,7 +548,7 @@ namespace rlf {
 
                while( s != found ) {
                   // searches for neighbours for all streaks
-                  seek_adjacent_streak( streak_table, lines, bool_table, blob, blob[found] ); // seach more streaks,
+                  seek_adjacent_streak( streak_table, static_cast<uint32_t>(lines), bool_table, blob, blob[found] ); // seach more streaks,
                   found++;
                   s = blob.streak_count();
                }
@@ -650,7 +650,7 @@ namespace rlf {
       return false;
    }
 
-   size_t  tBlobs::count_filtered()const {
+	 uint32_t  tBlobs::count_filtered()const {
 
 
 
@@ -660,8 +660,8 @@ namespace rlf {
 
 
 
-      size_t running = 0;
-      size_t size_ = count();
+			uint32_t running = 0;
+			uint32_t size_ = count();
 
       for( size_t i = 0; i < size_; i++ ) {
          tBlob const& bo = _impl->_blobs[i];

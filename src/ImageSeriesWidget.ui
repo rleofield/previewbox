@@ -29,6 +29,24 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>130</y>
+     <width>79</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>File</string>
+   </property>
+  </widget>
+  <action name="actionButton_file_pressed">
+   <property name="text">
+    <string>button_file_pressed</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

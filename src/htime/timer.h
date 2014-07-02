@@ -29,9 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RIMG_TIMER_H
 
 #include <chrono>
-
 #include <string>
-
 
 
 namespace rlf_htime {

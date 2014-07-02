@@ -113,7 +113,7 @@ namespace rlf {
       return uint32_xy( sx(), sy() );
    }
    uint32_t tBlob::streak_count()  const {
-      return _streaks.size();
+		 return static_cast<uint32_t>(_streaks.size());
    }
 
 
@@ -273,8 +273,8 @@ namespace rlf {
       auto iStreakEnd = _streaks.end();
       auto bottom  = size_.x() - 1 ;
       auto right   = size_.y() - 1;
-      auto top = auto_null;
-      auto left = auto_null;
+			uint32_t top = 0;
+			uint32_t left = 0;
 
       while( iStreakStart != iStreakEnd ) {
          auto x = iStreakStart->x();
@@ -317,7 +317,7 @@ namespace rlf {
       auto i1 = _streaks.begin();
       auto i2 = s._streaks.begin();
 
-      for( auto i = auto_null; i < size1; i++ ) {
+			for (uint32_t i = 0; i < size1; i++) {
          if( *i1 != *i2 ) {
             return false;
          }

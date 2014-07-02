@@ -55,8 +55,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wno-unused-but-set-variable
 
 SOURCES +=  \
     src/filefn/t_filename.cpp \
-    src/ftw/filetreewalk.cpp \
-    src/hfile/t_ifncontrol.cpp \
     src/hfile/filehelper.cpp \
     src/hstring/stringhelper.cpp \
     src/hstring/gettokens.cpp \
@@ -84,7 +82,6 @@ SOURCES +=  \
     src/img/rimg_bin_luts.cpp \
     src/img/rimg_aoi.cpp \
     src/img/rw/rimg_test_raw_rw.cpp \
-    src/img/rw/rimg_rw_tiff.cpp \
     src/img/rw/rimg_rw_raw.cpp \
     src/img/rw/rimg_rw_png.cpp \
     src/img/rw/rimg_rw_jpeg.cpp \
@@ -106,7 +103,11 @@ SOURCES +=  \
     src/img/rw/rimg_resolve_type.cpp \
     src/img/rw/rimg_read.cpp \
     src/img/rw/rimg_write.cpp \
-    src/ImageSingle.cpp
+    src/ImageSingle.cpp \
+    src/filefn/filetreewalk.cpp \
+    src/img/rw/rimg_tiff_r.cpp \
+    src/img/rw/rimg_tiff_r_decode.cpp \
+    src/img/rw/rimg_tiff_w.cpp
 
 
 HEADERS  += src/mainwindow.h \
@@ -114,8 +115,6 @@ HEADERS  += src/mainwindow.h \
             src/filedealer.h \
             src/imagecompany.h \
     src/filefn/t_filename.h \
-    src/ftw/filetreewalk.h \
-    src/hfile/t_fncontrol.h \
     src/hfile/filehelper.h \
     src/hstring/stringhelper.h \
     src/hstring/gettokens.h \
@@ -170,7 +169,10 @@ HEADERS  += src/mainwindow.h \
     src/GetAreaWidget.h \
     src/img/rw/rimg_resolve_image_type.h \
     src/log/tLog_Category_rimg.h \
-    src/ImageSingle.h
+    src/ImageSingle.h \
+    src/filefn/filetreewalk.h \
+    src/filefn/filetreewalk_ref.h \
+    src/img/rw/rimg_tiff.h
 
 
 FORMS    += src/mainwindow.ui \

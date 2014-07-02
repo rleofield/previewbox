@@ -40,7 +40,7 @@ namespace rlf {
    class tAoi {
    public:
 
-      tAoi() {}
+      tAoi(): _pos(), _size() {}
       tAoi( int32_t ix, int32_t iy, uint32_t sx, uint32_t sy );
       tAoi( int32_xy const& pos0, uint32_xy const& size0 );
       tAoi( const tAoi& in );

@@ -33,11 +33,12 @@ Lib: librimgrw
 
 #include <boost/cstdint.hpp>
 
+#include <cstdint>
 
 
 namespace rlf {
 
-   typedef boost::uint8_t byte_t;
+   //typedef boost::uint8_t byte_t;
    typedef boost::uint8_t uint8_t;
    typedef boost::uint16_t uint16_t;
    typedef boost::uint32_t uint32_t;

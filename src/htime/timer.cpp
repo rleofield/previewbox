@@ -32,6 +32,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "timer.h"
 
+
+#ifdef _WIN32
+#pragma warning( disable:4996 4100 4101) // _CRT_SECURE_NO_WARNINGS
+#endif
+
 using namespace std;
 
 namespace rlf_htime {
@@ -55,7 +60,7 @@ namespace rlf_htime {
                 ( chrono_end - chrono_start ).count();
 
       }
-      static string now1( string format = "%H:%M:%S." ) ;
+      static string now_intern( string format = "%H:%M:%S." ) ;
 
    private:
       chrono::time_point<chrono::high_resolution_clock> chrono_start;
@@ -64,7 +69,7 @@ namespace rlf_htime {
 
 
 
-   std::string tTimerImpl::now1( string format ) {
+   std::string tTimerImpl::now_intern( string format ) {
 
       std::stringstream now;
 
@@ -106,7 +111,7 @@ namespace rlf_htime {
    }
 
    std::string tTimer::now( string format ) {
-      return tTimerImpl::now1( format );
+      return tTimerImpl::now_intern( format );
 
    }
 

@@ -63,8 +63,8 @@ namespace rlf {
 
    namespace rimg_math {
 
-      void ToExtendedImageArea( const tPlane8& in, tPlane8& out, int border ) ;
-      void ToExtendedLinearArea( const tPlane8& in, tPlaneLinear8& out, int border ) ;
+      void ToExtendedImageArea( const tPlane8& in, tPlane8& out, uint32_t border ) ;
+			void ToExtendedLinearArea(const tPlane8& in, tPlaneLinear8& out, uint32_t border);
       // a class is used to find linkage errors at compile time
       class rimginterface {
       public:
@@ -79,9 +79,9 @@ namespace rlf {
 
          //testpattern
          void fill( tImgPlanar& img, uint32_t val ) ;
-         void rampx( tImgPlanar& img, size_t start = 1, size_t end = 255 );
-         void rampy( tImgPlanar& img, size_t start = 1, size_t end = 255 );
-         void rampxy( tImgPlanar& img, size_t start = 1, size_t end = 255 );
+				 void rampx(tImgPlanar& img, uint32_t start = 1, uint32_t end = 255);
+				 void rampy(tImgPlanar& img, uint32_t start = 1, uint32_t end = 255);
+				 void rampxy(tImgPlanar& img, uint32_t start = 1, uint32_t end = 255);
          bool rectangle( tImgPlanar& img,  uint32_t val, uint32_xy pos, uint32_xy size ) ;
 
          // rimg_math, insert
@@ -93,12 +93,12 @@ namespace rlf {
 
 
          // helper
-         void ExtendImage( const tImgViewPlanar& in, tImgPlanar& extended, size_t kernel ) ;
-         void ToExtendedImage( const tImgViewPlanar& in, tImgPlanar& out, int border ) ;
+				 void ExtendImage(const tImgViewPlanar& in, tImgPlanar& extended, uint32_t kernel);
+				 void ToExtendedImage(const tImgViewPlanar& in, tImgPlanar& out, uint32_t border);
          void FitToImgPlanar( tIntPlane32 const& source, tPlane8& target, int32_xy minmax ) ;
          void FitToImgPlanar( tIntPlane32 const& hor , tImgPlanar& img, int32_xy minmax ) ;
          void ToExtendedImageArea( const tImgViewPlanar& in,
-                                   tImgPlanar& extended, size_t border ) ;
+					 tImgPlanar& extended, uint32_t border);
 
          // lowpass
          void Gauss3( tImgPlanar& img );
@@ -143,28 +143,28 @@ namespace rlf {
          void Invert( tImgPlanar& gray ) ;
 
 
-         bool Closing( tImgPlanar& im, int strength, int color );
-         bool Opening( tImgPlanar& im, int strength, int color );
-         bool Dilate( tImgPlanar& im, int strength, int color );
-         bool Erode( tImgPlanar& im, int strength, int color );
-         void BinEdit( tImgPlanar& im, int strength, int color, int edit_case );
+				 bool Closing(tImgPlanar& im, int strength, uint32_t color);
+				 bool Opening(tImgPlanar& im, int strength, uint32_t color);
+				 bool Dilate(tImgPlanar& im, int strength, uint32_t color);
+				 bool Erode(tImgPlanar& im, int strength, uint32_t color);
+				 void BinEdit(tImgPlanar& im, int strength, uint32_t color, int edit_case);
 
-         bool Closing( tPlane8& im, int strength, int color );
-         bool Opening( tPlane8& im, int strength, int color );
-         bool Dilate( tPlane8& im, int strength, int color );
-         bool Erode( tPlane8& im, int strength, int color );
-         bool BinEdit( tPlane8& im, int strength, int color, int edit_case );
+				 bool Closing(tPlane8& im, int strength, uint32_t color);
+				 bool Opening(tPlane8& im, int strength, uint32_t color);
+				 bool Dilate(tPlane8& im, int strength, uint32_t color);
+				 bool Erode(tPlane8& im, int strength, uint32_t color);
+				 bool BinEdit(tPlane8& im, int strength, uint32_t color, int edit_case);
 
 
          // rimg_graph
          void DrawText( tImgPlanar& img, uint32_xy xy, const string& text, vcolors const& colors ) ;
          void Line( tImgPlanar& img,  int32_xy from, int32_xy to, vcolors const& colors ) ;
-         void Circle( tImgPlanar& img, int32_xy xy, int r, vcolors const& colors ) ;
-         void FilledCircle( tImgPlanar& img, int32_xy xy, int r, vcolors const& colors ) ;
-         void VerticalLine( tImgPlanar& img,  int xpos, vcolors const& colors ) ;
-         void HorizontalLine( tImgPlanar& img,  int xpos, vcolors const& colors ) ;
-         void WedgeHorizontal( tImgPlanar& img,  int sy ) ;
-         void WedgeVertical( tImgPlanar& img,  int sy ) ;
+				 void Circle(tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors);
+				 void FilledCircle(tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors);
+				 void VerticalLine(tImgPlanar& img, uint32_t xpos, vcolors const& colors);
+				 void HorizontalLine(tImgPlanar& img, uint32_t xpos, vcolors const& colors);
+				 void WedgeHorizontal(tImgPlanar& img, uint32_t sy);
+				 void WedgeVertical(tImgPlanar& img, uint32_t sy);
 
          void OrthogonalCross( tImgPlanar& img, int32_xy pos, int size, vcolors const& colors ) ;
          void DiagonalCross( tImgPlanar& img, int32_xy xy, int const& c ) ;

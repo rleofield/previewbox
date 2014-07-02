@@ -129,16 +129,16 @@ namespace rlf {
          }
 
          bool is_ramp( vector<tRGBA> const&   palette ) {
-             vector<tRGBA> const& lut = getLinearLut();
+            vector<tRGBA> const& lut = getLinearLut();
 
 
             for( size_t i = 0; i < lut.size(); i++ ) {
                if( !(
-                      lut[i].r() == palette[i].r()
+                        lut[i].r() == palette[i].r()
                         &&
-                      lut[i].g() == palette[i].g()
+                        lut[i].g() == palette[i].g()
                         &&
-                      lut[i].b() == palette[i].b() )
+                        lut[i].b() == palette[i].b() )
 
                  ) {
                   return false;
@@ -167,12 +167,13 @@ namespace rlf {
                   *line_begin++ = *ptr8++;
                }
             }
+
             return;
          }
 
          if( img.is_palette() ) {
 
-            if( is_ramp( img.palette()) ){
+            if( is_ramp( img.palette() ) ) {
                auto s = img.size();
                planar.realloc( s, tMask::mono );
                auto r_begin = planar[tMask::pos_mono].begin();
@@ -188,9 +189,11 @@ namespace rlf {
                      *line_begin++ = *ptr8++;
                   }
                }
+
                return;
 
             }
+
             auto s = img.size();
             planar.realloc( s, tMask::rgb );
 
@@ -207,7 +210,8 @@ namespace rlf {
                auto vr_end   = r_begin++->end();
                auto vg_begin = g_begin++->begin();
                auto vb_begin = b_begin++->begin();
-               while( vr_begin < vr_end ){
+
+               while( vr_begin < vr_end ) {
                   unsigned char r = *source;
                   *vr_begin++ = palette[ r ].r();
                   *vg_begin++ = palette[ r ].g();
@@ -215,6 +219,7 @@ namespace rlf {
                   source++;
                }
             }
+
             return;
          }
 
@@ -227,19 +232,22 @@ namespace rlf {
             auto r_end = planar[tMask::pos_r].end();
             auto g_begin = planar[tMask::pos_g].begin();
             auto b_begin = planar[tMask::pos_b].begin();
+
             while( r_begin != r_end ) {
                auto source = reinterpret_cast< tRGB const* >( img.row_ptr( r_begin - r_start ) );
                auto vr_begin = r_begin->begin();
                auto vr_end = r_begin++->end();
                auto vg_begin = g_begin++->begin();
                auto vb_begin = b_begin++->begin();
-               while( vr_begin < vr_end ){
+
+               while( vr_begin < vr_end ) {
                   *vr_begin++ = source->r();
                   *vg_begin++ = source->g();
                   *vb_begin++ = source->b();
                   source++;
                }
             }
+
             return;
          }
 
@@ -258,7 +266,7 @@ namespace rlf {
                auto const* source = reinterpret_cast< tRGBA const* >( ptr8 );
 
                auto count = s.x();
-               auto x = auto_null;
+							 uint32_t x = 0;
 
                while( count-- ) {
                   r[x] = source->r();

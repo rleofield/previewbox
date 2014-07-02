@@ -32,6 +32,9 @@
 
 //#include "rimg_xy_types.h"
 #include "rlf_math.h"
+#ifdef _WIN32
+#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
+#endif
 
 using namespace std;
 

@@ -173,7 +173,7 @@ namespace rlf {
          uint32_t _mask;
 
          // count must be 1
-         size_t pos_of_bit()const;
+				 uint32_t pos_of_bit()const;
 
 
          tMask(): _mask( 0 ) {}
@@ -235,16 +235,16 @@ namespace rlf {
          uint32_t val()const {
             return _mask;
          }
-         size_t count()const;
+				 uint32_t count()const;
          static uint32_t size() {
             return max;
          }
 
-         static size_t pos_mono;  // gray channel
-         static size_t pos_r;  // red channel
-         static size_t pos_g;  // green channel
-         static size_t pos_b;  // blue channel
-         static size_t pos_a;  // alpha channel
+				 static uint32_t pos_mono;  // gray channel
+				 static uint32_t pos_r;  // red channel
+				 static uint32_t pos_g;  // green channel
+				 static uint32_t pos_b;  // blue channel
+				 static uint32_t pos_a;  // alpha channel
 
          friend class tImgPlanar;
 
@@ -299,11 +299,11 @@ namespace rlf {
          // Size of image in x,y pixels
          tSize size()const;
          bool has_data()const;
-         size_t sx()      const;
-         size_t aligned_sx()      const;
-         size_t sy()      const ;
-         size_t pixels()  const ; // sx * sy
-         size_t bytes()  const ;  // pitch * sy
+				 uint32_t sx()      const;
+				 uint32_t aligned_sx()      const;
+				 uint32_t sy()      const;
+				 uint32_t pixels()  const; // sx * sy
+				 uint32_t bytes()  const;  // pitch * sy
          tMask mask()  const {
             return _mask;
          }
@@ -383,11 +383,11 @@ namespace rlf {
          // one pixel, mono only, from first plane
          void pixel( uint32_xy xy, uint32_t val );
 
-         void pixel( int x, int y , int val );
+				 void pixel(uint32_t x, uint32_t y, uint32_t val);
          void pixel( uint32_xy xy, tRGB val );
 
          uint32_t pixel( uint32_xy xy )const;
-         uint32_t pixel( int x, int y )const ;
+				 uint32_t pixel(uint32_t x, uint32_t y)const;
 
          // pixel RGB,
          tRGB RGBpixel( uint32_xy xy )const;
@@ -426,10 +426,10 @@ namespace rlf {
          bool has_data()const {
             return _source.has_data();
          }
-         size_t sx()     const {
+				 uint32_t sx()     const {
             return _source.sx();
          }
-         size_t sy()       const {
+				 uint32_t sy()       const {
             return _source.sy();
          }
 

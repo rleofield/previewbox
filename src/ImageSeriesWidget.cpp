@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       C++, GCC
 File: ImageSeriesWidget.cpp
 */
+
+#include "tLog_Category_rimg.h"
 #include "ImageSeriesWidget.h"
 
 #pragma GCC diagnostic push
@@ -41,4 +43,19 @@ ImageSeriesWidget::~ImageSeriesWidget() {
 
 void ImageSeriesWidget::on_button_clicked( bool checked ) {
    emit signalButtonClicked( checked );
+}
+
+void ImageSeriesWidget::on_button_clicked()
+{
+     LOGT_RIMG_INFO("on_button_clicked");
+}
+
+void ImageSeriesWidget::on_pushButton_clicked()
+{
+   LOGT_RIMG_INFO("on_pushButton_clicked");
+}
+
+void ImageSeriesWidget::on_actionButton_file_pressed_triggered()
+{
+
 }

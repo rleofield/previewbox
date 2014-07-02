@@ -41,7 +41,7 @@ Lib: librimgrw
 
 using std::string;
 using std::vector;
-using rlf::uint8_t;
+//using rlf::uint8_t;
 
 namespace rlf {
 
@@ -86,7 +86,7 @@ namespace rlf {
 
       tRGB(): _r( 0 ), _g( 0 ), _b( 0 ) {}
       tRGB( uint8_t r_, uint8_t g_, uint8_t b_ ): _r( r_ ), _g( g_ ), _b( b_ ) {}
-
+      ~tRGB() {}
       bool operator==( const tRGB& rgb )const {
          return rgb._r == _r && rgb._g == _g && rgb._b == _b;
       }
@@ -94,15 +94,15 @@ namespace rlf {
       bool operator!=( const tRGB& s )const {
          return !( s == *this );
       }
-//      tRGB& operator=( const tRGB& rgb ) {
-//         if( this != &rgb ) {
-//            this->_r = rgb._r;
-//            this->_g = rgb._g;
-//            this->_b = rgb._b;
-//         }
+      //      tRGB& operator=( const tRGB& rgb ) {
+      //         if( this != &rgb ) {
+      //            this->_r = rgb._r;
+      //            this->_g = rgb._g;
+      //            this->_b = rgb._b;
+      //         }
 
-//         return *this;
-//      }
+      //         return *this;
+      //      }
       uint8_t& r() {
          return _r;
       }
@@ -132,6 +132,7 @@ namespace rlf {
       std::string _txt;
    public:
       tRGBtxt( uint8_t r, uint8_t g, uint8_t b, std::string const& t );
+      ~tRGBtxt();
       std::string txt() const {
          return _txt;
       }
@@ -182,9 +183,9 @@ namespace rlf {
 
          return *this;
       }
-//      operator uint32_t()const{
-//         return ((_a & 0xff) << 24) | ((_r & 0xff) << 16) | ((_g & 0xff) << 8) | (_b & 0xff ) ;
-//      }
+      //      operator uint32_t()const{
+      //         return ((_a & 0xff) << 24) | ((_r & 0xff) << 16) | ((_g & 0xff) << 8) | (_b & 0xff ) ;
+      //      }
       uint8_t& r() {
          return _r;
       }

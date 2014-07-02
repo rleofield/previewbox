@@ -22,10 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 File: GetAreaWidget.cpp
 */
 #include "stringhelper.h"
+#include "timer.h"
 #include "GetAreaWidget.h"
 
 
+
 using namespace rlf_hstring;
+using namespace rlf_htime;
 using std::string;
 
 #pragma GCC diagnostic push
@@ -51,6 +54,12 @@ void GetAreaWidget::on_pushButton_clicked() {
 
 void GetAreaWidget::activateButton( bool checked ) {
    this->ui->pushButton->setEnabled( checked );
+   int seconds = (int)t.seconds();
+   std::string s = toString(seconds);
+   QString qs;
+      qs.fromStdString(s);
+   this->ui->pushButton->setText(qs);
+
 }
 
 void GetAreaWidget::on_areaHorizontalScrollBar_valueChanged(int value)

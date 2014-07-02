@@ -99,8 +99,8 @@ namespace rlf {
       tBlob getBlobAt( uint32_xy const& xy );
 
       bool applyFilter( tBlob const& obj )const ;
-      size_t count( )const ;
-      size_t count_filtered( )const ;
+			uint32_t count()const;
+			uint32_t count_filtered()const;
 
    };
 
