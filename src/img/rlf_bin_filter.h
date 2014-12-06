@@ -26,7 +26,7 @@
 #ifndef BANDPASS_H
 #define BANDPASS_H
 
-#include "boost_cstdint.h"
+
 
 #include "t_2D_xy.h"
 //#include "rimg_xy_types.h"
@@ -45,7 +45,7 @@ namespace rlf {
          p is a binary image ( pixel != 0 is object )
          p is bit 8
    */
-   int CellAreaFilter( tImgPlanar& p, size_t min_area, size_t max_area, uint8_t color = 255 );
+   uint32_t CellAreaFilter( tImgPlanar& p, size_t min_area, size_t max_area, uint8_t color = 255 );
 
 
    /* --
@@ -58,7 +58,7 @@ namespace rlf {
          p is a binary image ( pixel != 0 is object )
          p is bit 8
    */
-   int CellAreaFilter( tImgPlanar& p, size_t min, size_t max, uint8_t color,
+	 uint32_t CellAreaFilter(tImgPlanar& p, size_t min, size_t max, uint8_t color,
                        size_t max_size_to_remove );
 
 

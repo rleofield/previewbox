@@ -32,7 +32,7 @@ Lib: librimgrw
 #include <sstream>
 #include <string>
 
-#include "boost_cstdint.h"
+
 
 #include "rimg_rw_exceptions.h"
 

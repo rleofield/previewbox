@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -gdwarf-3 -g -O0 -std=c++0x -Wparentheses -Wreturn-type -Wshadow -Wextra -Wunused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I../../../Qt5.3.0/5.3/gcc_64/mkspecs/linux-g++ -I. -I../libpngjpegz/png/h -I../libpngjpegz/zlib/h -I../libpngjpegz/jpeg -Isrc -Isrc/log -Isrc/minit -Isrc/boost -I/home/richard/github/rleofield/previewbox/src/ftw -Isrc/filefn -Isrc/hfile -Isrc/htime -Isrc/hstring -Isrc/txtrw -Isrc/binrw -Isrc/img -Isrc/img/interface -Isrc/img/rw -I../../../Qt5.3.0/5.3/gcc_64/include -I../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets -I../../../Qt5.3.0/5.3/gcc_64/include/QtGui -I../../../Qt5.3.0/5.3/gcc_64/include/QtCore -I.tmp -I.tmp
+INCPATH       = -I../../../Qt5.3.0/5.3/gcc_64/mkspecs/linux-g++ -I. -I../libpngjpegz/png/h -I../libpngjpegz/zlib/h -I../libpngjpegz/jpeg -Isrc -Isrc/log -Isrc/minit -I/home/richard/github/rleofield/previewbox/src/boost -I/home/richard/github/rleofield/previewbox/src/ftw -Isrc/filefn -Isrc/hfile -Isrc/htime -Isrc/hstring -Isrc/txtrw -Isrc/binrw -Isrc/img -Isrc/img/interface -Isrc/img/rw -I../../../Qt5.3.0/5.3/gcc_64/include -I../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets -I../../../Qt5.3.0/5.3/gcc_64/include/QtGui -I../../../Qt5.3.0/5.3/gcc_64/include/QtCore -I.tmp -I.tmp
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/richard/Qt5.3.0/5.3/gcc_64 -Wl,-rpath,/home/richard/Qt5.3.0/5.3/gcc_64/lib
 LIBS          = $(SUBLIBS) -lboost_system -lboost_filesystem -L/home/richard/github/rleofield/previewbox/../libpngjpegz/ -lpngjpegz -L/home/richard/Qt5.3.0/5.3/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -737,7 +737,6 @@ compiler_moc_header_clean:
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QImage \
 		src/filefn/t_filename.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -852,7 +851,6 @@ compiler_moc_header_clean:
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QColor \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1041,7 +1039,6 @@ compiler_moc_header_clean:
 		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qstringmatcher.h \
 		src/filefn/t_filename.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1173,7 +1170,6 @@ compiler_uic_clean:
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QColor \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1227,7 +1223,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/log/tLogCategories.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/tLogImpl.o src/log/tLogImpl.cpp
 
-.tmp/tLog.o: src/log/tLog.cpp src/log/tLog.h \
+.tmp/tLog.o: src/log/tLog.cpp src/log/tLfm.h \
+		src/log/tLog.h \
 		src/log/tLfmCL.h \
 		src/log/tLogEnum.h \
 		src/log/tLogImpl.h \
@@ -1243,7 +1240,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1254,7 +1250,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rlf_blob.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1270,7 +1265,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rlf_blob.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1286,7 +1280,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rlf_blob.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1304,7 +1297,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/minit/t_2D_xy.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1320,7 +1312,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/minit/t_2D_xy.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1334,7 +1325,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/minit/t_2D_xy.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1351,7 +1341,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1373,7 +1362,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1390,7 +1378,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/interface/rimg_imgsize_type.h \
 		src/img/rimg_math.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1407,7 +1394,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/hstring/stringhelper.h \
 		src/img/rimg_lookuptable.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
@@ -1420,7 +1406,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1436,7 +1421,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1452,7 +1436,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1467,7 +1450,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1482,7 +1464,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_math.h \
 		src/minit/t_3D_xyz.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/rimg_plane_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1494,14 +1475,12 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_bin_luts.o src/img/rimg_bin_luts.cpp
 
 .tmp/rimg_aoi.o: src/img/rimg_aoi.cpp src/img/rimg_aoi.h \
-		src/boost/boost_cstdint.h \
 		src/minit/t_2D_xy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_aoi.o src/img/rimg_aoi.cpp
 
 .tmp/rimg_test_raw_rw.o: src/img/rw/rimg_test_raw_rw.cpp src/img/rw/rimg_test_raw_rw.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1509,8 +1488,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rw/rimg_fs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_test_raw_rw.o src/img/rw/rimg_test_raw_rw.cpp
 
-.tmp/rimg_rw_raw.o: src/img/rw/rimg_rw_raw.cpp src/boost/boost_cstdint.h \
-		src/img/interface/rimg_rw_exceptions.h \
+.tmp/rimg_rw_raw.o: src/img/rw/rimg_rw_raw.cpp src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1532,7 +1510,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/interface/rimg_read_write_bin.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_imgsize_type.h \
 		src/minit/t_2D_xy.h \
 		src/img/rw/rimg_convert.h \
@@ -1545,7 +1522,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_rw_png.o src/img/rw/rimg_rw_png.cpp
 
 .tmp/rimg_rw_jpeg.o: src/img/rw/rimg_rw_jpeg.cpp src/img/interface/rimg_rw_exceptions.h \
-		src/boost/boost_cstdint.h \
 		src/img/rw/rimg_fs.h \
 		../libpngjpegz/jpeg/jpeglib.h \
 		../libpngjpegz/jpeg/jconfig.h \
@@ -1566,8 +1542,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rimg_t_write.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_rw_jpeg.o src/img/rw/rimg_rw_jpeg.cpp
 
-.tmp/rimg_rw_bmp.o: src/img/rw/rimg_rw_bmp.cpp src/boost/boost_cstdint.h \
-		src/img/interface/rimg_read_write_bin.h \
+.tmp/rimg_rw_bmp.o: src/img/rw/rimg_rw_bmp.cpp src/img/interface/rimg_read_write_bin.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -1589,7 +1564,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 .tmp/rimg_planar.o: src/img/rw/rimg_planar.cpp src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1598,7 +1572,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 .tmp/rimg_linear.o: src/img/rw/rimg_linear.cpp src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
 		src/minit/t_2D_xy.h \
@@ -1610,7 +1583,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 .tmp/rimg_convert.o: src/img/rw/rimg_convert.cpp src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1743,7 +1715,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -1767,49 +1738,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QImage \
 		src/filefn/t_filename.h \
 		src/img/rimg_lookuptable.h \
-		.tmp/ui_mainwindow.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/QVariant \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/qguiapplication.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QFrame \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QGridLayout \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QMenu \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qmenu.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QMenuBar \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qmenubar.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QSplitter \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qsplitter.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QStatusBar \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qstatusbar.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QToolBar \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/qtoolbar.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtWidgets/QWidget \
-		src/frame.h \
-		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QColor
+		.tmp/ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/mainwindow.o src/mainwindow.cpp
 
 .tmp/imagecompany.o: src/imagecompany.cpp src/imagecompany.h \
@@ -1887,7 +1816,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		../../../Qt5.3.0/5.3/gcc_64/include/QtCore/qstringmatcher.h \
 		src/filefn/t_filename.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -2014,7 +1942,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QImage \
 		src/filefn/t_filename.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
 		src/img/interface/rimg_rw_exceptions.h \
@@ -2141,7 +2068,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		../../../Qt5.3.0/5.3/gcc_64/include/QtGui/QColor \
 		src/img/interface/rimg_planar.h \
 		src/img/interface/rimg_planar_typedefs.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -2280,15 +2206,13 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/GetAreaWidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/GetAreaWidget.o src/GetAreaWidget.cpp
 
-.tmp/rimg_resolve_type.o: src/img/rw/rimg_resolve_type.cpp src/boost/boost_cstdint.h \
-		src/binrw/rBin.h \
+.tmp/rimg_resolve_type.o: src/img/rw/rimg_resolve_type.cpp src/binrw/rBin.h \
 		src/img/rw/rimg_resolve_image_type.h \
 		src/img/rimg_t_read.h \
 		src/img/rw/e_file_type.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_resolve_type.o src/img/rw/rimg_resolve_type.cpp
 
-.tmp/rimg_read.o: src/img/rw/rimg_read.cpp src/boost/boost_cstdint.h \
-		src/img/interface/rimg_rw_exceptions.h \
+.tmp/rimg_read.o: src/img/rw/rimg_read.cpp src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -2304,8 +2228,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/rw/e_file_type.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .tmp/rimg_read.o src/img/rw/rimg_read.cpp
 
-.tmp/rimg_write.o: src/img/rw/rimg_write.cpp src/boost/boost_cstdint.h \
-		src/img/interface/rimg_rw_exceptions.h \
+.tmp/rimg_write.o: src/img/rw/rimg_write.cpp src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
 		src/img/interface/rimg_imgsize_type.h \
@@ -2333,7 +2256,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		src/img/interface/rimg_read_write_bin.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
 		src/minit/t_2D_xy.h \
@@ -2356,7 +2278,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 .tmp/rimg_tiff_r_decode.o: src/img/rw/rimg_tiff_r_decode.cpp src/img/interface/rimg_read_write_bin.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
 		src/minit/t_2D_xy.h \
@@ -2379,7 +2300,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 .tmp/rimg_tiff_w.o: src/img/rw/rimg_tiff_w.cpp src/img/interface/rimg_read_write_bin.h \
 		src/img/interface/rimg_linear.h \
 		src/img/interface/rimg_rgb_bgra_types.h \
-		src/boost/boost_cstdint.h \
 		src/img/interface/rimg_rw_exceptions.h \
 		src/img/interface/rimg_imgsize_type.h \
 		src/minit/t_2D_xy.h \

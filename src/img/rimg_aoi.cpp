@@ -23,7 +23,7 @@
 Lib: librimgrw
 */
 
-
+//cc
 
 
 #include "rimg_aoi.h"

@@ -63,7 +63,7 @@ namespace bin_read {
       inline std::string replace( std::string const& msg, std::string const& s0 = "" ) {
 
          if( s0.size() > 0 ) {
-            return FindAndReplace( msg, rhelper::marker, s0 );
+            return FindAndReplace( msg, marker, s0 );
          }
 
          return msg;

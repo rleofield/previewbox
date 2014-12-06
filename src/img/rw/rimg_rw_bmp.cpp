@@ -32,7 +32,7 @@ Lib: librimgrw
 #include <boost/range/algorithm_ext/iota.hpp>
 
 
-#include "boost_cstdint.h"
+
 #include "rimg_read_write_bin.h"
 #include "rimg_rgb_bgra_types.h"
 

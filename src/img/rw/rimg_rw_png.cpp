@@ -53,9 +53,6 @@ using namespace std;
 #include "rimg_t_read.h"
 #include "rimg_t_write.h"
 
-#ifdef _WIN32
-#pragma warning( disable:4996 4100) // _CRT_SECURE_NO_WARNINGS
-#endif
 
 using rlf::rimg_planar::tImgPlanar;
 using rlf::rimg_linear::tImgLinear;

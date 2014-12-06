@@ -62,6 +62,11 @@ void GetAreaWidget::activateButton( bool checked ) {
 
 }
 
+void GetAreaWidget::slotNewFile(QString s )
+{
+   ui->areaLabelImg->setText( s );
+}
+
 void GetAreaWidget::on_areaHorizontalScrollBar_valueChanged(int value)
 {
     areaHorizontalScrollBar = value;

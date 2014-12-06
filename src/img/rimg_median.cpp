@@ -44,9 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "str_util.h"
 
-#ifdef _WIN32
-#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
-#endif
 using namespace std;
 
 

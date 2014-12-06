@@ -48,6 +48,7 @@ signals:
 
 public slots:
    void activateButton( bool );
+   void slotNewFile(QString);
 
 private slots:
    void on_pushButton_clicked();

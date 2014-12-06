@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rimg_rgb_bgra_types.h"
 #include "rimg_rw_exceptions.h"
 #include "rimg_imgsize_type.h"
-#include "boost_cstdint.h"
+
 
 using std::vector;
 using std::string;

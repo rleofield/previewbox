@@ -34,7 +34,7 @@ Lib: librimgrw
 #include <boost/shared_ptr.hpp>
 
 
-#include "boost_cstdint.h"
+
 
 #include "rimg_rw_exceptions.h"
 
@@ -122,7 +122,7 @@ namespace rlf {
                reader->read( img );
                return;
             }
-            catch( tImgReadEx &ex ){
+            catch( tImgReadEx & ){
                // nothing found, clear image
                img.reset();
             }
@@ -147,7 +147,7 @@ namespace rlf {
             reader->read( img );
             return;
             }
-            catch( tImgReadEx &ex ){
+            catch( tImgReadEx & ){
                // nothing found, clear image
                img.realloc( uint32_xy(), rlf::rimg_planar::tMask::empty );
             }

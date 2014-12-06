@@ -64,18 +64,35 @@ namespace rlf {
 
 
       void read( std::string fn, tImgLinear& img )  ;
-      void read( std::string fn, rlf::rimg_planar::tImgPlanar& planar )  ;
+      void read( std::string fn, tImgPlanar& planar )  ;
 
-      void write( std::string const& fn, tImgViewLinear const& img, bool override_ )   ;
+      void write( std::string const& fn,
+                  tImgViewLinear const& img,
+                  bool override_,
+                  size_t c = -1 );
+      void write( std::string const& fn,
+                  tImgPlanar const& img,
+                  bool override_,
+                  size_t c = -1);
 
 
-      void write( std::string const& fn, rlf::rimg_planar::tImgPlanar const& img, bool override_ )   ;
+      void write_png( string const& fn,
+                      tImgViewLinear const& img,
+                      bool override_,
+                      size_t c = png_compression::FILE_COMPRESSION_DEFAULT );
+      void write_jpeg( string const& fn,
+                       tImgViewLinear const& img,
+                       bool override,
+                       size_t c = jpeg_compression::JPEG_QUALITY_DEFAULT );
 
-
-      void write_png( string const& fn, tImgViewLinear const& img, bool override_, size_t c = png_compression::FILE_COMPRESSION_DEFAULT );
-      void write_jpeg( string const& fn, tImgViewLinear const& img, bool override, size_t c = jpeg_compression::JPEG_QUALITY_DEFAULT );
-      void write_png( string const& fn, rlf::rimg_planar::tImgPlanar const& img, bool override_, size_t c = png_compression::FILE_COMPRESSION_DEFAULT )   ;
-      void write_jpeg( string const& fn, rlf::rimg_planar::tImgPlanar const& img, bool override_, size_t c = jpeg_compression::JPEG_QUALITY_DEFAULT )   ;
+      void write_png(  string const& fn,
+                       rlf::rimg_planar::tImgPlanar const& img,
+                       bool override_,
+                       size_t c = png_compression::FILE_COMPRESSION_DEFAULT )   ;
+      void write_jpeg( string const& fn,
+                       rlf::rimg_planar::tImgPlanar const& img,
+                       bool override_,
+                       size_t c = jpeg_compression::JPEG_QUALITY_DEFAULT )   ;
 
 
    }

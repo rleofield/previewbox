@@ -42,6 +42,7 @@ public:
 
 signals:
    void signalButtonClicked( bool );
+   void signalNewfile(QString);
 
 private slots:
    void on_button_clicked( bool checked );

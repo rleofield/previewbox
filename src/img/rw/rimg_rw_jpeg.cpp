@@ -40,7 +40,7 @@ Lib: librimgrw
 * the second part of the example.
 */
 #include <setjmp.h>
-#include "boost_cstdint.h"
+
 #include "rimg_fs.h"
 #include "jpeglib.h"
 
@@ -193,7 +193,15 @@ namespace rlf {
          try {
             bin_data::tWriteBin()( fn, jpeg_buffer_raw, outbuffer_size );
          } catch( bin_data::tBinWriteEx& ) {
+            if(jpeg_buffer_raw != nullptr ){
+               delete [] jpeg_buffer_raw;
+               jpeg_buffer_raw = nullptr;
+            }
             throw; //img_ex::t_ImgWriteEx( error_messages::bmp::write_file( path ) );
+         }
+         if(jpeg_buffer_raw != nullptr ){
+            delete [] jpeg_buffer_raw;
+            jpeg_buffer_raw = nullptr;
          }
 
       }

@@ -71,7 +71,7 @@ void MainWindow::setupStackedGUI() {
 
 
 
-
+   connect( mImageSeriesWidget, &ImageSeriesWidget::signalNewfile, mGetAreaWidget,  &GetAreaWidget::slotNewFile );
    connect( mImageSeriesWidget, SIGNAL( signalButtonClicked( bool ) ), mGetAreaWidget, SLOT( activateButton( bool ) ) );
 
    QBoxLayout* boxLayout = new QBoxLayout( QBoxLayout::TopToBottom, ui->container );

@@ -28,7 +28,7 @@ Lib: librimgrw
 #ifndef RLF_IMGT_AOI_H
 #define RLF_IMGT_AOI_H
 
-#include "boost_cstdint.h"
+
 #include "t_2D_xy.h"
 
 using rlf_minit::int32_xy;

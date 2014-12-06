@@ -1012,7 +1012,7 @@ namespace rlf {
                lines.push_back( s );
             }
 
-            rlf_txtrw::t_write_ascii w;
+            rlf_txtrw::t_write_ascii_list w;
             w.operator()( name, lines, true );
 
          } catch( rlf_txtrw::bad_text_read& br ) {
@@ -1026,7 +1026,7 @@ namespace rlf {
          std::vector<cRGBAlpha> v;
 
          try {
-            rlf_txtrw::t_text_read reader;
+            rlf_txtrw::t_text_read_list reader;
             std::list<std::string>  l;
             reader.operator()( file, l );
 

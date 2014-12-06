@@ -42,9 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "t_filename.h"
 
 
-#ifdef _WIN32
-#pragma warning( disable:4996 4100 4101) // _CRT_SECURE_NO_WARNINGS
-#endif
 
 
 static std::mutex mutex;
@@ -217,12 +214,15 @@ namespace rlf_hfile_intern {
 
    bool  create_directory_recursive( string const& in ) {
       string pwd = working_directory();
+
       if( pwd == in ) { // nothing to do
          return true;
       }
+
       if( path_exists( in ) ) {
          return true;
       }
+
       boost::filesystem::path p( in );
       boost::filesystem::create_directories( p );
       return false;

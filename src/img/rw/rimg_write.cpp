@@ -34,7 +34,7 @@ Lib: librimgrw
 #include <string>
 
 
-#include "boost_cstdint.h"
+
 
 #include "rimg_rw_exceptions.h"
 
@@ -123,10 +123,21 @@ namespace rlf {
          return nullptr;
       }
 
-      void write( string const& fn, tImgViewLinear const& img, bool override_ )   {
+      void write( string const& fn, tImgViewLinear const& img, bool override_, size_t c  )   {
          if( ! override_ ) {
             if( fs::file_exists( fn ) ) {
                throw tImgWriteEx( msg::file_exists( fn ) );
+            }
+         }
+         if( c != size_t(-1) ){
+            string ext;
+            ext = rlf::fs::extension( fn );
+            ext = rlf::fs::to_lower( ext );
+            if( ext == rlf::rimg_rw::dot_png ) {
+               return write_png( fn, img, override_, c);
+            }
+            if( ext == "." + rlf::rimg_rw::dot_jpeg || ext == "." + rlf::rimg_rw::dot_jpg ) {
+               return write_jpeg(fn, img, override_, c);
             }
          }
 
@@ -167,13 +178,25 @@ namespace rlf {
       }
 
 
-      void write( string const& fn, tImgPlanar const& img, bool override_ ) {
+      void write( string const& fn, tImgPlanar const& img, bool override_, size_t c  ) {
          if( ! override_ ) {
             if( fs::file_exists( fn ) ) {
                throw tImgWriteEx( msg::file_exists( fn ) );
             }
          }
+         if( c != size_t(-1) ){
+            string ext;
+            ext = rlf::fs::extension( fn );
+            ext = rlf::fs::to_lower( ext );
+            if( ext == rlf::rimg_rw::dot_png ) {
+               return write_png( fn, img, override_, c);
+            }
+            if( ext == rlf::rimg_rw::dot_jpeg || ext == rlf::rimg_rw::dot_jpg ) {
+               return write_jpeg(fn, img, override_, c);
+            }
 
+
+         }
          shared_ptr<t_write> writer = create_writer( fn );
 
          if( writer != nullptr ) {
@@ -216,6 +239,8 @@ namespace rlf {
 
 
    }
+
+
 }
 //EOF
 

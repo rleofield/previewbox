@@ -36,7 +36,7 @@ Lib: librimgrw
 #include <vector>
 #include <string>
 
-#include "boost_cstdint.h"
+
 
 
 using std::string;
