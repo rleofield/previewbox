@@ -37,7 +37,7 @@ namespace rlf_minit {
 
       size_t _index;
    protected :
-      tIndexID( size_t i ): _index( i ), INVALID_ID( 0 ) {}
+      tIndexID( size_t i ): _index( i )  {}
    public:
       size_t operator()()const {
          return _index;
@@ -71,7 +71,7 @@ namespace rlf_minit {
          return _index;
       }
 
-      const size_t INVALID_ID;
+      static const size_t INVALID_ID = -1;
 
    };
 
