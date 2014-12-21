@@ -32,10 +32,7 @@ Lib: librimgrw
 #include <sstream>
 #include <string>
 
-
-
 #include "rimg_rw_exceptions.h"
-
 
 #include "rimg_linear.h"
 #include "rimg_planar.h"
@@ -64,11 +61,11 @@ namespace rlf {
             throw;
          }
 
-         if( w* h == buf.size() ) {
+         if( w * h == buf.size() ) {
             rimg.set_mono8();
          }
 
-         if( w* h * 3  == buf.size() ) {
+         if( w * h * 3  == buf.size() ) {
             rimg.set_rgb();
          }
 

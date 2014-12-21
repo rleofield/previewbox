@@ -183,8 +183,8 @@ namespace rlf {
             _row_pointer(),
             _palette( 0x100 ),
             _ImgFormat(),
-            _size()
-         {}
+            _size() {
+         }
          ~tImgLinear() {
             free_data_buffer() ;
          }
@@ -211,6 +211,7 @@ namespace rlf {
                                   + "' max: "
                                   + boost::lexical_cast<string>( size().y() ) );
             }
+
             return _row_pointer[ y ];
          }
          uint8_t* row_ptr( size_t y ) {

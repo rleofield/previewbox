@@ -111,9 +111,9 @@ namespace rlf {
       void heap_sort( int* arr, int n );
       void heap_sort( uint16_t* arr, int n );
       void shell_sort( int* arr, size_t n );
-      void shell_sort( vector<size_t> &base, size_t n ) ;
+      void shell_sort( vector<size_t>& base, size_t n ) ;
 
-      void linear_zoom( const vector<uint8_t> &source, vector<uint8_t> &target );
+      void linear_zoom( const vector<uint8_t>& source, vector<uint8_t>& target );
 
       int roundToInt( double d );
       int roundToInt( double d );

@@ -32,7 +32,6 @@ Lib: librimgrw
 #include <boost/range/algorithm_ext/iota.hpp>
 
 
-
 #include "rimg_read_write_bin.h"
 #include "rimg_rgb_bgra_types.h"
 
@@ -382,17 +381,17 @@ namespace rlf {
       void fromFile( const std::string& filename, string& s0 ) {
          std::ifstream stream( filename.c_str() );
          s0.assign(
-                  std::istreambuf_iterator<char>( stream ),
-                  std::istreambuf_iterator<char>() );
+            std::istreambuf_iterator<char>( stream ),
+            std::istreambuf_iterator<char>() );
       }
 
-      void read( string fn, tImgLinear& rimg   ) {
+      void read( string fn, tImgLinear& rimg ) {
 
 
-          std::vector<uint8_t> buf;
+         std::vector<uint8_t> buf;
 
-          bin_read::t_bin_read reader;
-          reader( fn, buf );
+         bin_read::t_bin_read reader;
+         reader( fn, buf );
 
 
          FILEHEADER const& fileheader = referenceToFILEHEADER( buf );
@@ -407,7 +406,7 @@ namespace rlf {
             try {
                INFO const& bitmapinfoheader = referenceToINFO( buf );
                uint32_t w = info_width( bitmapinfoheader );
-							 uint32_t h = info_height(bitmapinfoheader);
+               uint32_t h = info_height( bitmapinfoheader );
                // copy data to tImgLinear
                rimg.size() = tSize( w, h );
 
@@ -468,7 +467,7 @@ namespace rlf {
 
          FILEHEADER& bitmapfileheader = referenceToFILEHEADER( buf );
          bitmapfileheader.signature = BMP_signature;
-         bitmapfileheader.size =   static_cast<uint32_t>(buf.size());
+         bitmapfileheader.size =   static_cast<uint32_t>( buf.size() );
          bitmapfileheader.reserved1 = 0;
          bitmapfileheader.reserved2 = 0;
          bitmapfileheader.offset_bits = offsetpixeldata8;
@@ -497,8 +496,8 @@ namespace rlf {
          }
 
          uint8_t* dataptr = &buf[0] + bitmapfileheader.offset_bits;
-				 uint32_t h = info_height(bitmapinfoheader);
-				 uint32_t w = info_width(bitmapinfoheader);
+         uint32_t h = info_height( bitmapinfoheader );
+         uint32_t w = info_width( bitmapinfoheader );
          size_t aligned_w = bmp_intern::align32( w );
 
          for( size_t y = 0; y < h; y++ ) {

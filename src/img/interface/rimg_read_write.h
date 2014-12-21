@@ -73,7 +73,7 @@ namespace rlf {
       void write( std::string const& fn,
                   tImgPlanar const& img,
                   bool override_,
-                  size_t c = -1);
+                  size_t c = -1 );
 
 
       void write_png( string const& fn,
@@ -85,10 +85,10 @@ namespace rlf {
                        bool override,
                        size_t c = jpeg_compression::JPEG_QUALITY_DEFAULT );
 
-      void write_png(  string const& fn,
-                       rlf::rimg_planar::tImgPlanar const& img,
-                       bool override_,
-                       size_t c = png_compression::FILE_COMPRESSION_DEFAULT )   ;
+      void write_png( string const& fn,
+                      rlf::rimg_planar::tImgPlanar const& img,
+                      bool override_,
+                      size_t c = png_compression::FILE_COMPRESSION_DEFAULT )   ;
       void write_jpeg( string const& fn,
                        rlf::rimg_planar::tImgPlanar const& img,
                        bool override_,

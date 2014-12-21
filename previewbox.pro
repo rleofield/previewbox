@@ -200,7 +200,6 @@ INCLUDEPATH += $$PWD/../libpngjpegz/jpeg
 INCLUDEPATH += $$PWD/src
 INCLUDEPATH += $$PWD/src/log
 INCLUDEPATH += $$PWD/src/minit
-INCLUDEPATH += $$PWD/src/boost
 INCLUDEPATH += $$PWD/src/ftw
 INCLUDEPATH += $$PWD/src/filefn
 INCLUDEPATH += $$PWD/src/hfile

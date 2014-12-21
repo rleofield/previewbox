@@ -32,8 +32,6 @@ Lib: librimgrw
 #include <string>
 
 
-
-
 #include "rBin.h"
 #include "rimg_resolve_image_type.h"
 #include "rimg_t_read.h"
@@ -81,9 +79,9 @@ namespace rlf {
 
       const string IntelLogo = "II";
       const string MacLogo = "MM";
-      vector<uint8_t> vjpeg = {0xff,0xd8,0xff};
+      vector<uint8_t> vjpeg = {0xff, 0xd8, 0xff};
 
-      inline uint8_t const* toUint8Ptr( std::vector<uint8_t> &b ) {
+      inline uint8_t const* toUint8Ptr( std::vector<uint8_t>& b ) {
          return &b[0];
       }
 
@@ -102,28 +100,32 @@ namespace rlf {
 
          // TIF
          char const* logo = bin_read::rhelper::toCharPtr( v );
-         string l2(v.begin(), v.begin() + 2);
+         string l2( v.begin(), v.begin() + 2 );
+
          if( l2 == MacLogo  || l2 == IntelLogo ) {
             return e_file_type::tif;
          }
 
          // FF D8 FF
          // jpeg
-         vector<uint8_t> l3(v.begin(), v.begin() + 3);
+         vector<uint8_t> l3( v.begin(), v.begin() + 3 );
+
          if( vjpeg ==  l3 ) {
             return e_file_type::jpeg;
          }
 
          // PNG
          // 89 50 4E 47
-         string sl3(l3.begin(),l3.end());
+         string sl3( l3.begin(), l3.end() );
+
          if( sl3 == "PNG" ) {
             return e_file_type::png;
          }
 
          // 42 4D == BM, 0x4d42
          // BMP
-         string sl2 (l2.begin(),l2.end());
+         string sl2( l2.begin(), l2.end() );
+
          if( sl2 == "BM" ) {
             return e_file_type::bmp;
          }

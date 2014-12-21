@@ -39,7 +39,7 @@ using std::string;
 
 GetAreaWidget::GetAreaWidget( QWidget* parent_ ) :
    QWidget( parent_ ),
-   ui( new Ui::GetAreaWidget ), areaHorizontalScrollBar(0) {
+   ui( new Ui::GetAreaWidget ), areaHorizontalScrollBar( 0 ) {
    ui->setupUi( this );
 }
 
@@ -54,26 +54,24 @@ void GetAreaWidget::on_pushButton_clicked() {
 
 void GetAreaWidget::activateButton( bool checked ) {
    this->ui->pushButton->setEnabled( checked );
-   int seconds = (int)t.seconds();
-   std::string s = toString(seconds);
+   int seconds = ( int )t.seconds();
+   std::string s = toString( seconds );
    QString qs;
-      qs.fromStdString(s);
-   this->ui->pushButton->setText(qs);
+   qs.fromStdString( s );
+   this->ui->pushButton->setText( qs );
 
 }
 
-void GetAreaWidget::slotNewFile(QString s )
-{
+void GetAreaWidget::slotNewFile( QString s ) {
    ui->areaLabelImg->setText( s );
 }
 
-void GetAreaWidget::on_areaHorizontalScrollBar_valueChanged(int value)
-{
-    areaHorizontalScrollBar = value;
-    string msg = toString(value);
+void GetAreaWidget::on_areaHorizontalScrollBar_valueChanged( int value ) {
+   areaHorizontalScrollBar = value;
+   string msg = toString( value );
 
-    QString qs = QString::fromStdString(msg);
-    ui->areaLabelImg->setText(qs);
+   QString qs = QString::fromStdString( msg );
+   ui->areaLabelImg->setText( qs );
 
 }
 

@@ -36,25 +36,25 @@ namespace rlf {
 
    // ObjectFilter( );
    // RemoveObjectsOutOfSizeInterval();
-	uint32_t CellAreaFilter(tImgPlanar& bin, uint32_t min, uint32_t max, uint8_t color) {
+   uint32_t CellAreaFilter( tImgPlanar& bin, uint32_t min, uint32_t max, uint8_t color ) {
 
       assert( bin.is_mono8() );
 
       tBlobs ObjectList;
 
-			uint32_t thre = 1;
+      uint32_t thre = 1;
       ObjectList.threshold() = thre;
       ObjectList.extract( bin ); // thre >= 1, all objects color >= thre
 
-			uint32_t size = ObjectList.count();
+      uint32_t size = ObjectList.count();
 
       // write back with color
 
       rlf::rimg_math::rimginterface r;
       r.fill( bin, 0 );
-			uint32_t count = 0;
+      uint32_t count = 0;
 
-			for (uint32_t i = 0; i < size; i++) {
+      for( uint32_t i = 0; i < size; i++ ) {
          tBlob& bo = ObjectList[i];
          bo.calculateArea();
          size_t area = bo.area();
@@ -72,13 +72,13 @@ namespace rlf {
       return count;
    }
 
-	uint32_t CellAreaFilter(tImgPlanar& bin, uint32_t min, uint32_t max, uint8_t color,
-                       size_t max_size_to_remove ) {
+   uint32_t CellAreaFilter( tImgPlanar& bin, uint32_t min, uint32_t max, uint8_t color,
+                            size_t max_size_to_remove ) {
 
       assert( bin.is_mono8() );
 
       tBlobs ObjectList;
-			uint32_t thre = 1;
+      uint32_t thre = 1;
       ObjectList.threshold() = thre;
       ObjectList.extract( bin ); // thre >= 1, all objects color>= thre
 
@@ -87,13 +87,13 @@ namespace rlf {
       // write back with color
       // vector<tBlob>::iterator iBegin  = ObjectList.begin();
       // vector<tBlob>::iterator iEnd    = ObjectList.end();
-			uint32_t count = 0;
+      uint32_t count = 0;
 
       rlf::rimg_math::rimginterface r;
       r.fill( bin, 0 );
 
 
-			for (uint32_t i = 0; i < size; i++) {
+      for( uint32_t i = 0; i < size; i++ ) {
 
          tBlob& bo = ObjectList[i];
          bo.calculateArea();

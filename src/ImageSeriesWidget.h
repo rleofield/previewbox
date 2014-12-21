@@ -42,7 +42,7 @@ public:
 
 signals:
    void signalButtonClicked( bool );
-   void signalNewfile(QString);
+   void signalNewfile( QString );
 
 private slots:
    void on_button_clicked( bool checked );
@@ -53,7 +53,7 @@ private slots:
 
    void on_actionButton_file_pressed_triggered();
 
-   private:
+private:
    Ui::ImageSeriesWidget* ui;
 };
 #pragma GCC diagnostic pop

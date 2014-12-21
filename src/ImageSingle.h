@@ -40,15 +40,15 @@ public:
    explicit ImageSingle( QWidget* parent = 0 );
    ~ImageSingle();
 
-   public slots:
-      void activateButton( bool );
+public slots:
+   void activateButton( bool );
 
-   private slots:
-      void on_pushButton_clicked();
+private slots:
+   void on_pushButton_clicked();
 
 
 private:
-   Ui::ImageSingle * ui;
+   Ui::ImageSingle* ui;
 };
 #pragma GCC diagnostic pop
 

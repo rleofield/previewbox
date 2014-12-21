@@ -38,10 +38,8 @@ Lib: librimgrw
 
 
 
-
 using std::string;
 using std::vector;
-//using rlf::uint8_t;
 
 namespace rlf {
 

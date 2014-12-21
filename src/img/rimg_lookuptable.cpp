@@ -868,7 +868,7 @@ namespace rlf {
       }
 
 
-      static void init_lut_spectrum( std::vector<cRGBAlpha> &p ) {
+      static void init_lut_spectrum( std::vector<cRGBAlpha>& p ) {
          int i;
          uint8_t table[512];
 
@@ -921,7 +921,7 @@ namespace rlf {
          std::vector<cRGBAlpha> v( RGBlutSize );
 
          for( size_t i = 0; i < v.size(); i++ ) {
-            v[ i ] = cRGBAlpha( 0, static_cast<uint8_t>(i), 0 ); // changed win
+            v[ i ] = cRGBAlpha( 0, static_cast<uint8_t>( i ), 0 ); // changed win
          }
 
          return v;

@@ -18,10 +18,10 @@ static size_t max_index = 20;
 
 class tImages {
 
-      vector<tImgPlanar> mImages;
+   vector<tImgPlanar> mImages;
 
 public:
-   tImages(): mImages(max_index) {}
+   tImages(): mImages( max_index ) {}
 
    static const size_t max_index = 20;
    static const size_t img_raw = 0;
@@ -30,19 +30,19 @@ public:
    static const size_t img_lut_mono = 3;
    static const size_t img_lut_rgb = 4;
 
-   tImgPlanar & getRead(){
+   tImgPlanar& getRead() {
       return mImages[img_raw];
    }
-   tImgPlanar & getSobel(){
+   tImgPlanar& getSobel() {
       return mImages[img_sobel];
    }
-   tImgPlanar & getGradient(){
+   tImgPlanar& getGradient() {
       return mImages[img_gradient];
    }
-   tImgPlanar & getLutMono(){
+   tImgPlanar& getLutMono() {
       return mImages[img_lut_mono];
    }
-   tImgPlanar & getLutRGB(){
+   tImgPlanar& getLutRGB() {
       return mImages[img_lut_rgb];
    }
 
@@ -135,13 +135,13 @@ public:
    void rgba_to_qimage();
    void mono_to_qimage();
 
-   tImgPlanar & readImg() {
+   tImgPlanar& readImg() {
       return mImages.getRead();
    }
 signals:
    // emitted, if it has sth to show
    void display( QImage const& image, string const& msg );
-   void changeLabelText( QString text);
+   void changeLabelText( QString text );
 
 public slots:
 
@@ -154,7 +154,7 @@ private:
    QImage _image_shown;
 
    size_t index;
-  string mMsg;
+   string mMsg;
 };
 
 #endif // IMAGECOMPANY_H

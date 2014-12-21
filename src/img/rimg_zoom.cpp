@@ -342,11 +342,11 @@ namespace rlf {
 
       // int scale
       namespace ns_zoomout {
-				void zoom_out_buf(tPlane8 const& source, tPlane8& target, uint32_t scale) {
+         void zoom_out_buf( tPlane8 const& source, tPlane8& target, uint32_t scale ) {
 
 
 
-					 uint32_t sqrscale = scale * scale;
+            uint32_t sqrscale = scale * scale;
 
             size_t sx = source[0].size();
             size_t sy = source.size();

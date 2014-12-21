@@ -30,7 +30,7 @@ private slots:
    void on_actionFilter_triggered();
    void on_actionImage_Single_triggered();
 
-   private:
+private:
    Ui::MainWindow* ui;
    FileDealerImageSingle mImagesDealer;
    ImageCompany mCompany;

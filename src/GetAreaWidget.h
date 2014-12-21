@@ -44,18 +44,18 @@ public:
    ~GetAreaWidget();
 
 signals:
-   void changeLabelText( QString text);
+   void changeLabelText( QString text );
 
 public slots:
    void activateButton( bool );
-   void slotNewFile(QString);
+   void slotNewFile( QString );
 
 private slots:
    void on_pushButton_clicked();
-   void on_areaHorizontalScrollBar_valueChanged(int value);
+   void on_areaHorizontalScrollBar_valueChanged( int value );
 
 
-   private:
+private:
    Ui::GetAreaWidget* ui;
 
    int areaHorizontalScrollBar;

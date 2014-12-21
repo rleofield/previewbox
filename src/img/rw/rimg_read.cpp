@@ -33,12 +33,7 @@ Lib: librimgrw
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-
-
-
 #include "rimg_rw_exceptions.h"
-
-
 #include "rimg_linear.h"
 #include "rimg_planar.h"
 #include "rimg_read_write_bin.h"
@@ -58,7 +53,7 @@ namespace rlf {
 
    namespace rimg_rw {
 
-      shared_ptr<t_read> t_reader::create_reader(e_file_type type) {
+      shared_ptr<t_read> t_reader::create_reader( e_file_type type ) {
 
          // reads binary data to buffer and looks for magic type marker
          //e_file_type type = findtype( _fn );
@@ -86,19 +81,19 @@ namespace rlf {
          }
 
          if( type == e_file_type::tif ) {
-            return shared_ptr<t_read>( new  t_read_tiff(_fn) );
+            return shared_ptr<t_read>( new  t_read_tiff( _fn ) );
          }
 
          if( type == e_file_type::bmp ) {
-            return shared_ptr<t_read>( new  t_read_bmp(_fn) );
+            return shared_ptr<t_read>( new  t_read_bmp( _fn ) );
          }
 
          if( type == e_file_type::png ) {
-            return shared_ptr<t_read>( new  t_read_png(_fn) );
+            return shared_ptr<t_read>( new  t_read_png( _fn ) );
          }
 
          if( type == e_file_type::jpeg ) {
-            return shared_ptr<t_read>( new  t_read_jpeg(_fn) );
+            return shared_ptr<t_read>( new  t_read_jpeg( _fn ) );
          }
 
          return nullptr;
@@ -117,16 +112,16 @@ namespace rlf {
          shared_ptr<t_read> reader = create_reader( t );
 
          if( reader != nullptr ) {
-            try{
+            try {
                // read linear image and convert to planar
                reader->read( img );
                return;
-            }
-            catch( tImgReadEx & ){
+            } catch( tImgReadEx& ) {
                // nothing found, clear image
                img.reset();
             }
          }
+
          // nothing found, clear image
          img.reset();
       }
@@ -137,17 +132,17 @@ namespace rlf {
             string s = bin_data::msg::file_not_exists( fn );
             throw tImgReadEx( s );
          }
+
          _fn = fn;
          e_file_type t = findtype( fn );
          shared_ptr<t_read> reader = create_reader( t );
 
          if( reader != nullptr ) {
-            try{
-            // read linear image and convert to planar
-            reader->read( img );
-            return;
-            }
-            catch( tImgReadEx & ){
+            try {
+               // read linear image and convert to planar
+               reader->read( img );
+               return;
+            } catch( tImgReadEx& ) {
                // nothing found, clear image
                img.realloc( uint32_xy(), rlf::rimg_planar::tMask::empty );
             }
@@ -158,17 +153,17 @@ namespace rlf {
       }
 
 
-void read( string fn, tImgLinear& img )  {
-   rlf::rimg_rw::t_reader r;
-   r.read(fn,img);
-}
-void read( string fn, tImgPlanar& img )  {
-   rlf::rimg_rw::t_reader r;
-   r.read(fn,img);
-}
+      void read( string fn, tImgLinear& img )  {
+         rlf::rimg_rw::t_reader r;
+         r.read( fn, img );
+      }
+      void read( string fn, tImgPlanar& img )  {
+         rlf::rimg_rw::t_reader r;
+         r.read( fn, img );
+      }
 
 
-}
+   }
 }
 //EOF
 

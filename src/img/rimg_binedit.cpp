@@ -764,7 +764,7 @@ namespace rlf {
       const int ERODE  = 0;
 
 
-			bool rimginterface::Closing(tPlane8& im, int strength, uint32_t color) {
+      bool rimginterface::Closing( tPlane8& im, int strength, uint32_t color ) {
          bool b = Dilate( im, strength, color );
 
          if( !b ) {
@@ -773,7 +773,7 @@ namespace rlf {
 
          return b;
       }
-			bool rimginterface::Closing(tImgPlanar& source, int strength, uint32_t color) {
+      bool rimginterface::Closing( tImgPlanar& source, int strength, uint32_t color ) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -789,7 +789,7 @@ namespace rlf {
 
       }
 
-			bool rimginterface::Opening(tPlane8& im, int strength, uint32_t color) {
+      bool rimginterface::Opening( tPlane8& im, int strength, uint32_t color ) {
          bool b = Erode( im, strength, color );
 
          if( !b ) {
@@ -798,7 +798,7 @@ namespace rlf {
 
          return b;
       }
-			bool rimginterface::Opening(tImgPlanar& source, int strength, uint32_t color) {
+      bool rimginterface::Opening( tImgPlanar& source, int strength, uint32_t color ) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -815,14 +815,14 @@ namespace rlf {
       }
 
 
-			bool rimginterface::Dilate(tPlane8& im, int strength, uint32_t color) {
+      bool rimginterface::Dilate( tPlane8& im, int strength, uint32_t color ) {
          return BinEdit( im, strength, color, DILATE );
       }
 
-			bool rimginterface::Erode(tPlane8& im, int strength, uint32_t color) {
+      bool rimginterface::Erode( tPlane8& im, int strength, uint32_t color ) {
          return BinEdit( im, strength, color, ERODE );
       }
-			bool rimginterface::Dilate(tImgPlanar& source, int strength, uint32_t color) {
+      bool rimginterface::Dilate( tImgPlanar& source, int strength, uint32_t color ) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -838,7 +838,7 @@ namespace rlf {
 
 
       }
-			bool rimginterface::Erode(tImgPlanar& source, int strength, uint32_t color) {
+      bool rimginterface::Erode( tImgPlanar& source, int strength, uint32_t color ) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -982,7 +982,7 @@ namespace rlf {
          }
       }
 
-			void rimginterface::BinEdit(tImgPlanar& source, int strength, uint32_t color, int edit_case) {
+      void rimginterface::BinEdit( tImgPlanar& source, int strength, uint32_t color, int edit_case ) {
          auto mbegin = source.begin();
          auto mend = source.end();
 
@@ -998,7 +998,7 @@ namespace rlf {
       }
 
 
-			bool rimginterface::BinEdit(tPlane8& source, int strength, uint32_t color, int edit_case) {
+      bool rimginterface::BinEdit( tPlane8& source, int strength, uint32_t color, int edit_case ) {
 
 
          int dilation = 1;
@@ -1016,34 +1016,42 @@ namespace rlf {
          case 16:
             table = lut1;
             break;  // s = 8, e = dil 8
+
          case  2:                        // s = 2, e = ero 2
          case 15:
             table = lut2;
             break;  // s = 7, e = dil 7
+
          case  3:                        // s = 3, e = ero 3
          case 14:
             table = lut3;
             break;  // s = 6, e = dil 6
+
          case  4:                        // s = 4, e = ero 4
          case 13:
             table = lut4;
             break;  // s = 5, e = dil 5
+
          case  5:                        // s = 5, e = ero 5
          case 12:
             table = lut5;
             break;  // s = 4, e = dil 4
+
          case  6:                        // s = 6, e = ero 6
          case 11:
             table = lut6;
             break;  // s = 3, e = dil 3
+
          case  7:                        // s = 7, e = ero 7
          case 10:
             table = lut7;
             break;  // s = 2, e = dil 2
+
          case  8:                                 // s = 8, e = ero 8
          case  9:
             table = lut8;
             break;  // s = 1, e = dil 1
+
          default:
             table = lut1;
          }

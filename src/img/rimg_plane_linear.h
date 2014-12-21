@@ -66,7 +66,7 @@ namespace rlf {
       public:
          tPlaneLinear(): _data(), _size() {}
          ~tPlaneLinear() {}
-				 uint32_xy size()const {
+         uint32_xy size()const {
             return _size;
          }
          uint32_xy& size() {
@@ -86,7 +86,7 @@ namespace rlf {
             return *this;
          }
 
-				 uint32_t pitch()const {
+         uint32_t pitch()const {
             return align32( size().x() );
          }
 
@@ -95,7 +95,7 @@ namespace rlf {
             _data.shrink_to_fit();
          }
 
-				 uint32_t bytes()const {
+         uint32_t bytes()const {
             return size().y() * pitch();
          }
 
@@ -104,16 +104,16 @@ namespace rlf {
                memset( _data, val , bytes() );
             }
          }
-				 T pixel(uint32_t y, uint32_t x)const {
+         T pixel( uint32_t y, uint32_t x )const {
             return _data[y * pitch() + x];
          }
-				 void pixel(uint32_t y, uint32_t x, size_t v) {
+         void pixel( uint32_t y, uint32_t x, size_t v ) {
             _data[y * pitch() + x] = v;
          }
 
          typedef typename vector<T>::const_iterator T_const_iterator;
          typedef typename vector<T>::iterator T_iterator;
-				 void insert_data(T_const_iterator  begin, T_const_iterator  end, uint32_t offset) {
+         void insert_data( T_const_iterator  begin, T_const_iterator  end, uint32_t offset ) {
             ptrdiff_t s = end - begin;
 
             if( s > 0 && s + offset <= bytes() ) {
@@ -125,15 +125,15 @@ namespace rlf {
             }
 
          }
-				 T_const_iterator iterator(uint32_t offset) {
+         T_const_iterator iterator( uint32_t offset ) {
             return _data.begin() + offset;
          }
 
-				 T operator[](uint32_t index)const {
+         T operator[]( uint32_t index )const {
             return *( _data.begin() + index ) ;
          }
 
-				 void insert_data(vector<T> const& v, uint32_t offset) {
+         void insert_data( vector<T> const& v, uint32_t offset ) {
             ptrdiff_t s = v.size();
 
             if( s > 0 && s + offset <= bytes() ) {
@@ -152,7 +152,7 @@ namespace rlf {
          vector<T> const&   get_data()const {
             return _data;
          }
-         vector<T> &  get_data() {
+         vector<T>&   get_data() {
             return _data;
          }
 

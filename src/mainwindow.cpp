@@ -39,22 +39,22 @@ void MainWindow::setupImageCompany() {
             SLOT( setImage( QImage const&, string const& ) ) ,
             Qt::UniqueConnection );
 
-   connect(&mCompany,
-           SIGNAL(changeLabelText(QString)),
-           ui->statusBar,
-           SLOT(showMessage(QString) ),
-           Qt::UniqueConnection );
+   connect( &mCompany,
+            SIGNAL( changeLabelText( QString ) ),
+            ui->statusBar,
+            SLOT( showMessage( QString ) ),
+            Qt::UniqueConnection );
 
 }
 
 //! \brief Initializes the recent images menu
 void MainWindow::setupGetArea() {
 
-//   connect(mGetAreaWidget,
-//           SIGNAL(changeLabelText(QString)),
-//           ui->statusBar,
-//           SLOT(showMessage(QString) )
-//            );
+   //   connect(mGetAreaWidget,
+   //           SIGNAL(changeLabelText(QString)),
+   //           ui->statusBar,
+   //           SLOT(showMessage(QString) )
+   //            );
 
 }
 
@@ -113,7 +113,7 @@ void MainWindow::openImage( const QString& filename ) {
 
       string fn = filename.toStdString();
 
-      tImgPlanar & pl = mCompany.readImg();
+      tImgPlanar& pl = mCompany.readImg();
 
       try {
          rlf::rimg_rw::read( fn, pl );
@@ -179,7 +179,6 @@ void MainWindow::on_actionFilter_triggered() {
 
 }
 
-void MainWindow::on_actionImage_Single_triggered()
-{
-    mStackedLayout->setCurrentWidget( mImageSingle );
+void MainWindow::on_actionImage_Single_triggered() {
+   mStackedLayout->setCurrentWidget( mImageSingle );
 }

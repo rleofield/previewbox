@@ -224,13 +224,13 @@ namespace rlf {
 
 
       void calculateMidpnt() {
-for( auto & b : _blobs ) {
+         for( auto & b : _blobs ) {
             b.calculateMidpnt();
          }
       }
 
       void calculateSize() {
-for( auto & b : _blobs ) {
+         for( auto & b : _blobs ) {
             b.calculateSize();
          }
       }
@@ -239,7 +239,7 @@ for( auto & b : _blobs ) {
 
 
       void calculateIntegral() {
-for( auto & b : _blobs ) {
+         for( auto & b : _blobs ) {
             b.calculateIntegral( _background );
          }
       }
@@ -248,7 +248,7 @@ for( auto & b : _blobs ) {
 
 
       void calculateArea() {
-for( auto & b : _blobs ) {
+         for( auto & b : _blobs ) {
             b.calculateArea();
          }
       }
@@ -256,7 +256,7 @@ for( auto & b : _blobs ) {
 
 
       void calculatePeakValue() {
-for( auto & b : _blobs ) {
+         for( auto & b : _blobs ) {
             b.calculatePeakValue();
          }
       }
@@ -379,8 +379,8 @@ for( auto & b : _blobs ) {
    }
 
 
-	 uint32_t tBlobs::count()const {
-		 return static_cast<uint32_t>(_impl->_blobs.size());
+   uint32_t tBlobs::count()const {
+      return static_cast<uint32_t>( _impl->_blobs.size() );
    }
    vector<tBlob> const& tBlobs::blobs()const {
       return _impl->_blobs;
@@ -407,10 +407,10 @@ for( auto & b : _blobs ) {
    namespace {
 
 
-		 void extraxt_streaks(vector<tStreak> & streaks, tPlane8 const& b, uint32_t thre) {
+      void extraxt_streaks( vector<tStreak>& streaks, tPlane8 const& b, uint32_t thre ) {
 
 
-				uint32_t y = 0;
+         uint32_t y = 0;
          tStreak s;
          auto ybegin = b.begin();
          auto yend = b.size();
@@ -456,7 +456,7 @@ for( auto & b : _blobs ) {
 
       void seek_overlapping_streaks_in_line(
          vector<tStreak> const& StreakLine,
-         vector<bool> & ControlTableLine ,
+         vector<bool>& ControlTableLine ,
          tBlob& binaryObject,
          tStreak  current
       ) {
@@ -485,7 +485,7 @@ for( auto & b : _blobs ) {
 
       void seek_adjacent_streak(
          vector< vector<tStreak> > const& Table, int lines,
-         vector< vector<bool> > & ControlTable,
+         vector< vector<bool> >& ControlTable,
          tBlob& blob,
          tStreak current
       ) {
@@ -507,7 +507,7 @@ for( auto & b : _blobs ) {
          }
       }
 
-      void streaks_to_blobs( vector<tStreak> const& streaks, size_t lines, vector<tBlob> & blobs ) {
+      void streaks_to_blobs( vector<tStreak> const& streaks, size_t lines, vector<tBlob>& blobs ) {
          static size_t null = 0;
 
          vector< vector<bool> >bool_table( lines );
@@ -548,7 +548,7 @@ for( auto & b : _blobs ) {
 
                while( s != found ) {
                   // searches for neighbours for all streaks
-                  seek_adjacent_streak( streak_table, static_cast<uint32_t>(lines), bool_table, blob, blob[found] ); // seach more streaks,
+                  seek_adjacent_streak( streak_table, static_cast<uint32_t>( lines ), bool_table, blob, blob[found] ); // seach more streaks,
                   found++;
                   s = blob.streak_count();
                }
@@ -650,7 +650,7 @@ for( auto & b : _blobs ) {
       return false;
    }
 
-	 uint32_t  tBlobs::count_filtered()const {
+   uint32_t  tBlobs::count_filtered()const {
 
 
 
@@ -660,8 +660,8 @@ for( auto & b : _blobs ) {
 
 
 
-			uint32_t running = 0;
-			uint32_t size_ = count();
+      uint32_t running = 0;
+      uint32_t size_ = count();
 
       for( size_t i = 0; i < size_; i++ ) {
          tBlob const& bo = _impl->_blobs[i];

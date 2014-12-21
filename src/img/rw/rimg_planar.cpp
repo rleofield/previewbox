@@ -174,11 +174,11 @@ namespace rlf {
       tMask tMask::k = ch1; // ==mono
 
 
-			uint32_t tMask::pos_mono = 0;  // gray channel
-			uint32_t tMask::pos_r = 1;  // red channel
-			uint32_t tMask::pos_g = 2;  // green channel
-			uint32_t tMask::pos_b = 3;  // blue channel
-			uint32_t tMask::pos_a = 4;  // alpha channel
+      uint32_t tMask::pos_mono = 0;  // gray channel
+      uint32_t tMask::pos_r = 1;  // red channel
+      uint32_t tMask::pos_g = 2;  // green channel
+      uint32_t tMask::pos_b = 3;  // blue channel
+      uint32_t tMask::pos_a = 4;  // alpha channel
 
 
 
@@ -210,7 +210,7 @@ namespace rlf {
          return c;
 
       }
-			uint32_t tMask::pos_of_bit()const {
+      uint32_t tMask::pos_of_bit()const {
          assert( count() == 1 );
 
          if( _mask & ch0._mask ) {
@@ -320,23 +320,23 @@ namespace rlf {
          return false;
       }
 
-			uint32_t tImgPlanar::sx()      const {
+      uint32_t tImgPlanar::sx()      const {
          return size().x();
       }
-			uint32_t tImgPlanar::aligned_sx()      const {
+      uint32_t tImgPlanar::aligned_sx()      const {
          return align32( size().x() );
       }
 
 
-			uint32_t tImgPlanar::sy()      const {
+      uint32_t tImgPlanar::sy()      const {
          return size().y();
       }
 
 
-			uint32_t tImgPlanar::pixels()  const {
+      uint32_t tImgPlanar::pixels()  const {
          return sx() * sy();
       }
-			uint32_t tImgPlanar::bytes()  const {
+      uint32_t tImgPlanar::bytes()  const {
          return align32( sx() ) * sy();
       }
 
@@ -514,7 +514,7 @@ namespace rlf {
          auto y = xy_.y();
          ( *this )[0][ y ][x] = ( uint8_t )val;
       }
-			void tImgPlanar::pixel(uint32_t x, uint32_t y, uint32_t val) {
+      void tImgPlanar::pixel( uint32_t x, uint32_t y, uint32_t val ) {
          pixel( uint32_xy( x, y ), val );
       }
 
@@ -527,7 +527,7 @@ namespace rlf {
          size_t y = xy_.y();
          return ( *this )[tMask::pos_mono][ y ][x];
       }
-			uint32_t tImgPlanar::pixel(uint32_t x, uint32_t y)const {
+      uint32_t tImgPlanar::pixel( uint32_t x, uint32_t y )const {
          return pixel( uint32_xy( x, y ) );
       }
 

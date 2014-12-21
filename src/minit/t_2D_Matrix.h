@@ -94,7 +94,7 @@ namespace rlf_minit {
          _v[0] = m0[0];
          _v[1] = m0[1];
       }
-      tMatrix2<T> & operator=( tMatrix2<T> const& m0 ) {
+      tMatrix2<T>& operator=( tMatrix2<T> const& m0 ) {
          if( this != & m0 ) {
             _v[0] = m0[0];
             _v[1] = m0[1];
@@ -123,7 +123,7 @@ namespace rlf_minit {
          assert( x < 2 );
          return _v[x];
       }
-      tVector2<T> & operator[]( size_t x ) {
+      tVector2<T>& operator[]( size_t x ) {
          assert( x < 2 );
          return _v[x];
       }

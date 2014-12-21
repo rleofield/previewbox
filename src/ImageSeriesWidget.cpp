@@ -45,20 +45,17 @@ void ImageSeriesWidget::on_button_clicked( bool checked ) {
    emit signalButtonClicked( checked );
 }
 
-void ImageSeriesWidget::on_button_clicked()
-{
-     LOGT_RIMG_INFO("on_button_clicked");
-     ui->label->setText("other");
+void ImageSeriesWidget::on_button_clicked() {
+   LOGT_RIMG_INFO( "on_button_clicked" );
+   ui->label->setText( "other" );
 }
 
-void ImageSeriesWidget::on_pushButton_clicked()
-{
-   LOGT_RIMG_INFO("on_pushButton_clicked");
-   ui->label->setText("Papa");
-   emit signalNewfile("Papa");
+void ImageSeriesWidget::on_pushButton_clicked() {
+   LOGT_RIMG_INFO( "on_pushButton_clicked" );
+   ui->label->setText( "Papa" );
+   emit signalNewfile( "Papa" );
 }
 
-void ImageSeriesWidget::on_actionButton_file_pressed_triggered()
-{
+void ImageSeriesWidget::on_actionButton_file_pressed_triggered() {
 
 }

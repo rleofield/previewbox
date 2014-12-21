@@ -45,16 +45,16 @@ namespace rlf {
    protected:
 
    public:
-      rImgEx( const string& msg ):  runtime_error( msg )
-      { }
+      rImgEx( const string& msg ):  runtime_error( msg ) {
+      }
       ~rImgEx()throw() {}
    };
 
    class tImgAllocEx: public rImgEx {
       string _what;
    public:
-      tImgAllocEx( const string& msg ): rImgEx( msg ), _what()
-      { }
+      tImgAllocEx( const string& msg ): rImgEx( msg ), _what() {
+      }
       ~tImgAllocEx()throw() {}
 
    };
@@ -64,8 +64,8 @@ namespace rlf {
    class tImgIndexEx: public rImgEx {
       string _what;
    public:
-      tImgIndexEx( const string& msg ): rImgEx( msg ), _what()
-      { }
+      tImgIndexEx( const string& msg ): rImgEx( msg ), _what() {
+      }
       ~tImgIndexEx()throw() {}
    };
 
@@ -73,15 +73,15 @@ namespace rlf {
    class tImgReadEx: public rImgEx {
 
    public:
-      tImgReadEx( const string& msg ): rImgEx( msg )
-      { }
+      tImgReadEx( const string& msg ): rImgEx( msg ) {
+      }
       ~tImgReadEx()throw() {}
    };
    class tImgWriteEx: public rImgEx {
 
    public:
-      tImgWriteEx( const string& msg ): rImgEx( msg )
-      { }
+      tImgWriteEx( const string& msg ): rImgEx( msg ) {
+      }
       ~tImgWriteEx()throw() {}
    };
 

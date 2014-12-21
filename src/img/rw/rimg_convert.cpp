@@ -266,7 +266,7 @@ namespace rlf {
                auto const* source = reinterpret_cast< tRGBA const* >( ptr8 );
 
                auto count = s.x();
-							 uint32_t x = 0;
+               uint32_t x = 0;
 
                while( count-- ) {
                   r[x] = source->r();
@@ -387,7 +387,7 @@ namespace rlf {
                vector<uint8_t> const& g = rgb.green()[ y ];
                vector<uint8_t> const& b = rgb.blue()[ y ];
 
-               vector<uint8_t> & gray = gray_img.mono8()[ y ];
+               vector<uint8_t>& gray = gray_img.mono8()[ y ];
 
                size_t count = s.x();
                size_t x = 0;

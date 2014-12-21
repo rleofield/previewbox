@@ -84,7 +84,7 @@ namespace bin_read {
          return false;
       }
 
-      inline char* toCharPtr( std::vector<uint8_t> &b ) {
+      inline char* toCharPtr( std::vector<uint8_t>& b ) {
          return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
       }
       inline char const* toCharPtr( std::vector<uint8_t> const& b ) {
@@ -136,7 +136,7 @@ namespace bin_read {
       t_bin_read() {}
       ~t_bin_read() {}
 
-      void operator()( const std::string& file, std::vector<uint8_t> &buf, uint64_t size_ = -1 )  {
+      void operator()( const std::string& file, std::vector<uint8_t>& buf, uint64_t size_ = -1 )  {
 
          if( !rhelper::file_exists_r( file ) ) {
             std::string s = err::file_not_exists( file );
@@ -159,7 +159,11 @@ namespace bin_read {
 
          // fast
          uintmax_t size = boost::filesystem::file_size( file );
-         if( size < size_ ) size_ = size;
+
+         if( size < size_ ) {
+            size_ = size;
+         }
+
          buf.resize( static_cast<size_t>( size_ ), 0 );
          auto buffer = rhelper::toCharPtr( buf );
          fp.read( buffer, size_ );

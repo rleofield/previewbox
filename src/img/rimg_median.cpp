@@ -44,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "str_util.h"
 
+#ifdef _WIN32
+#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
+#endif
 using namespace std;
 
 
@@ -55,11 +58,11 @@ namespace rlf {
    namespace rimg_math {
 
 
-      void getkernel( vector<size_t> & arr, tPlaneLinear8 const& extended, uint32_xy xy, int kernel ) {
+      void getkernel( vector<size_t>& arr, tPlaneLinear8 const& extended, uint32_xy xy, int kernel ) {
 
          int hk = kernel / 2;
-				 uint32_t xcount = xy.x() - hk;
-				 uint32_t xcountmax = xy.x() + hk;
+         uint32_t xcount = xy.x() - hk;
+         uint32_t xcountmax = xy.x() + hk;
 
          vector<size_t>::iterator parr = arr.begin();
 
@@ -69,7 +72,7 @@ namespace rlf {
             int ycount  = xy.y() - hk;
             int ycountmax  = xy.y() + hk;
 
-						int y = ycount * extended.pitch() + xcount;
+            int y = ycount * extended.pitch() + xcount;
 
             while( ycount <= ycountmax ) {
                *parr++ = extended[ y ];
@@ -80,7 +83,7 @@ namespace rlf {
          }
       }
 
-      void kernel3( vector<size_t> & arr, vector<uint8_t> const& bv, int sx ) {
+      void kernel3( vector<size_t>& arr, vector<uint8_t> const& bv, int sx ) {
          uint8_t const* b = &( bv[0] );
          b -= sx;
          int count( 3 );
@@ -197,7 +200,7 @@ namespace rlf {
 
 
       // kernel is already odd                                        // pos in extimg
-      inline void getkernel_( tPlane8 const& im, vector<size_t> &arr, uint32_xy xy, int kernel ) {
+      inline void getkernel_( tPlane8 const& im, vector<size_t>& arr, uint32_xy xy, int kernel ) {
          //int s = arr.size();
          assert( arr.size() == ( uint32_t )( kernel * kernel ) );
 
@@ -224,13 +227,13 @@ namespace rlf {
 
 
 
-      inline void kernel3( tPlane8 const& im, vector<size_t> &arr, uint32_xy xy ) {
+      inline void kernel3( tPlane8 const& im, vector<size_t>& arr, uint32_xy xy ) {
          getkernel_( im, arr, xy, 3 );
       }
-      inline void kernel5( tPlane8 const& im, vector<size_t> &arr, uint32_xy xy ) {
+      inline void kernel5( tPlane8 const& im, vector<size_t>& arr, uint32_xy xy ) {
          getkernel_( im, arr, xy, 5 );
       }
-      inline void kernel7( tPlane8 const& im, vector<size_t> &arr, uint32_xy xy ) {
+      inline void kernel7( tPlane8 const& im, vector<size_t>& arr, uint32_xy xy ) {
          getkernel_( im, arr, xy, 7 );
       }
 
@@ -502,9 +505,11 @@ namespace rlf {
                case 3:
                   Median3( mbegin->plane ) ;
                   break;
+
                case 5:
                   Median5( mbegin->plane ) ;
                   break;
+
                default:
                   break;
                }

@@ -241,7 +241,7 @@ namespace rlf {
 
       } // end of local ns
 
-			void rimginterface::Circle(tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors) {
+      void rimginterface::Circle( tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors ) {
          assert( img.has_data() );
          assert( img.planes() == colors.size() );
          auto mbegin = img.begin();
@@ -258,7 +258,7 @@ namespace rlf {
          }
       }
 
-			void rimginterface::FilledCircle(tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors) {
+      void rimginterface::FilledCircle( tImgPlanar& img, int32_xy xy, uint32_t r, vcolors const& colors ) {
          //assert( img.has_data() );
          //assert( img.planes() == colors.size() );
          auto mbegin = img.begin();
@@ -278,7 +278,7 @@ namespace rlf {
 
       namespace vline {
          void VerticalLine( tPlane8& img,  uint32_t xpos, int c ) {
-					 uint32_t y = static_cast<uint32_t>(img.size());
+            uint32_t y = static_cast<uint32_t>( img.size() );
 
             while( y-- ) {
                setInPlane( img, int32_xy( y, xpos ), c );
@@ -288,7 +288,7 @@ namespace rlf {
 
 
 
-			void rimginterface::VerticalLine(tImgPlanar& img, uint32_t xpos, vcolors const& colors) {
+      void rimginterface::VerticalLine( tImgPlanar& img, uint32_t xpos, vcolors const& colors ) {
          assert( img.has_data() );
          assert( img.planes() == colors.size() );
 
@@ -308,7 +308,7 @@ namespace rlf {
 
       namespace hline {
          void HorizontalLine( tPlane8& img,  uint32_t ypos, int c ) {
-            int32_t x = static_cast<int32_t>(img[0].size()); // changed win
+            int32_t x = static_cast<int32_t>( img[0].size() ); // changed win
 
             while( x-- ) {
                setInPlane( img, int32_xy( ypos, x ), c );
@@ -318,7 +318,7 @@ namespace rlf {
 
 
 
-			void rimginterface::HorizontalLine(tImgPlanar& img, uint32_t xpos, vcolors const& colors) {
+      void rimginterface::HorizontalLine( tImgPlanar& img, uint32_t xpos, vcolors const& colors ) {
          assert( img.has_data() );
          assert( img.planes() == colors.size() );
 
@@ -336,7 +336,7 @@ namespace rlf {
          }
       }
 
-			void rimginterface::WedgeHorizontal(tImgPlanar& img, uint32_t sy) {
+      void rimginterface::WedgeHorizontal( tImgPlanar& img, uint32_t sy ) {
          img.realloc( uint32_xy( 256, sy ), tMask::mono );
 
          for( int x = 0; x < 256; x++ ) {
@@ -346,7 +346,7 @@ namespace rlf {
          }
       }
 
-			void rimginterface::WedgeVertical(tImgPlanar& img, uint32_t sx) {
+      void rimginterface::WedgeVertical( tImgPlanar& img, uint32_t sx ) {
          img.realloc( uint32_xy( sx, 256 ), tMask::mono );
 
          for( int y = 0; y < 256; y++ ) {
@@ -662,7 +662,7 @@ namespace rlf {
          return v;
       }
 
-      int rimginterface::GetLinePixels( tImgPlanar const& img, uint32_xy from, uint32_xy to, std::vector<uint32_t> &v ) {
+      int rimginterface::GetLinePixels( tImgPlanar const& img, uint32_xy from, uint32_xy to, std::vector<uint32_t>& v ) {
          int vx = from.x();
          int vy = from.y();
          int nx = to.x();

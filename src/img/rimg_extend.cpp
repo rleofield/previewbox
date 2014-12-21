@@ -55,7 +55,7 @@ namespace rlf {
 
 
       void ToExtendedImageArea( const tPlane8& in,
-				tPlane8& out, uint32_t border) {
+                                tPlane8& out, uint32_t border ) {
 
 
          auto yinbegin = in.begin();
@@ -69,14 +69,14 @@ namespace rlf {
          }
       }
 
-			void ToExtendedLinearArea(const tPlane8& in, tPlaneLinear8& out, uint32_t border) {
+      void ToExtendedLinearArea( const tPlane8& in, tPlaneLinear8& out, uint32_t border ) {
 
          if( in.size() == 0 ) {
             return;
          }
 
-				 uint32_t sx = static_cast<uint32_t>(in[0].size());
-				 uint32_t sy = static_cast<uint32_t>(in.size());
+         uint32_t sx = static_cast<uint32_t>( in[0].size() );
+         uint32_t sy = static_cast<uint32_t>( in.size() );
 
          uint32_xy xy = uint32_xy( sx, sy );
          xy += ( 2 * border );
@@ -86,7 +86,7 @@ namespace rlf {
          auto ybegin = in.begin();
          auto yend = in.end();
 
-				 uint32_t offset = out.pitch() + 1;
+         uint32_t offset = out.pitch() + 1;
 
          while( ybegin != yend ) {
             auto xbegin = ybegin->begin();
@@ -100,25 +100,25 @@ namespace rlf {
 
       /////////////////////////////////////////////////////////////////
 
-			void extend_lines_at_all_sides(tPlane8& image, uint32_t half) {
-				uint32_t s = half;
+      void extend_lines_at_all_sides( tPlane8& image, uint32_t half ) {
+         uint32_t s = half;
 
-				uint32_t xend = static_cast<uint32_t>(image[0].size());
-				uint32_t x_intern_end = xend - s;
-				uint32_t x_intern_last = x_intern_end - 1;
+         uint32_t xend = static_cast<uint32_t>( image[0].size() );
+         uint32_t x_intern_end = xend - s;
+         uint32_t x_intern_last = x_intern_end - 1;
 
-				uint32_t yend = static_cast<uint32_t>(image.size());
-				uint32_t y_intern_end = yend - s;
-				uint32_t y_intern_last = y_intern_end - 1;
+         uint32_t yend = static_cast<uint32_t>( image.size() );
+         uint32_t y_intern_end = yend - s;
+         uint32_t y_intern_last = y_intern_end - 1;
 
 
          // first s lines
-				 for (uint32_t yborder = 0; yborder < s; yborder++) {
+         for( uint32_t yborder = 0; yborder < s; yborder++ ) {
             image[ yborder ] = image[ s ];
          }
 
          // last s lines
-				 for (uint32_t yborder = 0; yborder < s; yborder++) {
+         for( uint32_t yborder = 0; yborder < s; yborder++ ) {
             image[ y_intern_end + yborder ] = image[ y_intern_last ];
          }
 
@@ -128,9 +128,9 @@ namespace rlf {
          uint8_t pix3 = image[y_intern_last][s];
          uint8_t pix4 = image[y_intern_last][x_intern_last];
 
-				 for (uint32_t xborder = 0; xborder < s; xborder++) {
+         for( uint32_t xborder = 0; xborder < s; xborder++ ) {
 
-					 for (uint32_t yborder = 0; yborder < s; yborder++) {
+            for( uint32_t yborder = 0; yborder < s; yborder++ ) {
                //  1. corner
                image[yborder][xborder] = pix1 ;
                //  2. corner
@@ -143,22 +143,22 @@ namespace rlf {
          }
 
          // first and last columns
-				 for (uint32_t y = s; y < y_intern_end; y++) {
+         for( uint32_t y = s; y < y_intern_end; y++ ) {
 
-					 for (uint32_t x = 0; x < s; x++) {
+            for( uint32_t x = 0; x < s; x++ ) {
                image[y][x] = image[y][s];
             }
          }
 
-				 for (uint32_t y = s; y < y_intern_end; y++) {
+         for( uint32_t y = s; y < y_intern_end; y++ ) {
 
-					 for (uint32_t x = 0; x < s; x++) {
+            for( uint32_t x = 0; x < s; x++ ) {
                image[y][x_intern_end + x] = image[y][x_intern_last];
             }
          }
       }
 
-			void extend_lines_at_all_sides(tImgPlanar& image, uint32_t half) {
+      void extend_lines_at_all_sides( tImgPlanar& image, uint32_t half ) {
 
          auto mbegin = image.begin();
          auto mend   = image.end();
@@ -175,7 +175,7 @@ namespace rlf {
 
 
       void rimginterface::ToExtendedImageArea( const tImgViewPlanar& in,
-				tImgPlanar& extended, uint32_t border) {
+            tImgPlanar& extended, uint32_t border ) {
 
          assert( in.mask().val() == extended.mask().val() ) ;
 
@@ -199,7 +199,7 @@ namespace rlf {
       }
 
       // kernel is already odd
-			void rimginterface::ExtendImage(const tImgViewPlanar& in, tImgPlanar& extended, uint32_t kernel) {
+      void rimginterface::ExtendImage( const tImgViewPlanar& in, tImgPlanar& extended, uint32_t kernel ) {
 
          assert( !( kernel < 3 || kernel > 7 ) );
          assert( is_odd( kernel ) );
@@ -263,8 +263,8 @@ namespace rlf {
          }
 
 
-				 uint32_t sx = static_cast<uint32_t>(source[0].size());
-				 uint32_t sy = static_cast<uint32_t>(source.size());
+         uint32_t sx = static_cast<uint32_t>( source[0].size() );
+         uint32_t sy = static_cast<uint32_t>( source.size() );
          target.realloc( tSize( sx, sy ), tMask::mono );
 
 

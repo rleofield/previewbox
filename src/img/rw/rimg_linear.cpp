@@ -34,6 +34,9 @@ using namespace std;
 
 #include "rimg_linear.h"
 #include "rimg_alloc_raw_data.h"
+#ifdef _WIN32
+#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
+#endif
 
 
 namespace rlf {
@@ -45,6 +48,7 @@ namespace rlf {
          if( _data != nullptr ) {
             free_data_buffer();
          }
+
          _size = tSize();
       }
 
@@ -118,51 +122,61 @@ namespace rlf {
       void tImgLinear::insert_data( uint8_t const* data_, uint32_t size_, uint32_t offset_ ) {
          uint32_t sxp = pitch();
          uint32_t sx = size().x();
-         if( _ImgFormat == PixelFormat::rgb() ){
-             sx *= PixelFormat::rgb().val();
+
+         if( _ImgFormat == PixelFormat::rgb() ) {
+            sx *= PixelFormat::rgb().val();
          }
-         if( _ImgFormat == PixelFormat::rgba() ){
-             sx *= PixelFormat::rgba().val();
+
+         if( _ImgFormat == PixelFormat::rgba() ) {
+            sx *= PixelFormat::rgba().val();
          }
-         if( sxp == sx ){ // sx == pitch, no pdading image
-             int b = bytes();
+
+         if( sxp == sx ) { // sx == pitch, no pdading image
+            int b = bytes();
+
             if( size_ > 0 && size_ + offset_ <= bytes() && _is_allocated ) {
                uint8_t* pdata = _data + offset_;
                memcpy( pdata, data_, size_ );
             }
+
             return;
          }
-         if( size_ <= sx ){ // fits in one line
+
+         if( size_ <= sx ) { // fits in one line
             uint8_t* pdata = _data + offset_;
             memcpy( pdata, data_, size_ );
             return;
          }
 
          uint32_t pitchdiff = pitch() - sx;
-         uint32_t line = (offset_ / sx);
+         uint32_t line = ( offset_ / sx );
          uint32_t offset_intern = offset_ +  line * pitchdiff;
 
 
-         uint32_t off_remainder = offset_intern - (offset_intern / pitch()) * pitch() ;
+         uint32_t off_remainder = offset_intern - ( offset_intern / pitch() ) * pitch() ;
 
          // offset starts at pitch boundary
-         if( off_remainder == 0 ){
-             vector< vector<uint8_t> > _vv;
+         if( off_remainder == 0 ) {
+            vector< vector<uint8_t> > _vv;
             uint32_t i = 0;
             uint8_t const* data_input = data_;
-            while(  i < size_ && (i <= (size_ - sx) ) ){
-               vector<uint8_t> v(data_input, data_input + sx);
-               _vv.push_back(v);
+
+            while( i < size_ && ( i <= ( size_ - sx ) ) ) {
+               vector<uint8_t> v( data_input, data_input + sx );
+               _vv.push_back( v );
                i += sx;
                data_input += sx;
             }
-            uint32_t i_remainder = i - (i / sx) * sx ;
-            if( i_remainder > 0 ){
-               vector<uint8_t> v1( data_input, data_input + i_remainder);
-               _vv.push_back(v1);
+
+            uint32_t i_remainder = i - ( i / sx ) * sx ;
+
+            if( i_remainder > 0 ) {
+               vector<uint8_t> v1( data_input, data_input + i_remainder );
+               _vv.push_back( v1 );
             }
-            for( vector<uint8_t> v8:_vv){
-               uint8_t * row = row_ptr( line );
+
+            for( vector<uint8_t> v8 : _vv ) {
+               uint8_t* row = row_ptr( line );
                memcpy( row, &v8[0], v8.size() );
                line++;
             }

@@ -68,7 +68,7 @@ namespace bin_write {
       }
 
 
-      inline char* toCharPtr( std::vector<uint8_t> &b ) {
+      inline char* toCharPtr( std::vector<uint8_t>& b ) {
          return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
       }
       inline char const* toCharPtr( std::vector<uint8_t> const& b ) {

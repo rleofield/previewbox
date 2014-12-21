@@ -48,24 +48,26 @@ void ImageCompany::showCurrentImage() {
    size_t pixels = pl.pixels();
    size_t bytes = pl.bytes();
    qrgb_buffer.resize( bytes );
+
    if( pl.is_rgb() ) {
       rgba_to_qimage();
    } else {
       mono_to_qimage();
    }
+
    tSize s = pl.size();
    size_t sx = pl.aligned_sx();
    size_t sy = pl.sy();
-   size_t xaligned = rlf::align32(sx);
+   size_t xaligned = rlf::align32( sx );
    QImage img( ( uchar const* )&qrgb_buffer[0], xaligned, sy,  QImage::Format_ARGB32_Premultiplied );
    _image_shown = img;
    emit display( _image_shown, mMsg );
-   QString qs = QString::fromStdString(mMsg);
-   emit changeLabelText(qs);
+   QString qs = QString::fromStdString( mMsg );
+   emit changeLabelText( qs );
 }
 
 void ImageCompany::rgba_to_qimage() {
-//currentToQImage();
+   //currentToQImage();
    tImgPlanar const& pl = readImg();
 
    size_t sx = pl.aligned_sx();
@@ -92,7 +94,8 @@ void ImageCompany::rgba_to_qimage() {
       QRgb* p1 = p;
       size_t count = 0;
       QRgb v;
-      while( vr_begin < vr_end ){
+
+      while( vr_begin < vr_end ) {
          // 0xAARRGGBB
          v = qRgb( *vr_begin, *vg_begin, *vb_begin );
          ++vr_begin;
@@ -104,13 +107,13 @@ void ImageCompany::rgba_to_qimage() {
       }
 
       // padding
-      while( count < sx ){
-         QRgb v1 = qRgb( v,v,v  );
+      while( count < sx ) {
+         QRgb v1 = qRgb( v, v, v );
          *p1 =  v1;
          p1++;
          count++;
          mMsg = "padding";
-   }
+      }
 
       ++r_begin;
       ++g_begin;
@@ -136,23 +139,26 @@ void ImageCompany::mono_to_qimage() {
    tPlane8 const& plane = pl[tMask::pos_mono];
    tPlane8::const_iterator p_begin = plane.begin();
    tPlane8::const_iterator p_end = plane.end();
+
    while( p_begin != p_end ) {
-      vLine8 const&l =  *p_begin++;
+      vLine8 const& l =  *p_begin++;
       vLine8::const_iterator begin = l.begin();
       vLine8::const_iterator end = l.end();
       QRgb* p1 = p;
       size_t count = 0;
       QRgb v;
-      while( begin != end ){
+
+      while( begin != end ) {
          v = qRgb( *begin, *begin, *begin );
          begin++;
          *p1 =  v;
          p1++;
          count++;
       }
+
       // padding
-      while( count < sx ){
-         QRgb v1 = qRgb( v,v,v  );
+      while( count < sx ) {
+         QRgb v1 = qRgb( v, v, v );
          *p1 =  v1;
          p1++;
          count++;

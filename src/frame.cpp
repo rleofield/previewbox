@@ -12,7 +12,7 @@ Frame::Frame( QWidget* parent_ ) :
    setMouseTracking( true );
 }
 
-void Frame::setImage(QImage image , const string& msg) {
+void Frame::setImage( QImage image , const string& msg ) {
    mImage = image;
    mMsg = msg;
    update();
@@ -20,15 +20,15 @@ void Frame::setImage(QImage image , const string& msg) {
 
 void Frame::drawImage( QPainter* painter ) {
 
-      if( !mImage.isNull() ) {
-         QSize us = rect().size();
-         QImage image = mImage.scaled( us, Qt::KeepAspectRatio, Qt::SmoothTransformation );
+   if( !mImage.isNull() ) {
+      QSize us = rect().size();
+      QImage image = mImage.scaled( us, Qt::KeepAspectRatio, Qt::SmoothTransformation );
 
-         QSize diff = us - image.size();
-         painter->drawImage( diff.width() / 2, diff.height() / 2, image );
+      QSize diff = us - image.size();
+      painter->drawImage( diff.width() / 2, diff.height() / 2, image );
 
 
-      }
+   }
 
 }
 

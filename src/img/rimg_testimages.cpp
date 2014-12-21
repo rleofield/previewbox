@@ -60,7 +60,7 @@ namespace rlf {
             ++mbegin;
          }
       }
-			void rimginterface::rampx(tImgPlanar& img, uint32_t start, uint32_t end_) {
+      void rimginterface::rampx( tImgPlanar& img, uint32_t start, uint32_t end_ ) {
          auto mbegin = img.begin();
 
          while( mbegin < img.end() ) {
@@ -87,7 +87,7 @@ namespace rlf {
             ++mbegin;
          }
       }
-			void rimginterface::rampy(tImgPlanar& img, uint32_t start, uint32_t end_) {
+      void rimginterface::rampy( tImgPlanar& img, uint32_t start, uint32_t end_ ) {
          auto mbegin = img.begin();
 
          while( mbegin < img.end() ) {
@@ -109,7 +109,7 @@ namespace rlf {
          }
       }
 
-			void rimginterface::rampxy(tImgPlanar& img, uint32_t start, uint32_t end_) {
+      void rimginterface::rampxy( tImgPlanar& img, uint32_t start, uint32_t end_ ) {
          auto mbegin = img.begin();
 
          while( mbegin < img.end() ) {
