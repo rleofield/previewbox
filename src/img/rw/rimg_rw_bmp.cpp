@@ -194,25 +194,37 @@ namespace rlf {
       const size_t offsetpixeldata24     =   header_size;
 
 
-      FILEHEADER& referenceToFILEHEADER( vector<uint8_t> const& v ) {
-         return ( FILEHEADER& )( v[fileheader_offset] );
+      FILEHEADER* referenceToFILEHEADER( vector<uint8_t> const& v ) {
+         uint8_t const* cr = &v[fileheader_offset] ;
+         uint8_t * r = const_cast<uint8_t *>(cr) ;
+         return reinterpret_cast< FILEHEADER* >( r );
       }
-      INFO& referenceToINFO( vector<uint8_t> const& v ) {
-         return ( INFO& )( v[infoheader_offset] );
+      INFO* referenceToINFO( vector<uint8_t> const& v ) {
+         uint8_t const* cr = &v[infoheader_offset] ;
+         uint8_t * r = const_cast<uint8_t *>(cr) ;
+         return reinterpret_cast< INFO* >( r );
       }
       tBGRA* referenceToLUT( vector<uint8_t> const& v ) {
-         return ( tBGRA* )( &v[lut_offset8] );
+         uint8_t const* cr = &v[lut_offset8] ;
+         uint8_t * r = const_cast<uint8_t *>(cr) ;
+         return reinterpret_cast< tBGRA* >( r );
       }
 
 
-      FILEHEADER& referenceToFILEHEADER( string const& v ) {
-         return ( FILEHEADER& )( v[fileheader_offset] );
+      FILEHEADER* referenceToFILEHEADER( string const& v ) {
+         char const* cr = &v[fileheader_offset] ;
+         char * r = const_cast<char *>(cr) ;
+         return reinterpret_cast< FILEHEADER* >( r );
       }
-      INFO& referenceToINFO( string const& v ) {
-         return ( INFO& )( v[infoheader_offset] );
+      INFO* referenceToINFO( string const& v ) {
+         char const* cr = &v[infoheader_offset] ;
+         char * r = const_cast<char *>(cr) ;
+         return reinterpret_cast< INFO* >( r );
       }
       tBGRA* referenceToLUT( string const& v ) {
-         return ( tBGRA* )( &v[lut_offset8] );
+         char const* cr = &v[lut_offset8] ;
+         char * r = const_cast<char *>(cr) ;
+         return reinterpret_cast< tBGRA* >( r );
       }
 
 
@@ -272,12 +284,12 @@ namespace rlf {
       //char s0 = *((char*)bitmapfileheader);
       //char s1 = *((char*)(bitmapfileheader)+1);
 
-      uint32_t info_width( INFO const&   info ) {
-         return info.width < 0 ? -info.width : info.width;
+      uint32_t info_width( INFO const*  info ) {
+         return info->width < 0 ? -info->width : info->width;
       }
 
-      uint32_t info_height( INFO const&   info ) {
-         return info.height < 0 ? -info.height : info.height;
+      uint32_t info_height( INFO const*   info ) {
+         return info->height < 0 ? -info->height : info->height;
       }
    } // end of ns bmp_intern
 
@@ -394,28 +406,28 @@ namespace rlf {
          reader( fn, buf );
 
 
-         FILEHEADER const& fileheader = referenceToFILEHEADER( buf );
-         uint16_t sig = fileheader.signature;
+         FILEHEADER const* fileheader = referenceToFILEHEADER( buf );
+         uint16_t sig = fileheader->signature;
 
 
          if( sig != BMP_signature ) {
             return ;
          }
 
-         if( buf.size() == fileheader.size ) {
+         if( buf.size() == fileheader->size ) {
             try {
-               INFO const& bitmapinfoheader = referenceToINFO( buf );
+               INFO const* bitmapinfoheader = referenceToINFO( buf );
                uint32_t w = info_width( bitmapinfoheader );
                uint32_t h = info_height( bitmapinfoheader );
                // copy data to tImgLinear
                rimg.size() = tSize( w, h );
 
                uint8_t const* pbuf = &buf[0];
-               uint8_t const* dataptr = pbuf + fileheader.offset_bits;
+               uint8_t const* dataptr = pbuf + fileheader->offset_bits;
 
 
                // 8 bit
-               if( bitmapinfoheader.bit_count == 8 ) {
+               if( bitmapinfoheader->bit_count == 8 ) {
                   // LUT is not supported, convert to rgb, if lut is not an gray ramp lut
                   tBGRA const* lut = referenceToLUT( buf );
 
@@ -440,13 +452,13 @@ namespace rlf {
                }
 
                // 24 bit
-               if( bitmapinfoheader.bit_count == 24 ) {
+               if( bitmapinfoheader->bit_count == 24 ) {
                   rimg.set_rgb();
                   rimg.alloc_data_buffer();
                   read_rgb( dataptr, rimg.size(), rimg.rows() );
                }
 
-               if( bitmapinfoheader.bit_count == 32 ) {
+               if( bitmapinfoheader->bit_count == 32 ) {
                   // read an rgba image, write an rgb image, alpha is lost
                   rimg.set_rgba();
                   rimg.alloc_data_buffer();
@@ -465,14 +477,14 @@ namespace rlf {
    namespace bmp_write_local {
       void write_mono8( vector<uint8_t>& buf, tSize size, vector<uint8_t*> const& rows )  {
 
-         FILEHEADER& bitmapfileheader = referenceToFILEHEADER( buf );
+         FILEHEADER& bitmapfileheader = *referenceToFILEHEADER( buf );
          bitmapfileheader.signature = BMP_signature;
          bitmapfileheader.size =   static_cast<uint32_t>( buf.size() );
          bitmapfileheader.reserved1 = 0;
          bitmapfileheader.reserved2 = 0;
          bitmapfileheader.offset_bits = offsetpixeldata8;
 
-         INFO& bitmapinfoheader = referenceToINFO( buf );
+         INFO& bitmapinfoheader = *referenceToINFO( buf );
          bitmapinfoheader.size = infoheader_size;
          bitmapinfoheader.width = size.x();
          bitmapinfoheader.height = size.y();
@@ -496,8 +508,8 @@ namespace rlf {
          }
 
          uint8_t* dataptr = &buf[0] + bitmapfileheader.offset_bits;
-         uint32_t h = info_height( bitmapinfoheader );
-         uint32_t w = info_width( bitmapinfoheader );
+         uint32_t h = info_height( &bitmapinfoheader );
+         uint32_t w = info_width( &bitmapinfoheader );
          size_t aligned_w = bmp_intern::align32( w );
 
          for( size_t y = 0; y < h; y++ ) {
@@ -522,7 +534,7 @@ namespace rlf {
          int32_t w = size.w();
          int32_t h = size.h();
 
-         FILEHEADER& bitmapfileheader = referenceToFILEHEADER( buf );
+         FILEHEADER& bitmapfileheader = *referenceToFILEHEADER( buf );
          bitmapfileheader.signature   = BMP_signature;
          bitmapfileheader.size        = filesize;
          bitmapfileheader.reserved1   = 0;
@@ -530,7 +542,7 @@ namespace rlf {
          bitmapfileheader.offset_bits = header_size;
 
 
-         INFO& bitmapinfoheader =  referenceToINFO( buf );
+         INFO& bitmapinfoheader =  *referenceToINFO( buf );
          bitmapinfoheader.size   = infoheader_size;
          bitmapinfoheader.width  = w;
          bitmapinfoheader.height = h;
@@ -570,7 +582,7 @@ namespace rlf {
          int32_t w = size.w();
          int32_t h = size.h();
 
-         FILEHEADER& bitmapfileheader = referenceToFILEHEADER( buf );
+         FILEHEADER& bitmapfileheader = *referenceToFILEHEADER( buf );
          bitmapfileheader.signature   = BMP_signature;
          bitmapfileheader.size        = filesize;
          bitmapfileheader.reserved1   = 0;
@@ -578,7 +590,7 @@ namespace rlf {
          bitmapfileheader.offset_bits = header_size;
 
 
-         INFO& bitmapinfoheader =  referenceToINFO( buf );
+         INFO& bitmapinfoheader =  *referenceToINFO( buf );
          bitmapinfoheader.size   = infoheader_size;
          bitmapinfoheader.width  = w;
          bitmapinfoheader.height = h;

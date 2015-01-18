@@ -49,7 +49,7 @@ namespace rlf {
          uint8_t* p = new uint8_t [ s ];
 
          // goto new handler, if fails
-         if( p == 0 ) { // only GlobalAlloc can be NULL, or (nothrow)
+         if( p == nullptr ) { // only GlobalAlloc can be NULL, or (nothrow)
             string msg = "GlobalAlloc(GMEM_FIXED, s) fails, size: " + boost::lexical_cast<string>( s ) ;
             throw tImgAllocEx( msg );
          }
@@ -61,7 +61,7 @@ namespace rlf {
 
       void free_raw_data( uint8_t* p ) {
          //GlobalFree((HGLOBAL)getROImgData());
-         if( p != 0 ) {
+         if( p != nullptr ) {
             delete [] p;
             p = nullptr;
          }

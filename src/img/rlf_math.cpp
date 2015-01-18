@@ -111,11 +111,11 @@ namespace rlf {
          double isize = size;
 
          while( isize-- ) {
-            double diff = ( double )( *buf++ )  - mean;
+            double diff = ( *buf++ )  - mean;
             var += diff * diff;
          }
 
-         return( sqrt( ( var / ( ( double )( size - 1 ) ) ) ) );
+         return( sqrt( ( var / ( static_cast<double>(( size - 1 )) ) ) ) );
       }
 
       struct stddev_adder: public unary_function<double, void> {
@@ -136,7 +136,7 @@ namespace rlf {
          }
 
          double  varianz = for_each( v.begin(), v.end(), stddev_adder( mean ) ).result();
-         return sqrt( varianz / ( ( double )( v.size() - 1 ) ) ) ;
+         return sqrt( varianz / (  static_cast<double>(( v.size() - 1 )) ) ) ;
       }
 
 
@@ -157,7 +157,7 @@ namespace rlf {
             count++;
          }
 
-         return( ( double )sum / ( double )size );
+         return(  static_cast<double>(sum) /  static_cast<double>(size) );
       }
       namespace {
          template<class T> class TSum {
@@ -182,7 +182,7 @@ namespace rlf {
             }
          };
          template<class T> T Mean( vector<T> const& v ) {
-            return for_each( v.begin(), v.end(), TSum<T>() ).result() / ( T )v.size();
+            return for_each( v.begin(), v.end(), TSum<T>() ).result() /  static_cast<T>(v.size());
          }
       }
       double mean( vector<double> const& v ) {

@@ -122,7 +122,7 @@ namespace rlf {
          void operator=( filePtrReadBin const& );
       public:
          FILE* fp;
-         filePtrReadBin( string const& f ): fp( 0 ) {
+         filePtrReadBin( string const& f ): fp( nullptr ) {
             fp = fopen( f.c_str(), "rb" );
 
          }
@@ -138,7 +138,7 @@ namespace rlf {
          void operator= ( filePtrWriteBin const& );
       public:
          FILE* fp;
-         filePtrWriteBin( string const& f ): fp( 0 ) {
+         filePtrWriteBin( string const& f ): fp( nullptr ) {
             fp = fopen( f.c_str(), "wb" );
 
          }
@@ -181,9 +181,9 @@ namespace rlf {
 
          png_structp png_ptr = ::png_create_write_struct(
                                   PNG_LIBPNG_VER_STRING,
-                                  ( png_voidp )0,
-                                  ( png_error_ptr )0,
-                                  ( png_error_ptr )0 );
+                                  ( png_voidp )nullptr,
+                                  ( png_error_ptr )nullptr,
+                                  ( png_error_ptr )nullptr );
 
          if( !png_ptr ) {
             throw tImgWriteEx( "Couldn't create PNG write struct: '" + file_name + "'" );
@@ -221,7 +221,7 @@ namespace rlf {
             ::png_write_row( png_ptr, p );
          }
 
-         ::png_write_end( png_ptr, NULL );
+         ::png_write_end( png_ptr, nullptr );
 
 
       }
@@ -246,9 +246,9 @@ namespace rlf {
          int filter_method;
 
          tPNGReader( FILE* f ):
-            png_ptr( 0 ),
-            info_ptr( 0 ),
-            end_info( 0 ),
+            png_ptr( nullptr ),
+            info_ptr( nullptr ),
+            end_info( nullptr ),
             fp( f ),
             width( 0 ),
             height( 0 ),
@@ -261,21 +261,21 @@ namespace rlf {
          {
          }
          bool init() {
-            png_ptr  = ::png_create_read_struct( PNG_LIBPNG_VER_STRING, NULL, NULL, NULL );
+            png_ptr  = ::png_create_read_struct( PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr );
 
-            if( png_ptr == 0 ) {
+            if( png_ptr == nullptr ) {
                return false;
             }
 
             info_ptr = png_create_info_struct( png_ptr );
 
-            if( info_ptr == 0 ) {
+            if( info_ptr == nullptr ) {
                return false;
             }
 
             end_info  = png_create_info_struct( png_ptr );
 
-            if( end_info == 0 ) {
+            if( end_info == nullptr ) {
                return false;
             }
 
@@ -283,22 +283,22 @@ namespace rlf {
          }
 
          ~tPNGReader() {
-            if( png_ptr != 0 && info_ptr != 0 && end_info != 0 ) {
+            if( png_ptr != nullptr && info_ptr != nullptr && end_info != nullptr ) {
                png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
-               png_ptr = 0;
-               info_ptr = 0;
-               end_info = 0;
+               png_ptr = nullptr;
+               info_ptr = nullptr;
+               end_info = nullptr;
             }
 
-            if( png_ptr != 0 && info_ptr != 0 ) {
-               png_destroy_read_struct( &png_ptr, &info_ptr, NULL );
-               png_ptr = 0;
-               info_ptr = 0;
-               end_info = 0;
+            if( png_ptr != nullptr && info_ptr != nullptr ) {
+               png_destroy_read_struct( &png_ptr, &info_ptr, nullptr );
+               png_ptr = nullptr;
+               info_ptr = nullptr;
+               end_info = nullptr;
             }
 
-            if( png_ptr != 0 ) {
-               png_destroy_read_struct( &png_ptr, NULL, NULL );
+            if( png_ptr != nullptr ) {
+               png_destroy_read_struct( &png_ptr, nullptr, nullptr );
             }
          }
 

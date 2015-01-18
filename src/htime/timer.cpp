@@ -75,7 +75,7 @@ namespace rlf_htime {
 
       auto tp = std::chrono::system_clock::now();
       auto ms = std::chrono::duration_cast<std::chrono::milliseconds>( tp.time_since_epoch() );
-      size_t modulo = ms.count() % 1000;
+      //size_t modulo = ms.count() % 1000;
 
       time_t seconds = std::chrono::duration_cast<std::chrono::seconds>( ms ).count();
 #if HAS_STD_PUT_TIME
@@ -86,7 +86,8 @@ namespace rlf_htime {
 
       // localtime() is not threadsafe
       std::lock_guard<std::mutex> lock( local_mutex );
-      struct tm* today = localtime( &seconds );
+      //struct tm* today = localtime( &seconds );
+      localtime( &seconds );
 
       if( strftime( buffer, 80, format.c_str(), localtime( &seconds ) ) ) {
          now << buffer;
@@ -117,16 +118,16 @@ namespace rlf_htime {
 
    double tTimer::nanos()const {
       int64_t v = impl->elapsed();
-      return ( double )v;
+      return static_cast<double>(v);
    }
    double tTimer::microns()const {
       double v = nanos();
-      return ( double )v / 1000.0;
+      return static_cast<double>(v) / 1000.0;
    }
 
    double tTimer::millies()const {
       double m = microns();
-      return ( double )m / 1000.0;
+      return static_cast<double>(m) / 1000.0;
    }
 
 

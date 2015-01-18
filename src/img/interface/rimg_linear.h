@@ -230,7 +230,7 @@ namespace rlf {
             _description = d;
          }
          void fill( uint8_t val = 0 ) {
-            if( _data != 0 ) {
+            if( _data != nullptr ) {
                memset( _data, val , bytes() );
             }
          }
@@ -295,7 +295,7 @@ namespace rlf {
          void    set_data( uint8_t* p ) {
             _data = p;
 
-            if( _data != 0 ) {
+            if( _data != nullptr ) {
                set_row_pointer();
             } else {
                _row_pointer.clear();

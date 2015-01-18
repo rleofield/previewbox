@@ -416,8 +416,8 @@ namespace rlf_minit {
       float epsilon = loc_FLT_EPSILON;
       float xdiff = std::fabs( _x - t._x );
       float ydiff = std::fabs( _y - t._y );
-      float xabs = std::max<float>( fabs( _x ), fabs( t._x ) );
-      float yabs = std::max<float>( fabs( _y ), fabs( t._y ) );
+      float xabs = std::max<float>( static_cast<float>(fabs( _x )), static_cast<float>(fabs( t._x )) );
+      float yabs = std::max<float>( static_cast<float>(fabs( _y )), static_cast<float>(fabs( t._y )) );
       float max_ = std::max<float>( xabs, yabs );
 
       if( max_ == 0.0f ) {
@@ -467,7 +467,7 @@ namespace rlf_minit {
 
    inline float ratio( uint32_xy const& p ) {
       assert( p.h() > 0 );
-      return p.w() / ( float )p.h();
+      return static_cast<float>(p.w()) / static_cast<float>(p.h());
    }
    inline float ratio( float_xy const& p ) {
       assert( fabs( p.h() ) > loc_FLT_EPSILON );
@@ -479,8 +479,8 @@ namespace rlf_minit {
    }
 
    inline float_xy operator/( uint32_xy cv, uint32_xy img ) {
-      float_xy temp( ( float )cv.x(), ( float )cv.y() );
-      temp /= float_xy( ( float )img.x(), ( float )img.y() );
+      float_xy temp( static_cast<float>(cv.x()), static_cast<float>(cv.y()) );
+      temp /= float_xy( static_cast<float>(img.x()), static_cast<float>(img.y()) );
       return temp;
    }
 

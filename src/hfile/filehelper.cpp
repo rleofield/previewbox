@@ -186,13 +186,13 @@ namespace rlf_hfile_intern {
 
 
 
-   string fill( int val, char fill , size_t w ) {
+   string fill( int val, char fill , int w ) {
       std::ostringstream o;
       o << std::setfill( fill ) << std::right << std::setw( w )  << val;
       return o.str();
    }
 
-   void fill( std::ostream& o, size_t w, int val ) {
+   void fill( std::ostream& o, int w, int val ) {
       char fill = '0';
       o << std::setfill( fill ) << std::setw( w )  << val;
    }

@@ -74,7 +74,7 @@ namespace rlf {
             _is_allocated = false;
          }
 
-         set_data( 0 );
+         set_data( nullptr );
       }
 
 
