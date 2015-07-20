@@ -64,19 +64,19 @@ namespace rlf {
          */
       inline string toString( double val, size_t w = 6, size_t prec = 3 ) {
          ostringstream o;
-         o << setw( w ) << fixed << setprecision( prec ) << right << setfill( ' ' ) << val ;
+         o << setw( static_cast<int>(w) ) << fixed << setprecision( static_cast<int>(prec) ) << right << setfill( ' ' ) << val ;
          return  o.str();
       }
       inline string toString( int val, size_t w = 6 ) {
          string v = boost::lexical_cast<string>( val );
          ostringstream o;
-         o << setw( w ) << right << setfill( ' ' ) << val ;
+         o << setw( static_cast<int>(w) ) << right << setfill( ' ' ) << val ;
          return  o.str();
       }
       inline string toString( uint32_t val, size_t w = 6 ) {
          string v = boost::lexical_cast<string>( val );
          ostringstream o;
-         o << setw( w ) << right << setfill( ' ' ) << val ;
+         o << setw( static_cast<int>(w) ) << right << setfill( ' ' ) << val ;
          return  o.str();
       }
 

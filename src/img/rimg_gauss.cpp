@@ -127,7 +127,7 @@ namespace rlf {
             uint32_t xcount = sx;
 
             while( xcount-- ) {
-               *ptr_target++ = ( uint16_t )( *( ptr_source - 1 )            // 1
+               *ptr_target++ = static_cast<uint16_t>( *( ptr_source - 1 )            // 1
                                              + ( ( *ptr_source ) << 1 )       // 2
                                              +    * ( ptr_source + 1 ) );       // 1
                ptr_source++;
@@ -165,11 +165,11 @@ namespace rlf {
             auto xcount = sx;
 
             while( xcount-- ) {
-               *ptr_target = ( uint16_t )(
+               *ptr_target = static_cast<uint16_t>( (
                                 *( ptr_source - nsx )  // 1
                                 + ( ( *ptr_source ) << 1 ) // 2
                                 +   * ( ptr_source + nsx ) // 1
-                             );
+                             ));
                ptr_target++;
                ptr_source++;
             }
@@ -195,7 +195,7 @@ namespace rlf {
             auto xbegin = ybegin->begin();
 
             for( ix = 0; ix < sx; ix++ ) {
-               *xbegin = ( uint8_t )( ( *bword ) >> shift );
+               *xbegin = static_cast<uint8_t>(( ( *bword ) >> shift ));
                bword++;
                ++xbegin;
             }
@@ -282,9 +282,9 @@ namespace rlf {
             int xcount = sx;
 
             while( xcount-- ) {
-               *ptr_target++ = ( uint16_t )( *( ptr_source - 1 )            // 1
+               *ptr_target++ = static_cast<uint16_t>(( *( ptr_source - 1 )            // 1
                                              + ( ( *ptr_source ) << 1 )       // 2
-                                             +    * ( ptr_source + 1 ) );       // 1
+                                             +    * ( ptr_source + 1 ) ));       // 1
                ptr_source++;
             }
 
@@ -320,11 +320,11 @@ namespace rlf {
             int xcount = sx;
 
             while( xcount-- ) {
-               *ptr_target = ( uint16_t )(
+               *ptr_target = static_cast<uint16_t>((
                                 *( ptr_source - nsx )  // 1
                                 + ( ( *ptr_source ) << 1 ) // 2
                                 +   * ( ptr_source + nsx ) // 1
-                             );
+                             ) );
                ptr_target++;
                ptr_source++;
             }
@@ -346,7 +346,7 @@ namespace rlf {
 
          for( iy = 0; iy < sy; iy++ ) {
             for( ix = 0; ix < sx; ix++ ) {
-               img[0][ iy ][ix] = ( uint8_t )( ( *bword ) >> shift );
+               img[0][ iy ][ix] = static_cast<uint8_t>(( ( *bword ) >> shift ));
                bword++;
             }
 
@@ -420,7 +420,7 @@ namespace rlf {
 
          for( iy = 0; iy < sy; iy++ ) {
             for( ix = 0; ix < sx; ix++ ) {
-               *bdword = ( uint32_t )img[0][ iy ][ix];
+               *bdword = static_cast<uint32_t>(img[0][ iy ][ix]);
                bdword++;
             }
 
@@ -479,9 +479,9 @@ namespace rlf {
 
                while( xcount-- ) {
 
-                  *ptr_target++ = ( uint32_t )( *( ptr_source - 1 )    // 1
+                  *ptr_target++ = static_cast<uint32_t>(( *( ptr_source - 1 )    // 1
                                                 + ( ( unsigned long ) * ptr_source << 1 ) // 2
-                                                +   * ( ptr_source + 1 ) ); // 1
+                                                +   * ( ptr_source + 1 ) )); // 1
                   ptr_source++;
                }
 
@@ -517,11 +517,11 @@ namespace rlf {
                int xcount = sx;
 
                while( xcount-- ) {
-                  *ptr_target = ( uint32_t )(
+                  *ptr_target = static_cast<uint32_t>((
                                    *( ptr_source - nsx )   // 1
                                    + ( ( unsigned long )( *ptr_source ) << 1 )  // 2
                                    +  * ( ptr_source + nsx )  // 1
-                                );
+                                ));
 
                   // shift intern to avoid overflow
                   if( shift_internal != 0 ) {
@@ -548,7 +548,7 @@ namespace rlf {
 
          for( iy = 0; iy < sy; iy++ ) {
             for( ix = 0; ix < sx; ix++ ) {
-               img[0][ iy ][ix] = ( uint8_t )( ( unsigned long )( ( *bdword ) >> shift ) );
+               img[0][ iy ][ix] = static_cast<uint8_t>(( ( unsigned long )( ( *bdword ) >> shift ) ));
                bdword++;
             }
 

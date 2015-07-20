@@ -281,11 +281,11 @@ namespace rlf {
 
          RGBAlphaBmpOrder ToRGBAlphaBmpOrder() {
             RGBAlphaBmpOrder p = 0;
-            uint8_t* bp = ( uint8_t* )&p;
-            *( ( ( uint8_t* )bp ) + RGBA_BLUE ) = z;
-            *( ( ( uint8_t* )bp ) + RGBA_GREEN ) = y;
-            *( ( ( uint8_t* )bp ) + RGBA_RED ) = x;
-            *( ( ( uint8_t* )bp ) + RGBA_ALPHA ) = a;
+            uint8_t* bp = reinterpret_cast<uint8_t*>(&p);
+            *( bp + RGBA_BLUE ) = z;
+            *( bp + RGBA_GREEN ) = y;
+            *( bp + RGBA_RED ) = x;
+            *( bp + RGBA_ALPHA ) = a;
             return p;
          }
 
@@ -302,35 +302,35 @@ namespace rlf {
             return a;
          }
          cRGBAlpha& R( size_t i ) {
-            x  = ( uint8_t )i;
+            x  = static_cast<uint8_t>(i);
             return *this;
          }
          cRGBAlpha& G( size_t i ) {
-            y  = ( uint8_t )i;
+            y  = static_cast<uint8_t>(i);
             return *this;
          }
          cRGBAlpha& B( size_t i ) {
-            z  = ( uint8_t )i;
+            z  = static_cast<uint8_t>(i);
             return *this;
          }
          cRGBAlpha& Alpha( size_t i ) {
-            a  = ( uint8_t )i;
+            a  = static_cast<uint8_t>(i);
             return *this;
          }
          cRGBAlpha& AddX( size_t i ) {
-            x = ( uint8_t )( x + i );
+            x = static_cast<uint8_t>( x + i );
             return *this;
          }
          cRGBAlpha& AddY( size_t i ) {
-            y = ( uint8_t )( y + i );
+            y = static_cast<uint8_t>( y + i );
             return *this;
          }
          cRGBAlpha& AddZ( size_t i ) {
-            z = ( uint8_t )( z + i );
+            z = static_cast<uint8_t>( z + i );
             return *this;
          }
          cRGBAlpha& AddAlpha( size_t i ) {
-            a = ( uint8_t )( a + i );
+            a = static_cast<uint8_t>( a + i );
             return *this;
          }
       };

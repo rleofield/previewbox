@@ -34,9 +34,6 @@ using namespace std;
 
 #include "rimg_linear.h"
 #include "rimg_alloc_raw_data.h"
-#ifdef _WIN32
-#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
-#endif
 
 
 namespace rlf {

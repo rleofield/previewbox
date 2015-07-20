@@ -63,7 +63,7 @@ namespace rlf {
             return ;
          }
 
-         img[xy.y()][xy.x()] = c;
+         img[xy.y()][xy.x()] = static_cast<uint8_t>(c);
 
       }
 
@@ -104,7 +104,7 @@ namespace rlf {
                   int is = 1 << i8;
 
                   if( b & is ) {
-                     img[y][x] = c;
+                     img[y][x] = static_cast<uint8_t>(c);
                   }
 
                   x++;
@@ -166,10 +166,10 @@ namespace rlf {
 
             int startx, endx, x1, starty, endy, y1;
 
-            starty = ( int )( y    * asp_ratio );
-            endy   = ( int )( ( y + 1 ) * asp_ratio );
-            startx = ( int )( x    * asp_ratio );
-            endx   = ( int )( ( x + 1 ) * asp_ratio );
+            starty = static_cast<int>( y    * asp_ratio );
+            endy   = static_cast<int>( ( y + 1 ) * asp_ratio );
+            startx = static_cast<int>( x    * asp_ratio );
+            endx   = static_cast<int>( ( x + 1 ) * asp_ratio );
 
             for( x1 = startx; x1 <= endx; ++x1 ) {
                if( filled ) {
@@ -487,13 +487,13 @@ namespace rlf {
          img[0][yp][xp] = c ;
          xp = x + 1;
 
-         if( xp >= ( int )img.sx() ) {
+         if( xp >= static_cast<int>(img.sx()) ) {
             xp--;
          }
 
          yp = y + 1;
 
-         if( yp >= ( int )img.sy() ) {
+         if( yp >= static_cast<int>(img.sy()) ) {
             yp--;
          }
 
@@ -517,7 +517,7 @@ namespace rlf {
 
          xp = x + 1;
 
-         if( xp >= ( int )img.sx() ) {
+         if( xp >= static_cast<int>(img.sx()) ) {
             xp--;
          }
 
@@ -1017,9 +1017,4 @@ namespace rlf {
 } // end of namespace rlf
 
 //EOF
-
-
-
-
-
 

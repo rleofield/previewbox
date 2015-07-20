@@ -171,9 +171,9 @@ namespace rlf {
       int y = p.y();
 
       if( x >=  px()          &&
-            x < ( int )( ( px() + sx() ) )  &&
+            x < static_cast<int>( ( px() + sx() ) )  &&
             y >=  py()          &&
-            y < ( int )( ( py() + sy() ) ) ) {
+            y < static_cast<int>( ( py() + sy() ) ) ) {
          ret = true;
       }
 

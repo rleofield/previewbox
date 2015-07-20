@@ -101,7 +101,7 @@ namespace rlf {
 
          if( area >= min  &&  area <=  max ) {
             if( bo.ConnectedWithImageBorder( bin.size() ) == false
-                  || ( area > ( uint32_t )max_size_to_remove ) ) {
+                  || ( area > static_cast<uint32_t>( max_size_to_remove) ) ) {
                count++;
                WriteToImage( bo.streaks(), bin, color );
             }

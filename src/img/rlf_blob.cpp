@@ -48,10 +48,10 @@ namespace rlf {
          double drem = d - dfloor;
 
          if( drem > 0.5 ) {
-            return ( int )ceil( d );
+            return static_cast<int>(ceil( d ));
          }
 
-         return ( int )dfloor;
+         return static_cast<int>(dfloor);
       }
 
    }
@@ -406,8 +406,8 @@ namespace rlf {
 
       };
       centroid const& s = for_each( bo.streaks().begin(), bo.streaks().end(), centroid() );
-      double x = ( double )s.xsum / ( double )s.icount;
-      double y = ( double )s.ysum / ( double )s.icount;
+      double x = static_cast<double>(s.xsum) / static_cast<double>(s.icount);
+      double y = static_cast<double>(s.ysum) / static_cast<double>(s.icount);
       bo._centerOfMass = double_xy( x, y );
       return bo._centerOfMass;
 

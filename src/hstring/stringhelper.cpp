@@ -34,19 +34,8 @@ using namespace std;
 namespace rlf_hstring {
 
    namespace nsloc {
-
-#ifdef _WIN32
-      char const* const de = "German";
-#else
       const char* const de = "de_DE.utf8";
-#endif
-
-#ifdef _WIN32
-      char const* const ch = "German_Switzerland";
-#else
       const char* const ch = "de_CH.utf8";
-#endif
-
    }
    string getDE() {
       return nsloc::de;

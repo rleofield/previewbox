@@ -51,7 +51,7 @@ namespace rlf_minit {
       xy_t<T> end;
 
       xy_t<T> center()const {
-         return ( begin + end ) / ( T )2.0;
+         return ( begin + end ) / static_cast<T>(2.0);
       }
       double length()const {
          xy_t<T> d = end - begin;

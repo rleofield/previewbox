@@ -44,12 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "str_util.h"
 
-#ifdef _WIN32
-#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
-#endif
 using namespace std;
-
-
 
 
 namespace rlf {
@@ -202,7 +197,7 @@ namespace rlf {
       // kernel is already odd                                        // pos in extimg
       inline void getkernel_( tPlane8 const& im, vector<size_t>& arr, uint32_xy xy, int kernel ) {
          //int s = arr.size();
-         assert( arr.size() == ( uint32_t )( kernel * kernel ) );
+         assert( arr.size() == static_cast<uint32_t>( kernel * kernel ) );
 
          int x = xy.x();
          int y = xy.y();
@@ -576,8 +571,8 @@ namespace rlf {
 
 
                math::shell_sort( arr, area );
-               min_img[iy][ix] = ( uint8_t )arr[ 0 ];
-               max_img[iy][ix] = ( uint8_t )arr[ arr.size() - 1 ];
+               min_img[iy][ix] = static_cast<uint8_t>(arr[ 0 ]);
+               max_img[iy][ix] = static_cast<uint8_t>(arr[ arr.size() - 1 ]);
 
                ix++;
                ++xbegin;
@@ -625,9 +620,5 @@ namespace rlf {
 } // end of namespace rlf
 
 //EOF
-
-
-
-
 
 

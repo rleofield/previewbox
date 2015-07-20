@@ -44,7 +44,7 @@ using namespace std;
 
 
 #define srand48(s) srand(s)
-#define drand48() (((double)rand())/((double)RAND_MAX))
+#define drand48() (static_cast<double>(rand())/static_cast<double>(RAND_MAX))
 #define lrand48() rand()
 
 using rlf_minit::double_xy;
@@ -68,21 +68,21 @@ namespace rlf {
 
       void linear_zoom( vLine8 const& s, vLine8&  t ) {
 
-         double ds = 1.0 / s.size();
-         double dt = 1.0 / t.size();
+         double ds = 1.0 / static_cast<double>(s.size());
+         double dt = 1.0 / static_cast<double>(t.size());
 
          for( size_t i = 0; i < t.size(); i++ ) {
-            double x = i * dt;
-            int x1   = ( int )( x / ds );
+            double x = static_cast<double>(i) * dt;
+            int x1   = static_cast<int>( x / ds );
             int x2   = x1 + 1;
 
-            if( x2 == ( int )s.size() ) {
+            if( x2 == static_cast<int>(s.size()) ) {
                t[i] = s[x1];
             } else {
                //double_xy xy0( x1 * ds, s[x1] );
                //double_xy xy1( x2 * ds, s[x2] );
 
-               t[i] = ( uint8_t )interpolate( x, double_xy( x1 * ds, s[x1] ) /* xy0 */, double_xy( x2 * ds, s[x2] ) /* xy1 */ );
+               t[i] = static_cast<uint8_t>(interpolate( x, double_xy( x1 * ds, s[x1] ) /* xy0 */, double_xy( x2 * ds, s[x2] ) /* xy1 */ ));
             }
          }
       }
@@ -137,20 +137,22 @@ namespace rlf {
       // c01 - c11   topleft - topright
       //  |     |       |         |
       // c00 - c10   lowerleft - lowerright
-
-      double bilinear( double_xy xy, size_t lowerleft, size_t lowerright, size_t topleft, size_t topright ) {
+      double dbilinear( double_xy xy, double lowerleft, double lowerright, double topleft, double topright ) {
          double tx = xy.x();
          double ty = xy.y();
-#if 1
+//#if 1
          double a = lowerleft * ( 1 - tx ) + lowerright * tx; // interpolate hor lower
          double b = topleft * ( 1 - tx ) + topright * tx;   // interpolate hor upper
          return a * ( 1 - ty ) + b * ty;                     // interpolate ver a - b
-#else
-         return ( 1 - tx ) * ( 1 - ty ) * c00
-                + tx * ( 1 - ty )       * c10
-                + ( 1 - tx ) * ty       * c01
-                + tx * ty             * c11;
-#endif
+      }
+
+      double bilinear( double_xy xy, size_t lowerleft, size_t lowerright, size_t topleft, size_t topright ) {
+         return dbilinear( xy,
+                           static_cast<double>(lowerleft),
+                           static_cast<double>(lowerright),
+                           static_cast<double>(topleft),
+                           static_cast<double>(topright) );
+
       }
       void testBilinearInterpolation() {
          // testing bilinear interpolation
@@ -163,7 +165,7 @@ namespace rlf {
          // fill grid with random colors
          for( int j = 0, k = 0; j <= gridSizeY; ++j ) {
             for( int i = 0; i <= gridSizeX; ++i, ++k ) {
-               source[j * ( gridSizeX + 1 ) + i] = ( size_t )drand48();
+               source[j * ( gridSizeX + 1 ) + i] = static_cast<size_t>(drand48());
             }
          }
 
@@ -173,9 +175,9 @@ namespace rlf {
          for( int j = 0; j < imageWidth; ++j ) {
             for( int i = 0; i < imageWidth; ++i ) {
                // convert i,j to grid coordinates
-               double gx = ( ( double )i ) / imageWidth * gridSizeX;
+               double gx = static_cast<double>(i) / imageWidth * gridSizeX;
                // be careful to interpolate boundaries
-               double gy = ( ( double )j ) / imageWidth * gridSizeY;
+               double gy = static_cast<double>(j) / imageWidth * gridSizeY;
                // be careful to interpolate boundaries
                int gxi = static_cast<int>( gx );
                int gyi = static_cast<int>( gy );
@@ -392,7 +394,7 @@ namespace rlf {
                      cy++;
                   }
 
-                  target[iy][ix] = ( uint8_t )( sum / sqrscale );
+                  target[iy][ix] = static_cast<uint8_t>( sum / sqrscale );
 
                   ix++;
                }
@@ -463,11 +465,11 @@ namespace rlf {
          }
 
          if( scale > 1 ) {
-            return ZoomIn( source, target, ( int )( scale + e ) );
+            return ZoomIn( source, target, static_cast<int>( scale + e ) );
          }
 
          if( scale < 1 ) {
-            return ZoomOut( source, target, ( int )( ( 1 / scale ) + e ) );
+            return ZoomOut( source, target, static_cast<int>( ( 1 / scale ) + e ) );
          }
 
 
@@ -479,10 +481,10 @@ namespace rlf {
          uint32_t current_sx = target.sx();
          uint32_t current_sy = target.sy();
 
-         double fx = ( ( double )sizex ) / current_sx;
-         double fy = ( ( double )sizey ) / current_sy;
-         int zfx = ( int )fx;
-         int zfy = ( int )fy;
+         double fx = ( static_cast<double>(sizex) ) / current_sx;
+         double fy = ( static_cast<double>(sizey) ) / current_sy;
+         int zfx = static_cast<int>(fx);
+         int zfy = static_cast<int>(fy);
 
          if( fx > 1 && fy > 1 ) {
             if( zfx < zfy ) {
@@ -498,17 +500,17 @@ namespace rlf {
          zfy = 1;
 
          if( fx <= 1 && fy > 1 ) {
-            zfx = ( int )( 1 / fx );
+            zfx = static_cast<int>( 1 / fx );
          }
 
          if( fy <= 1 && fx > 1 ) {
-            zfy = ( int )( 1 / fy );
+            zfy = static_cast<int>( 1 / fy );
          }
 
          if( fy <= 1 && fx <= 1 ) {
             //   print_str( fx );
-            zfx = ( int )( 1 / fx );
-            zfy = ( int )( 1 / fy );
+            zfx = static_cast<int>( 1 / fx );
+            zfy = static_cast<int>( 1 / fy );
             //   print_str( zfx );
          }
 
@@ -557,9 +559,5 @@ namespace rlf {
 } // end of namespace rlf
 
 //EOF
-
-
-
-
 
 

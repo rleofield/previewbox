@@ -421,7 +421,7 @@ namespace rlf {
 
                //if( valhor != 0 ) {
                if( valhor != 0 ) {
-                  d_orient = atan( ( double ) valver / ( double ) valhor );
+                  d_orient = atan( static_cast<double>( valver) / static_cast<double>( valhor ) );
                }
 
                //}

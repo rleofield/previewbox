@@ -169,7 +169,7 @@ namespace rlf_minit {
       }
 
       if( temp.x() >= border.x() ) {
-         temp.setx( ( T )border.x() - 1 );
+         temp.setx( static_cast<T>(border.x()) - 1 );
       }
 
       if( temp.y() <= pos.y() ) {

@@ -81,7 +81,7 @@ namespace rlf {
             while( xbegin != xend ) {
 
 
-               *target_xbegin = ( uint8_t )( ( ( uint32_t ) * target_xbegin + ( uint32_t ) * xbegin ) >> 1 );
+               *target_xbegin = static_cast<uint8_t>( ( static_cast<uint32_t>(*target_xbegin) + static_cast<uint32_t>(*xbegin) ) >> 1 );
 
                ++xbegin;
                ++target_xbegin;
@@ -580,7 +580,7 @@ namespace rlf {
                      n = 0xff;
                   }
 
-                  *xbegin = ( uint8_t )n;
+                  *xbegin = static_cast<uint8_t>(n);
 
                   ++xbegin;
                }
@@ -622,7 +622,7 @@ namespace rlf {
 
                while( xbegin != xend ) {
                   if( *bin_xbegin > 0 || *xbegin > thre ) {
-                     *bin_xbegin = ( uint8_t )c;
+                     *bin_xbegin = static_cast<uint8_t>(c);
                   } else {
                      *bin_xbegin = 0;
                   }
@@ -676,7 +676,7 @@ namespace rlf {
 
                while( xbegin != xend ) {
                   if( *bin_xbegin > 0 ) {
-                     *xbegin = ( uint8_t )color;
+                     *xbegin = static_cast<uint8_t>(color);
                   } else {
                      *xbegin = *bin_xbegin;
                   }
@@ -907,11 +907,11 @@ namespace rlf {
                uint8_t b = table[ index ];
 
                if( b ) {
-                  ret = ( uint8_t )color;
+                  ret = static_cast<uint8_t>(color);
                }
 
             } else { // pixel is
-               ret = ( uint8_t )color;
+               ret = static_cast<uint8_t>(color);
             }
 
             return ret;
@@ -958,7 +958,7 @@ namespace rlf {
                }
 
                if( table[ index ] ) {
-                  ret  = ( uint8_t )color;
+                  ret  = static_cast<uint8_t>(color);
                }
             }
 

@@ -68,14 +68,14 @@ namespace rlf {
 
             while( ybegin < mbegin->end() ) {
                auto xbegin = ybegin->begin();
-               uint8_t v = start;
+               uint8_t v = static_cast<uint8_t>(start);
 
                while( xbegin != ybegin->end() ) {
                   *xbegin = v;
                   ++xbegin;
 
                   if( v == end_ ) {
-                     v = start;
+                     v = static_cast<uint8_t>(start);
                   } else {
                      v++;
                   }
@@ -92,14 +92,14 @@ namespace rlf {
 
          while( mbegin < img.end() ) {
             auto ybegin = mbegin->begin();
-            uint8_t v = start;
+            uint8_t v = static_cast<uint8_t>(start);
 
             while( ybegin < mbegin->end() ) {
                std::fill( ybegin->begin(), ybegin->end(), v );
                ++ybegin;
 
                if( v == end_ ) {
-                  v = start;
+                  v = static_cast<uint8_t>(start);
                } else {
                   v++;
                }
@@ -118,14 +118,14 @@ namespace rlf {
 
             while( ybegin < mbegin->end() ) {
                auto xbegin = ybegin->begin();
-               uint8_t xv = start;
+               uint8_t xv = static_cast<uint8_t>(start);
 
                while( xbegin != ybegin->end() ) {
-                  *xbegin = yv + xv;
+                  *xbegin = static_cast<uint8_t>(yv + xv);
                   ++xbegin;
 
                   if( xv == end_ ) {
-                     xv = start;
+                     xv = static_cast<uint8_t>(start);
                   } else {
                      xv++;
                   }
@@ -134,7 +134,7 @@ namespace rlf {
                ++ybegin;
 
                if( yv == end_ ) {
-                  yv = start;
+                  yv = static_cast<uint8_t>(start);
                } else {
                   yv++;
                }

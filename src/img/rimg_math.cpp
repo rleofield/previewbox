@@ -99,12 +99,12 @@ namespace rlf {
 
          while( count ) {
             count--;
-            dx += ( double )newxy[ count ].x();
-            dy += ( double )newxy[ count ].y();
+            dx += static_cast<double>(newxy[ count ].x());
+            dy += static_cast<double>(newxy[ count ].y());
          }
 
-         dx /= ( double )maxcount;
-         dy /= ( double )maxcount;
+         dx /= static_cast<double>(maxcount);
+         dy /= static_cast<double>(maxcount);
          return double_xyz( dx, dy, max );
       }
 
@@ -221,7 +221,7 @@ namespace rlf {
          assert( target.equals_size_mask( aoi ) );
 
          // test if target position is in img
-         if( xy.x() > ( int )target.sx() - 1 || xy.y() > ( int )target.sy() - 1 ) {
+         if( xy.x() > static_cast<int>(target.sx()) - 1 || xy.y() > static_cast<int>(target.sy()) - 1 ) {
             return false;
          }
 
@@ -234,7 +234,7 @@ namespace rlf {
             return false;
          }
 
-         if( aoimax.x()  > ( int )target.sx() && aoimax.y() > ( int )target.sy() ) {
+         if( aoimax.x()  > static_cast<int>(target.sx()) && aoimax.y() > static_cast<int>(target.sy()) ) {
             return false;
          }
 
@@ -263,7 +263,7 @@ namespace rlf {
          }
 
          // test if aoi is in img
-         if( aoi.px() >= ( int )source.sx() || aoi.py() >= ( int )source.sy() ) {
+         if( aoi.px() >= static_cast<int>(source.sx()) || aoi.py() >= static_cast<int>(source.sy()) ) {
             return false;
          }
 
@@ -338,7 +338,7 @@ namespace rlf {
                      s = 0;
                   }
 
-                  *target_xbegin = ( uint8_t )s;
+                  *target_xbegin = static_cast<uint8_t>(s);
 
 
                   ++xbegin;
@@ -396,7 +396,7 @@ namespace rlf {
                      s = 0;
                   }
 
-                  *xbegin = ( uint8_t )s;
+                  *xbegin = static_cast<uint8_t>(s);
 
 
                   ++xbegin;
@@ -429,7 +429,7 @@ namespace rlf {
                      s = 0;
                   }
 
-                  *target_xbegin  = ( uint8_t )s;
+                  *target_xbegin  = static_cast<uint8_t>(s);
 
                   ++xbegin;
                   ++target_xbegin;

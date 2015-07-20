@@ -32,9 +32,6 @@
 
 //#include "rimg_xy_types.h"
 #include "rlf_math.h"
-#ifdef _WIN32
-#pragma warning( disable:4267) // possible loss of data ( size_t nach int )
-#endif
 
 using namespace std;
 
@@ -163,8 +160,8 @@ namespace rlf {
          template<class T> class TSum {
             T sum;
          public:
-            TSum( TSum<T> const& in ) {
-               sum = in.sum;
+            TSum( TSum<T> const& in ):sum( in.sum ) {
+               //sum = in.sum;
             }
             TSum<T>& operator=( TSum<T> const& in ) {
                if( this != &in ) {
@@ -345,7 +342,7 @@ namespace rlf {
          i = 0;
 
          while( size-- ) {
-            arr[i] = ( v[i] + ( v[i + 1] << 1 ) + v[i + 2] ) >> 2;
+            arr[i] = static_cast<uint8_t>(( v[i] + ( v[i + 1] << 1 ) + v[i + 2] ) >> 2);
             i++;
          }
       }
@@ -379,8 +376,8 @@ namespace rlf {
 
       static long nextlongrand( long seed ) {
          unsigned long lo, hi;
-         lo = a * ( long )( seed & 0xFFFF );
-         hi = a * ( long )( ( unsigned long )seed >> 16 );
+         lo = a * static_cast<long>( seed & 0xFFFF );
+         hi = a * static_cast< long >( static_cast<unsigned long>(seed >> 16) );
          lo += ( hi & 0x7FFF ) << 16;
 
          if( lo > m ) {
@@ -395,7 +392,7 @@ namespace rlf {
             ++lo;
          }
 
-         return ( long )lo;
+         return static_cast<long>( lo );
       }
 
       static long randomnum = 1;
@@ -410,7 +407,7 @@ namespace rlf {
 
       double rand_double( void ) {
          randomnum = nextlongrand( randomnum );
-         return( ( double )randomnum / ( double )INT_MAX );
+         return( static_cast<double>(randomnum) / static_cast< double> (INT_MAX) );
       }
 
       void rand_long_seed( unsigned long seed ) {
@@ -419,7 +416,7 @@ namespace rlf {
 
       void rand_double_seed( double dseed ) {
          unsigned long seed;
-         seed = ( unsigned long )( dseed * ( double )( INT_MAX ) );
+         seed = static_cast<unsigned long> ( dseed * static_cast<double>( INT_MAX  ) );
          rand_long_seed( seed );
       }
 
@@ -428,10 +425,10 @@ namespace rlf {
          double drem = d - dfloor;
 
          if( drem > 0.5 ) {
-            return ( int )ceil( d );
+            return static_cast<int>(ceil( d ));
          }
 
-         return ( int )dfloor;
+         return static_cast<int>(dfloor);
       }
       int Min( int x, int y ) {
          int r = y + ( ( x - y ) & -( x < y ) ); // min(x, y)
@@ -470,7 +467,7 @@ namespace rlf {
       void    shell_sort( vector<size_t>& base, size_t n ) {
          int i, j;
          int gap, tmp ;
-         int nn = n;
+         int nn = static_cast<int>(n);
 
          for( gap = 1; gap <= nn; gap = 3 * gap + 1 ) {}
 
@@ -484,7 +481,7 @@ namespace rlf {
                      break;
                   }
 
-                  tmp   = base[j];
+                  tmp   = static_cast<int>(base[j]);
                   base[j] = base[ j + gap ];
                   base[ j + gap ] = tmp;
                }
@@ -642,21 +639,21 @@ namespace rlf {
       void linear_zoom( const vector<uint8_t>& s,
                         vector<uint8_t>&  t ) {
 
-         double ds = 1.0 / s.size();
-         double dt = 1.0 / t.size();
+         double ds = 1.0 / static_cast<double>(s.size());
+         double dt = 1.0 / static_cast<double>(t.size());
 
-         for( int i = 0; i < ( int )t.size(); i++ ) {
+         for( int i = 0; i < static_cast<int>(t.size()); i++ ) {
             double x = i * dt;
-            int x1   = ( int )( x / ds );
+            int x1   = static_cast<int>( x / ds );
             int x2   = x1 + 1;
 
-            if( x2 == ( int )s.size() ) {
+            if( x2 == static_cast<int>(s.size()) ) {
                t[i] = s[x1];
             } else {
                double_xy xy0( x1 * ds, s[x1] );
                double_xy xy1( x2 * ds, s[x2] );
                double inter = interpolate( x, xy0, xy1 );
-               t[i] = ( uint8_t )inter;
+               t[i] = static_cast<uint8_t>(inter);
             }
          }
       }

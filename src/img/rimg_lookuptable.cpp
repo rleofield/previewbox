@@ -769,7 +769,7 @@ namespace rlf {
             if( i < thre ) {
                l._lut[i] = 0;
             } else {
-               l._lut[i] = ( uint8_t )color;
+               l._lut[i] = static_cast<uint8_t>(color);
             }
          }
 
@@ -797,9 +797,9 @@ namespace rlf {
 
          for( size_t i = 0; i < l.size(); i++ ) {
             if( i < thre ) {
-               l._lut[i] = ( uint8_t )i;
+               l._lut[i] = static_cast<uint8_t>(i);
             } else {
-               l._lut[i] = ( uint8_t )255;
+               l._lut[i] = static_cast<uint8_t>(255);
             }
 
          }
@@ -819,7 +819,7 @@ namespace rlf {
                if( val > 255.0 ) {
                   l._lut[i] = 0xff;
                } else {
-                  l._lut[i] = ( uint8_t )val;
+                  l._lut[i] = static_cast<uint8_t>(val);
                }
             }
          }
@@ -843,7 +843,7 @@ namespace rlf {
                b = 0xff;
             }
 
-            l._lut[i] = ( uint8_t )b;
+            l._lut[i] = static_cast<uint8_t>(b);
          }
 
          return l;
@@ -861,7 +861,7 @@ namespace rlf {
                b = 0xFF;
             }
 
-            l._lut[i] = ( uint8_t )b;
+            l._lut[i] = static_cast<uint8_t>(b);
          }
 
          return l;
@@ -877,11 +877,11 @@ namespace rlf {
          }
 
          for( i = 0;  i <  64; i++ ) {
-            table[i + 128] = ( uint8_t )( 4 * i + 3 );
+            table[i + 128] = static_cast<uint8_t>( 4 * i + 3 );
          }
 
          for( i = 192; i < 256; i++ ) {
-            table[i] = ( uint8_t )255;
+            table[i] = static_cast<uint8_t>(255);
          }
 
          // invert table to 256-512

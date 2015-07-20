@@ -637,12 +637,12 @@ namespace rlf {
    bool tBlobs::applyFilter( tBlob const& obj )const {
       if( _impl->mNoBorderContact == true ) {
          if( obj.ConnectedWithImageBorder( _impl->_img_size ) == false ) {
-            if( ( int )obj.area() >= ( int )_impl->_min_area ) {
+            if( static_cast<int>(obj.area()) >= static_cast<int>(_impl->_min_area) ) {
                return true;
             }
          }
       } else {
-         if( ( int )obj.area() >= ( int )_impl->_min_area ) {
+         if( static_cast<int>(obj.area()) >= static_cast<int>(_impl->_min_area) ) {
             return true;
          }
       }
@@ -679,7 +679,7 @@ namespace rlf {
       int nr = bl.count_filtered();
       string d4 = str::toString( nr, 4 );
       list.push_back( "Objectlist: " + d4 + " objects found." );
-      string sthre = str::toString( ( int )bl.threshold(), 4 );
+      string sthre = str::toString( static_cast<int>(bl.threshold()), 4 );
       string sbgr = str::toString( bl.background(), 4 );
       string sminarea = str::toString( bl.min_area(), 4 );
 
@@ -696,13 +696,13 @@ namespace rlf {
          tBlob const& bo = bl.blobs()[i];
 
          if( bl.applyFilter( bo ) ) {
-            string rn = str::toString( ( int )running_number++, 3 );
-            string posx = str::toString( ( int )bo.midpoint().x(), 4 );
-            string posy = str::toString( ( int )bo.midpoint().y(), 4 );
-            string sx = str::toString( ( int )bo.sx(), 3 );
-            string sy = str::toString( ( int )bo.sy(), 3 );
-            string area = str::toString( ( int )bo.area(), 5 );
-            string integral = str::toString( ( int )bo.integral(), 7 );
+            string rn = str::toString( static_cast<int>(running_number++), 3 );
+            string posx = str::toString( static_cast<int>(bo.midpoint().x()), 4 );
+            string posy = str::toString( static_cast<int>(bo.midpoint().y()), 4 );
+            string sx = str::toString(  static_cast<int>(bo.sx()), 3 );
+            string sy = str::toString(  static_cast<int>(bo.sy()), 3 );
+            string area = str::toString( static_cast<int>(bo.area()), 5 );
+            string integral = str::toString( static_cast<int>(bo.integral()), 7 );
             uint32_t a = bo.area();
             string i_a = "no value";
 
