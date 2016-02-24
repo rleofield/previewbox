@@ -172,7 +172,8 @@ HEADERS  += src/mainwindow.h \
     src/ImageSingle.h \
     src/filefn/filetreewalk.h \
     src/filefn/filetreewalk_ref.h \
-    src/img/rw/rimg_tiff.h
+    src/img/rw/rimg_tiff.h \
+    src/test/test_functions.h
 
 
 FORMS    += src/mainwindow.ui \
@@ -199,6 +200,7 @@ INCLUDEPATH += $$PWD/../libpngjpegz/jpeg
 
 INCLUDEPATH += $$PWD/src
 INCLUDEPATH += $$PWD/src/log
+INCLUDEPATH += $$PWD/src/test
 INCLUDEPATH += $$PWD/src/minit
 INCLUDEPATH += $$PWD/src/ftw
 INCLUDEPATH += $$PWD/src/filefn
