@@ -166,8 +166,8 @@ namespace rlf {
          void WedgeHorizontal( tImgPlanar& img, uint32_t sy );
          void WedgeVertical( tImgPlanar& img, uint32_t sy );
 
-         void OrthogonalCross( tImgPlanar& img, int32_xy pos, int size, vcolors const& colors ) ;
-         void DiagonalCross( tImgPlanar& img, int32_xy xy, int const& c ) ;
+         void OrthogonalCross( tImgPlanar& img, int32_xy pos, uint32_t size, vcolors const& colors ) ;
+         void DiagonalCross( tImgPlanar& img, int32_xy xy, uint32_t const& c ) ;
 
          void DrawPixelList( tImgPlanar& img, std::vector<int32_xy> v,  uint32_t val ) ;
          std::vector<uint32_t> GetLinePixels( tImgPlanar const& img, uint32_xy from, uint32_xy to ) ;

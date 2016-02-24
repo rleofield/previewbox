@@ -99,7 +99,7 @@ namespace rlf {
 
 
          // TIF
-         char const* logo = bin_read::rhelper::toCharPtr( v );
+         char const* logo = to_char_ptr<uint8_t>( v );
          string l2( v.begin(), v.begin() + 2 );
 
          if( l2 == MacLogo  || l2 == IntelLogo ) {

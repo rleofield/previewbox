@@ -46,72 +46,59 @@
 
 namespace rlf_txtrw {
 
+   const std::string marker = "%s";
 
-
-   namespace whelper {
-      const std::string marker = "%s";
+   namespace {
 
       inline std::string FindAndReplace( const std::string& source,
                                          const std::string& find,
-                                         const std::string& replace ) {
+                                        const std::string& replace ) {
          size_t i;
          size_t start = 0;
          std::string ret = source;
-
          for( ; ( i = ret.find( find, start ) ) != std::string::npos; ) {
             ret.replace( i, find.length(), replace );
             start = i + replace.length();
          }
-
          return ret;
       }
 
       inline std::string replace( std::string const& msg, std::string const& s0 = "" ) {
-
          if( s0.size() > 0 ) {
-            return FindAndReplace( msg, whelper::marker, s0 );
+            return FindAndReplace( msg, marker, s0 );
          }
-
          return msg;
-
       }
-
-
-
 
    }
 
 
    namespace err {
-
-      const std::string msg_file_exists = "File exists: '" + whelper::marker + "'";
-      const std::string msg_write_file = "Couldn't write file: '" + whelper::marker + "'";
-      const std::string msg_open_file = "Couldn't open file for write: '" + whelper::marker + "'";
-      const std::string msg_text_empty = "Text has no lines: '" + whelper::marker + "'";
+      const std::string msg_file_exists = "File exists: '" + marker + "'";
+      const std::string msg_write_file = "Couldn't write file: '" + marker + "'";
+      const std::string msg_open_file = "Couldn't open file for write: '" + marker + "'";
+      const std::string msg_text_empty = "Text has no lines: '" + marker + "'";
 
       inline std::string write_file( std::string const& s0 ) {
-         return whelper::replace( msg_write_file, s0 );
+         return replace( msg_write_file, s0 );
       }
       inline std::string file_exists( std::string const& s0 ) {
-         return whelper::replace( msg_file_exists, s0 );
+         return replace( msg_file_exists, s0 );
       }
       inline std::string file_open( std::string const& s0 ) {
-         return whelper::replace( msg_open_file, s0 );
+         return replace( msg_open_file, s0 );
       }
       inline std::string text_empty( std::string const& s0 ) {
-         return whelper::replace( msg_text_empty, s0 );
+         return replace( msg_text_empty, s0 );
       }
       inline bool file_exists_( boost::filesystem::path const& p ) {
          if( !boost::filesystem::is_regular_file( p ) ) {
             return false;
          }
-
          boost::filesystem::file_status s = status( p );
-
          if( boost::filesystem::exists( s ) ) {
             return true;
          }
-
          return false;
       }
 

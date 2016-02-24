@@ -125,7 +125,8 @@ namespace rlf {
 
    };
 
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Weffc++"
    class tRGBtxt: public tRGB {
       std::string _txt;
    public:
@@ -141,6 +142,7 @@ namespace rlf {
       static std::vector<std::string> keys();
       static tRGB const& lookup( std::string const& k );
    };
+#pragma GCC diagnostic pop
 
 
    //   float k = MIN(255-red,MIN(255-green,255-blue));
@@ -257,6 +259,7 @@ namespace rlf {
       operator string()const {
          return "tBGR";
       }
+      static uint32_t struct_size(){ return static_cast<uint32_t>( sizeof(tRGB)); }
 
 
    };

@@ -186,16 +186,16 @@ namespace rlf {
 
       namespace {
          // kernighan
-         uint32_t countSetBits( uint32_t n ) {
-            uint32_t count = 0;
+//         uint32_t countSetBits( uint32_t n ) {
+//            uint32_t count = 0;
 
-            while( n ) {
-               n &= ( n - 1 ) ;
-               count++;
-            }
+//            while( n ) {
+//               n &= ( n - 1 ) ;
+//               count++;
+//            }
 
-            return count;
-         }
+//            return count;
+//         }
       }
 
       uint32_t tMask::count()const {
@@ -394,7 +394,8 @@ namespace rlf {
          _mask( in._mask ),
          _size( in._size ),
          _m( in._m ),
-         _description( in._description )
+         _description( in._description ),
+         name(),fullname()
          //_m16 = in._m16;
       {}
 
@@ -403,7 +404,9 @@ namespace rlf {
          _size(),
          //_m16(),
          _m( tMask::max ),
-         _description() {
+         _description(),
+        name(),fullname()
+      {
          _description = "";
       }
 
@@ -413,7 +416,9 @@ namespace rlf {
          _mask( mask_ ),
          _size( s ),
          _m( tMask::max ),
-         _description()
+         _description(),
+         name(),fullname()
+
 
       {
          uint32_t aligned_x   = s.x(); //align32( s.x() );
@@ -512,7 +517,7 @@ namespace rlf {
 
          auto x = xy_.x();
          auto y = xy_.y();
-         ( *this )[0][ y ][x] = ( uint8_t )val;
+         ( *this )[0][ y ][x] = static_cast< uint8_t> (val);
       }
       void tImgPlanar::pixel( uint32_t x, uint32_t y, uint32_t val ) {
          pixel( uint32_xy( x, y ), val );
@@ -613,7 +618,7 @@ namespace rlf {
          index /= 2;
          index += 1;
          memcpy( &a, b + index, 2 );
-         a >>= 4;
+         a = static_cast<uint16_t>(a >> 4);
          a &= 0xfff;
          return a;
       }

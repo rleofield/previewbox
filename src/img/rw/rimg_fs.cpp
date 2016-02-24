@@ -51,15 +51,15 @@ namespace rlf {
 
             return false;
          }
-         bool path_exists( boost::filesystem::path const& p ) {
-            boost::filesystem::file_status s = status( p );
+//         bool path_exists( boost::filesystem::path const& p ) {
+//            boost::filesystem::file_status s = status( p );
 
-            if( boost::filesystem::is_directory( s ) ) {
-               return true;
-            }
+//            if( boost::filesystem::is_directory( s ) ) {
+//               return true;
+//            }
 
-            return false;
-         }
+//            return false;
+//         }
       }
 
       bool file_exists( string const& fn ) {
@@ -80,7 +80,7 @@ namespace rlf {
          std::string::iterator start = s.begin();
 
          while( start != s.end() ) {
-            *start = ( char )::toupper( *start );
+            *start = static_cast< char >( ::toupper( *start ) );
             ++start;
          }
       }
@@ -95,7 +95,7 @@ namespace rlf {
          std::string::iterator start = s.begin();
 
          while( start != s.end() ) {
-            *start = ( char )::tolower( *start );
+            *start = static_cast<char>( ::tolower( *start ) );
             ++start;
          }
       }

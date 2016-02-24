@@ -43,6 +43,14 @@ using namespace std;
 
 namespace rlf {
 
+   template <typename T>
+   inline char* to_char_ptr( std::vector<T>& b ) {
+      return reinterpret_cast<char* >( b.data()  );
+   }
+   template <typename T>
+   inline char const* to_char_ptr( std::vector<T> const& b ) {
+      return reinterpret_cast<char const* >( b.data()  );
+   }
 
 
    namespace bin_data {
@@ -70,11 +78,8 @@ namespace rlf {
 
       } // end of ns msg
 
-      namespace rb_local {
-         inline char* toCharPtr1( vector<uint8_t>& b ) {
-            return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
-         }
-      } // end of ns rb
+
+
 
 
       /*! tBinReadEx

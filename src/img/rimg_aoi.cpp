@@ -32,20 +32,13 @@ Lib: librimgrw
 namespace rlf {
 
 
-   tAoi::tAoi( int32_t ix, int32_t iy, uint32_t sx_, uint32_t sy_ ) {
-      _pos = int32_xy( ix, iy );
-      _size =  uint32_xy( sx_, sy_ );
+   tAoi::tAoi( int32_t ix, int32_t iy, uint32_t sx_, uint32_t sy_ ):_pos(), _size( )  {
+      _pos =  int32_xy( ix, iy );
+      _size =   uint32_xy( sx_, sy_ );
    }
-   tAoi::tAoi( const tAoi& in ) {
-      _pos = in._pos;
-      _size = in._size;
+   tAoi::tAoi( const tAoi& in ):_pos( in._pos ), _size( in._size ){
    }
-   tAoi::tAoi( int32_xy const& pos0, uint32_xy const& size0 ) {
-      sx( size0.x() );
-      sy( size0.y() );
-      px( pos0.x() );
-      py( pos0.y() );
-   }
+   tAoi::tAoi( int32_xy const& pos0, uint32_xy const& size0 ):_pos( pos0.x(),  pos0.y()  ), _size( size0.x(), size0.y() ) {}
 
    int32_xy tAoi::pos()const {
       return _pos;

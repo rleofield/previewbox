@@ -178,9 +178,12 @@ namespace rlf {
 
          png_structp png_ptr = ::png_create_write_struct(
                                   PNG_LIBPNG_VER_STRING,
-                                  ( png_voidp )nullptr,
-                                  ( png_error_ptr )nullptr,
-                                  ( png_error_ptr )nullptr );
+                                  //( png_voidp )nullptr,
+                                  nullptr,
+                                  //( png_error_ptr )nullptr,
+                                  nullptr,
+                                  //( png_error_ptr )nullptr );
+                                  nullptr );
 
          if( !png_ptr ) {
             throw tImgWriteEx( "Couldn't create PNG write struct: '" + file_name + "'" );

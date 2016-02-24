@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
-    Copyright 2012 by Richard Albrecht
+    Copyright 2013 by Richard Albrecht
     richard.albrecht@rleofield.de
     www.rleofield.de
 
@@ -19,37 +19,44 @@
 */
 
 
-#ifndef TLOG_ENUM_H
-#define TLOG_ENUM_H
+#ifndef RLF_ALLOC_CHECK_H
+#define RLF_ALLOC_CHECK_H
+
+#include <stdlib.h>
+#include <map>
+
+#include "tLfm.h"
+using rlf_tlfm::t_lfm;
 
 
-namespace rlf_tlog {
+namespace alloccheck {
 
-   enum class enumLogLevel : int {
-      // MS uses DEBUG and ERROR as Macros in MFC,
-      // so we can't use this here
-      // we use LDEBUG and LERROR
-      LDEBUG = 1, INFO, WARN, LERROR,  FATAL, NONE
-   };
-   typedef enumLogLevel eLevel;
-
-   enum class enumLogCategory : int {
-      _default = 1,
-      Cat_rimg,
-      Cat_cout,
-      Cat_A,
-      Cat_B,
-      Cat_C,
-      Cat_D,
-      Cat_Tiff,
-      Cat_Alloc
-   };
-
-   typedef enumLogCategory eCategory;
+   // set to false, to switch off all checked new/delete
+   const bool use_alloc_check = true;
+   const bool use_alloc_check_log = true;
 
 
-}
+   // get the count of not deleted unchecked pointers, must be zero
+   std::string alloc_list_message();
+   size_t alloc_list_size();
+
+   // gets a list of all undeleted checked pointers
+   std::string allocliststring();
 
 
-#endif
+
+   // called by new(), logs linenumber, methodname, classname as magic info information in allocated memory
+   void* checked_alloc( size_t size, rlf_tlfm::t_lfm const& lfmcIn );
+
+   // calles by delete(void* p), checks, if logging info is present
+   void checked_delete( void* p ) ;
+
+
+} // end of ns alloccheck
+
+
+#endif //
+
 //EOF
+
+

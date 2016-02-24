@@ -68,12 +68,6 @@ namespace bin_write {
       }
 
 
-      inline char* toCharPtr( std::vector<uint8_t>& b ) {
-         return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
-      }
-      inline char const* toCharPtr( std::vector<uint8_t> const& b ) {
-         return reinterpret_cast<char const* >( static_cast<uint8_t const* >( &b[0] ) );
-      }
 
       inline bool file_exists_w( boost::filesystem::path const& p ) {
          if( !boost::filesystem::is_regular_file( p ) ) {
@@ -159,8 +153,8 @@ namespace bin_write {
             throw bad_bin_write( err::file_open( file ) );
          }
 
-         char const* p = whelper::toCharPtr( buf );
-         fp.write( p, buf.size() );
+         //unsigned char const* p = buf.data();
+         fp.write( reinterpret_cast<char const*>( buf.data() ), buf.size() );
 
          if( fp.bad() ) {
             throw bad_bin_write( err::write_file( file ) );

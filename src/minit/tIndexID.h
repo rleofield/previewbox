@@ -126,7 +126,7 @@ namespace rlf_minit {
       size_t operator()()const {
          return index();
       }
-      tCamID operator=( tCamID const& id ) {
+      tCamID & operator=( tCamID const& id ) {
          if( this != &id ) {
             tIndexID::operator=( id );
          }
@@ -161,7 +161,7 @@ namespace rlf_minit {
       size_t operator()()const {
          return tIndexID::operator()();
       }
-      tCanvasID operator=( tCanvasID const& id ) {
+      tCanvasID& operator=( tCanvasID const& id ) {
          if( this != &id ) {
             tIndexID::operator=( id );
          }

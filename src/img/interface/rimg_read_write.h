@@ -106,8 +106,8 @@ namespace rlf {
       // raw data, linear only
       //      linear, RGBRGBRGB...
       void read_raw_data( string const& fn,
-                          size_t w,
-                          size_t h,
+                          uint32_t w,
+                          uint32_t h,
                           rlf::rimg_linear::tImgLinear& rimg ) ;
 
       void write_raw_data( string const& fn,

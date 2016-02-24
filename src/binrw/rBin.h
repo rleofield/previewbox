@@ -37,14 +37,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <boost/filesystem.hpp>
 #include <boost/cstdint.hpp>
 
+#include <test_functions.h>
+
 
 
 namespace bin_read {
 
 
+   const std::string marker = "%s";
 
-   namespace rhelper {
-      const std::string marker = "%s";
+   namespace  {
       inline std::string FindAndReplace( const std::string& source,
                                          const std::string& find,
                                          const std::string& replace ) {
@@ -84,33 +86,20 @@ namespace bin_read {
          return false;
       }
 
-      inline char* toCharPtr( std::vector<uint8_t>& b ) {
-         return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
-      }
-      inline char const* toCharPtr( std::vector<uint8_t> const& b ) {
-         return reinterpret_cast<char const* >( static_cast<uint8_t const* >( &b[0] ) );
-      }
-
-
-
    }
 
    namespace err {
 
-      const std::string msg_file_not_exists = "File doesn't exist: '" + rhelper::marker + "'";
-      const std::string msg_read_file = " Couldn't read file '" + rhelper::marker + "'";
+      const std::string msg_file_not_exists = "File doesn't exist: '" + marker + "'";
+      const std::string msg_read_file = " Couldn't read file '" + marker + "'";
 
       inline std::string read_file( std::string const& s0 ) {
-         return rhelper::replace( msg_read_file, s0 );
+         return replace( msg_read_file, s0 );
       }
       inline std::string file_not_exists( std::string const& s0 ) {
-         return rhelper::replace( msg_file_not_exists, s0 );
+         return replace( msg_file_not_exists, s0 );
       }
-
-
-
    }
-
 
 
 
@@ -131,24 +120,32 @@ namespace bin_read {
 
       t_bin_read& operator= ( const t_bin_read& in );
       t_bin_read( const t_bin_read& in );
+      std::string _filename;
+
    public:
 
-      t_bin_read() {}
+      t_bin_read(): _filename() {}
+      t_bin_read( const std::string& filename ): _filename( filename ) {}
       ~t_bin_read() {}
 
-      void operator()( const std::string& file, std::vector<uint8_t>& buf, uint64_t size_ = -1 )  {
 
-         if( !rhelper::file_exists_r( file ) ) {
-            std::string s = err::file_not_exists( file );
+      void operator()( const std::string& filename, std::vector<uint8_t>& buf, uint64_t read_size = -1  )  {
+         _filename = filename;
+         operator()( buf, read_size );
+      }
+
+      void operator()( std::vector<uint8_t>& buf, uint64_t read_size = -1 )  {
+         if( !file_exists_r( _filename ) ) {
+            std::string s = err::file_not_exists( _filename );
             throw bad_bin_read( s );
          }
 
 
          auto mode = std::ios::in | std::ios::binary;
-         std::ifstream fp( file.c_str(), mode );
+         std::ifstream fp( _filename.c_str(), mode );
 
          if( !fp.is_open() ) {
-            auto s = err::read_file( file );
+            auto s = err::read_file( _filename );
             throw bad_bin_read( s );
          }
 
@@ -158,22 +155,34 @@ namespace bin_read {
          //buf.assign(start, end);
 
          // fast
-         uintmax_t size = boost::filesystem::file_size( file );
+         uintmax_t size = boost::filesystem::file_size( _filename );
 
-         if( size < size_ ) {
-            size_ = size;
+         if( read_size < size ) {
+            size = read_size;
          }
 
-         buf.resize( static_cast<size_t>( size_ ), 0 );
-         auto buffer = rhelper::toCharPtr( buf );
-         fp.read( buffer, size_ );
+         buf.resize( static_cast<size_t>( size ), 0 );
+         auto buffer = to_char_ptr<uint8_t>( buf );
+         fp.read( buffer, size );
 
          if( fp.eof() ) {
-            auto s = err::read_file( file );
+            auto s = err::read_file( _filename );
             throw bad_bin_read( s );
          }
 
       }
+      operator std::vector<uint8_t> () {
+         std::vector<uint8_t> buf ;
+         *this = buf;
+         return std::move(buf);
+      }
+      private:
+         t_bin_read& operator=( std::vector<uint8_t>& buf )  {
+            operator()(_filename,buf);
+            return *this;
+         }
+
+
    };
 
 

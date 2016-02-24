@@ -85,11 +85,11 @@ namespace rlf {
          }
 
          if( _ImgFormat == PixelFormat::rgb() ) {
-            return sizeof( tRGB ) * size().x();
+            return static_cast<uint32_t>(sizeof( tRGB ) * size().x());
          }
 
          if( _ImgFormat == PixelFormat::rgba() ) {
-            return sizeof( tRGBA ) * size().x();
+            return static_cast<uint32_t>(sizeof( tRGBA ) * size().x());
          }
 
          //        if( _ImgFormat == PixelFormat::mono16() ) {
@@ -121,15 +121,15 @@ namespace rlf {
          uint32_t sx = size().x();
 
          if( _ImgFormat == PixelFormat::rgb() ) {
-            sx *= PixelFormat::rgb().val();
+            sx *= static_cast<uint32_t>( PixelFormat::rgb().val() );
          }
 
          if( _ImgFormat == PixelFormat::rgba() ) {
-            sx *= PixelFormat::rgba().val();
+            sx *= static_cast<uint32_t>(PixelFormat::rgba().val());
          }
 
          if( sxp == sx ) { // sx == pitch, no pdading image
-            int b = bytes();
+            //uint32_t b = bytes();
 
             if( size_ > 0 && size_ + offset_ <= bytes() && _is_allocated ) {
                uint8_t* pdata = _data + offset_;
@@ -211,9 +211,9 @@ namespace rlf {
 
 
       void RGB_LineTo_BGR( tImgViewLinear const& img, size_t y, vector<uint8_t>& v ) {
-         tRGB const* source = ( tRGB const* )( img.row_ptr( y ) );
+         tRGB const* source = reinterpret_cast< tRGB const* >( img.row_ptr( y ) );
          v.resize( img.pitch() );
-         tBGR* target = ( tBGR* )&v[0];
+         tBGR* target = reinterpret_cast< tBGR*> (&v[0]);
          size_t count = img.size().x();
 
          while( count-- ) {

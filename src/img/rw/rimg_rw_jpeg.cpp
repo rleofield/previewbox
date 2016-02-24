@@ -216,6 +216,8 @@ namespace rlf {
       /*
       * Here's the routine that will replace the standard error_exit method:
       */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
 
       void
       my_error_exit( j_common_ptr cinfo ) {
@@ -225,6 +227,7 @@ namespace rlf {
          /* Return control to the setjmp point */
          longjmp( myerr->setjmp_buffer, 1 );
       }
+#pragma GCC diagnostic pop
 
       void read( string const& fn, tImgLinear& img1 ) {
 
@@ -275,8 +278,13 @@ namespace rlf {
 
          int row_stride;     /* physical row width in output buffer */
          row_stride = cinfo.output_width * cinfo.output_components;
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+
          JSAMPARRAY buffer = ( *cinfo.mem->alloc_sarray )
                              ( ( j_common_ptr ) &cinfo, JPOOL_IMAGE, row_stride, 1 );
+#pragma GCC diagnostic pop
 
 
          /* Here we use the library's state variable cinfo.output_scanline as the

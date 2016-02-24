@@ -241,7 +241,7 @@ namespace rlf {
 
 
             while( xbegin < xend ) {
-               *target_xbegin = ( max_byte * ( *xbegin - min ) ) / ( delta );
+               *target_xbegin = static_cast<uint8_t>( ( max_byte * ( *xbegin - min ) ) / ( delta ) );
                ++xbegin;
                ++target_xbegin;
             }
@@ -281,7 +281,7 @@ namespace rlf {
 
 
             while( xbegin < xend ) {
-               *target_xbegin = ( max_byte * ( *xbegin - min ) ) / ( delta );
+               *target_xbegin =  static_cast<uint8_t>(   ( max_byte * ( *xbegin - min ) ) / ( delta ) );
                ++xbegin;
                ++target_xbegin;
             }

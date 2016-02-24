@@ -39,6 +39,7 @@ using rlf_minit::double_xy;
 namespace rlf {
 
    struct tMaxIntensity {
+      tMaxIntensity():pos(),value(0){}
       double_xy pos;       // position and value of maximum value
       double value;        // position and value of maximum value
 

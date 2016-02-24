@@ -59,7 +59,8 @@ namespace rlf {
 
       namespace {
 
-         const size_t LUTSIZE = ( ( size_t )0xff ) + 1;
+         const int ff = 0xff;
+         const size_t LUTSIZE = ff  + 1;
 
 
          static const uint8_t lgreen[ LUTSIZE * 3 ] = {
@@ -755,7 +756,7 @@ namespace rlf {
       tLUT tLUT::Negate( tLUT l ) {
 
          for( size_t i = 0; i < l.size(); i++ ) {
-            l._lut[ i ] = 0xff - l._lut[i];
+            l._lut[ i ] = static_cast<uint8_t>( 0xff - l._lut[i] );
          }
 
          return l;
@@ -811,7 +812,8 @@ namespace rlf {
          double epsilon = 0.0001;
 
          for( size_t i = 0; i < l.size(); i++ ) {
-            double val = i * gain + level + epsilon;
+            double di = static_cast<double>(i);
+            double val = di * gain + level + epsilon;
 
             if( val < epsilon ) {
                l._lut[i] = 0;
@@ -992,8 +994,9 @@ namespace rlf {
 
       namespace {
          std::string toString( uint8_t val, size_t w = 6 ) {
+            int iw = static_cast<int>(w);
             std::ostringstream o;
-            o << std::setw( w ) << std::fixed << std::right << std::setfill( ' ' ) << val ;
+            o << std::setw( iw ) << std::fixed << std::right << std::setfill( ' ' ) << val ;
             return  o.str();
          }
       }

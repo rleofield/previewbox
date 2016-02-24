@@ -79,7 +79,7 @@ namespace rlf {
       }
 
       void kernel3( vector<size_t>& arr, vector<uint8_t> const& bv, int sx ) {
-         uint8_t const* b = &( bv[0] );
+         uint8_t const* b = bv.data();
          b -= sx;
          int count( 3 );
          size_t* parr = &( arr[0] );
@@ -237,10 +237,10 @@ namespace rlf {
 
          uint32_t halfkernel = 1;
 
-         int y = im.size();
-         int x = im[0].size();
-         int x2 = x + 2;
-         int y2 = y + 2;
+         vector<size_t>::size_type y = im.size();
+         size_t x = im[0].size();
+         size_t x2 = x + 2;
+         size_t y2 = y + 2;
 
          tPlane8 extended( x2, vLine8( y2 ) );
          ToExtendedImageArea( im, extended, halfkernel );
@@ -307,7 +307,7 @@ namespace rlf {
 
 
                math::shell_sort( kernel_pixels, nr_kernel_pixels );
-               *target_xbegin = ( uint8_t )kernel_pixels[ nr_kernel_pixels_half ];
+               *target_xbegin = static_cast<uint8_t> (kernel_pixels[ nr_kernel_pixels_half ]);
 
                ++xbegin_ym1;
                ++xbegin_y;
@@ -333,10 +333,10 @@ namespace rlf {
          uint32_t halfkernel = 2;
 
 
-         int y = im.size();
-         int x = im[0].size();
-         int x2 = x + halfkernel * 2;
-         int y2 = y + halfkernel * 2;
+         auto y = im.size();
+         auto x = im[0].size();
+         auto x2 = x + halfkernel * 2;
+         auto y2 = y + halfkernel * 2;
 
          tPlane8 extended( x2, vLine8( y2 ) );
          ToExtendedImageArea( im, extended, halfkernel );
@@ -466,7 +466,7 @@ namespace rlf {
 
 
                math::shell_sort( kernel_pixels, nr_kernel_pixels );
-               *target_xbegin = ( uint8_t )kernel_pixels[ nr_kernel_pixels_half ];
+               *target_xbegin = static_cast<uint8_t> (kernel_pixels[ nr_kernel_pixels_half ] );
 
                ++xbegin_ym2;
                ++xbegin_ym1;
@@ -531,7 +531,7 @@ namespace rlf {
 
 
          tImgPlanar temp;
-         uint32_xy s( x, y );
+         uint32_xy s( static_cast<uint32_t>(x), static_cast<uint32_t>(y) );
          s += ( 2 * halfkernel );
 
          temp.realloc( s, tMask::mono );

@@ -50,54 +50,54 @@ namespace rlf {
    namespace rimg_convert {
 
       namespace {
-         string replace(
-            string const& msg,
-            string const& s0,
-            string const& s1 = "",
-            string const& s2 = "",
-            string const& s3 = "" ) {
+//         string replace(
+//            string const& msg,
+//            string const& s0,
+//            string const& s1 = "",
+//            string const& s2 = "",
+//            string const& s3 = "" ) {
 
-            string marker = "%s";
-            string temp = msg;
+//            string marker = "%s";
+//            string temp = msg;
 
-            if( s0.size() > 0 ) {
-               size_t pos = msg.find( marker );
+//            if( s0.size() > 0 ) {
+//               size_t pos = msg.find( marker );
 
-               if( pos != string::npos ) {
-                  temp.erase( pos, marker.size() );
-                  temp.insert( pos, s0 );
-               }
+//               if( pos != string::npos ) {
+//                  temp.erase( pos, marker.size() );
+//                  temp.insert( pos, s0 );
+//               }
 
-               if( s1.size() > 0 ) {
-                  pos = msg.find( marker );
+//               if( s1.size() > 0 ) {
+//                  pos = msg.find( marker );
 
-                  if( pos != string::npos ) {
-                     temp.erase( pos, marker.size() );
-                     temp.insert( pos, s1 );
-                  }
+//                  if( pos != string::npos ) {
+//                     temp.erase( pos, marker.size() );
+//                     temp.insert( pos, s1 );
+//                  }
 
-                  if( s2.size() > 0 ) {
-                     pos = msg.find( marker );
+//                  if( s2.size() > 0 ) {
+//                     pos = msg.find( marker );
 
-                     if( pos != string::npos ) {
-                        temp.erase( pos, marker.size() );
-                        temp.insert( pos, s2 );
-                     }
+//                     if( pos != string::npos ) {
+//                        temp.erase( pos, marker.size() );
+//                        temp.insert( pos, s2 );
+//                     }
 
-                     if( s3.size() > 0 ) {
-                        pos = msg.find( marker );
+//                     if( s3.size() > 0 ) {
+//                        pos = msg.find( marker );
 
-                        if( pos != string::npos ) {
-                           temp.erase( pos, marker.size() );
-                           temp.insert( pos, s3 );
-                        }
-                     }
-                  }
-               }
-            }
+//                        if( pos != string::npos ) {
+//                           temp.erase( pos, marker.size() );
+//                           temp.insert( pos, s3 );
+//                        }
+//                     }
+//                  }
+//               }
+//            }
 
-            return temp;
-         }
+//            return temp;
+//         }
 
          class incrementRGBA {
             tRGBA val;
@@ -401,7 +401,7 @@ namespace rlf {
                   uint32_t blue  = blue_weigth * b0;
                   uint32_t val = static_cast<uint32_t>( red + green + blue );
                   val  = val >> 12;
-                  gray[x] = val;
+                  gray[x] = static_cast<uint8_t>( val );
                   x++;
                }
 

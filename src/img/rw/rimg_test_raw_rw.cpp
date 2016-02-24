@@ -105,6 +105,7 @@ namespace rlf {
 
       class rawData {
       public:
+            rawData():mask(0),x(0),y(0),data(), len(0),txt(){}
          uint32_t mask;
          uint32_t x;
          uint32_t y;
@@ -192,7 +193,7 @@ namespace rlf {
          data.x = wimg.sx();
          data.y = wimg.sy();
          std::string s = wimg.description();
-         data.len = s.length();
+         data.len = static_cast<uint32_t>( s.length() );
          data.txt.assign( s.begin(), s.end() );
          data.data.reserve( data.x * data.y * wimg.mask().count() );
          auto mbegin = wimg.begin();

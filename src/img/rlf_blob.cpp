@@ -56,7 +56,7 @@ namespace rlf {
 
    }
 
-   tBlob::tBlob(): _integral( 0 ), _area( 0 ), _streaks() {}
+   tBlob::tBlob(): _pos(), _midpoint(), _min(), _max(), _MaxIntensity(), _centerOfMass(), _integral( 0 ), _area( 0 ), _streaks() {}
 
    tBlob::~tBlob() {}
 

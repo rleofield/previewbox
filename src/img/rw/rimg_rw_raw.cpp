@@ -51,7 +51,7 @@ namespace rlf {
 
    namespace rimg_raw {
 
-      void read_raw_data( string const& fn, size_t w, size_t h, tImgLinear& rimg ) {
+      void read_raw_data( string const& fn, uint32_t w, uint32_t h, tImgLinear& rimg ) {
 
          vector<uint8_t> buf;
 

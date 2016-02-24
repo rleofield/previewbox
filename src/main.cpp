@@ -10,7 +10,7 @@ int main( int argc, char* argv[] ) {
       cout << "setLogfile: " << lf << " path for logging dosn't exist: '" << lf <<  "'" << endl;
    }
 
-   logger().setLogLevel( eLevel::LDEBUG, eCategory::_default );
+   logger().log_level( eLevel::LDEBUG, eCategory::_default );
 
    LOGT_INFO( "started" );
    QApplication a( argc, argv );

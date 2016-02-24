@@ -1,4 +1,3 @@
-
 /* --------------------------------------------------------------------------
 Copyright 2013 by Richard Albrecht
 richard.albrecht@rleofield.de
@@ -140,7 +139,7 @@ namespace rlf {
       double dbilinear( double_xy xy, double lowerleft, double lowerright, double topleft, double topright ) {
          double tx = xy.x();
          double ty = xy.y();
-//#if 1
+
          double a = lowerleft * ( 1 - tx ) + lowerright * tx; // interpolate hor lower
          double b = topleft * ( 1 - tx ) + topright * tx;   // interpolate hor upper
          return a * ( 1 - ty ) + b * ty;                     // interpolate ver a - b

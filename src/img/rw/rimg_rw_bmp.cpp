@@ -528,8 +528,8 @@ namespace rlf {
          uint32_t aligned_w = bmp_intern::align32( size.x() );
          uint32_t size_image = aligned_w * size.y();
 
-         uint32_t aligned_bgr_line_size = bmp_intern::align32( size.x()  * sizeof( tBGR ) );
-         uint32_t filesize = header_size +  aligned_bgr_line_size  * size.y();
+         uint32_t aligned_bgr_line_size = bmp_intern::align32( static_cast<uint32_t>(size.x()  * sizeof( tBGR )) );
+         uint32_t filesize = static_cast<uint32_t>(header_size) +  aligned_bgr_line_size  * size.y();
 
          int32_t w = size.w();
          int32_t h = size.h();
@@ -576,8 +576,8 @@ namespace rlf {
          uint32_t aligned_w = bmp_intern::align32( size.x() );
          uint32_t size_image = aligned_w * size.y();
 
-         uint32_t aligned_bgr_line_size = bmp_intern::align32( size.x()  * sizeof( tBGRA ) );
-         uint32_t filesize = header_size +  aligned_bgr_line_size  * size.y();
+         uint32_t aligned_bgr_line_size = bmp_intern::align32( size.x()  * static_cast<uint32_t>(sizeof( tBGRA )) );
+         uint32_t filesize = static_cast<uint32_t>(header_size +  aligned_bgr_line_size  * size.y());
 
          int32_t w = size.w();
          int32_t h = size.h();
@@ -633,15 +633,15 @@ namespace rlf {
             }
 
             if( img.is_rgb() ) {
-               uint32_t aligned_line_size = bmp_intern::align32( img.size().x()  * sizeof( tBGR ) );
-               uint32_t filesize = header_size +  aligned_line_size  * img.size().y();
+               uint32_t aligned_line_size = bmp_intern::align32( img.size().x()  * tBGR::struct_size() );
+               uint32_t filesize = static_cast<uint32_t>(header_size +  aligned_line_size  * img.size().y());
                buf.resize( filesize );
                write_rgb( buf, img.size(), img.rows() );
             }
 
             if( img.is_rgba() ) {
-               uint32_t aligned_line_size = bmp_intern::align32( img.size().x()  * sizeof( tBGRA ) );
-               uint32_t filesize = header_size +  aligned_line_size  * img.size().y();
+               uint32_t aligned_line_size = bmp_intern::align32( img.size().x()  * tBGR::struct_size() );
+               uint32_t filesize = static_cast<uint32_t>(header_size +  aligned_line_size  * img.size().y());
                buf.resize( filesize );
                write_rgba( buf, img.size(), img.rows() );
             }

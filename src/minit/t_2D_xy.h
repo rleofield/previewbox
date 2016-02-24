@@ -33,10 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace rlf_minit {
 
    const float loc_FLT_EPSILON = FLT_EPSILON * 10.0f;
-   const double loc_DBL_EPSILON = DBL_EPSILON * 10.0f;
+   const double loc_DBL_EPSILON = DBL_EPSILON * 10.0;
 
    /**
-   *  2D xy pairsrlf_xy
+   *  2D xy pairs xy_t
    */
 
    template <typename T>
@@ -217,7 +217,7 @@ namespace rlf_minit {
    //      }
 
 
-
+   // bool specialisation
    class xy_b_t {
       bool _x;
       bool _y;
@@ -244,12 +244,12 @@ namespace rlf_minit {
       }
 
       // as x and y
-      void sethor( bool x_ ) {
-         _x = x_;
-      }
-      void setver( bool y_ ) {
-         _y = y_;
-      }
+//      void sethor( bool x_ ) {
+//         _x = x_;
+//      }
+//      void setver( bool y_ ) {
+//         _y = y_;
+//      }
       bool x()const {
          return _x;
       }

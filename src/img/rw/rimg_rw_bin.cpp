@@ -84,14 +84,6 @@ namespace rlf {
       } // end of ns msg
 
 
-      namespace  {
-         inline char* toCharPtr( vector<uint8_t>& b ) {
-            return reinterpret_cast<char* >( static_cast<uint8_t* >( &b[0] ) );
-         }
-         inline char const* toCharPtr( vector<uint8_t> const& b ) {
-            return reinterpret_cast<char const* >( static_cast<uint8_t const* >( &b[0] ) );
-         }
-      } // end of ns rb_local
 
 
 
@@ -111,7 +103,7 @@ namespace rlf {
          }
 
          buf.resize( static_cast<size_t>( size ), 0 );
-         char* const buffer = toCharPtr( buf );
+         char* const buffer = to_char_ptr<uint8_t>( buf );
          fp.read( buffer, size );
 
          if( fp.eof() ) {
@@ -132,7 +124,7 @@ namespace rlf {
             throw tBinWriteEx( msg::file_open( fn ) );
          }
 
-         char const* p = toCharPtr( buf );
+         char const* p = rlf::to_char_ptr<uint8_t>( buf );
          fp.write( p, buf.size() );
 
          if( fp.bad() ) {

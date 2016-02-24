@@ -195,6 +195,7 @@ namespace rlf {
          _threshold( 0 ),
          _min_area( 0 ),
          _max_area( -1 ),
+         _img_size(),
          mNoBorderContact( false ) {}
 
 

@@ -180,12 +180,16 @@ namespace rlf {
       namespace nsxor {
 
          void Xor( vLine8& target, const vLine8& xor_ ) {
-            auto xbegin = xor_.begin();
-            auto xend = xor_.end();
-            auto target_xbegin = target.begin();
+            vLine8::const_iterator xbegin = xor_.begin();
+            vLine8::const_iterator xend = xor_.end();
+            vLine8::iterator target_xbegin = target.begin();
 
             while( xbegin != xend ) {
-               *target_xbegin  ^= *xbegin;
+               uint8_t x = *xbegin;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+               *target_xbegin  ^= static_cast<uint8_t>(*xbegin);
+#pragma GCC diagnostic pop
                ++xbegin;
                ++target_xbegin;
             }
@@ -247,7 +251,10 @@ namespace rlf {
                while( xbegin != xend ) {
 
 
-                  *target_xbegin  &= *xbegin;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+                  *target_xbegin  &= static_cast<uint8_t>(*xbegin);
+#pragma GCC diagnostic pop
 
                   ++xbegin;
                   ++target_xbegin;
@@ -718,7 +725,7 @@ namespace rlf {
             struct x {
                x() {}
                void operator()( uint8_t& v ) {
-                  v = 0xff - v;
+                  v = static_cast<uint8_t>( 0xff - v );
                }
             };
             struct y {
@@ -854,7 +861,7 @@ namespace rlf {
       }
 
       namespace {
-         uint8_t dilate( tPlane8 const& im, int ix, int iy, uint8_t const* table, int color ) {
+         uint8_t dilate( tPlane8 const& im, uint32_t ix, uint32_t iy, uint8_t const* table, int color ) {
 
             uint8_t ret = 0;
 
@@ -918,7 +925,7 @@ namespace rlf {
          }
 
 
-         uint8_t erode( tPlane8 const& im, int ix, int iy, uint8_t const* table, int color ) {
+         uint8_t erode( tPlane8 const& im, uint32_t ix, uint32_t iy, uint8_t const* table, int color ) {
             uint8_t ret = 0;
 
             if( im[iy][ix] != 0 ) {      /* -- if pixel is, check to remove */
@@ -1083,8 +1090,8 @@ namespace rlf {
 
          Clear( source, 0 );
 
-         for( size_t iy = 0; iy < y ; iy++ ) {
-            for( size_t ix = 0; ix < x ; ix++ ) {
+         for( uint32_t iy = 0; iy < y ; iy++ ) {
+            for( uint32_t ix = 0; ix < x ; ix++ ) {
                if( edit_case == dilation ) {
                   source[iy][ix] = dilate( temp, ix + 1, iy + 1, table, color );
                } else {
@@ -1109,7 +1116,7 @@ namespace rlf {
             while( xbegin != xend ) {
 
                if( *xbegin >= thre ) {
-                  *xbegin = ( uint8_t )color;
+                  *xbegin = color;
                } else {
                   *xbegin = 0;
                }

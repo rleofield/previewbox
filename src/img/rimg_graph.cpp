@@ -341,7 +341,7 @@ namespace rlf {
 
          for( int x = 0; x < 256; x++ ) {
             vcolors color( img.planes() );
-            color[0] = x;
+            color[0] = static_cast<uint8_t>(x);
             VerticalLine( img, sy, color );
          }
       }
@@ -351,7 +351,7 @@ namespace rlf {
 
          for( int y = 0; y < 256; y++ ) {
             vcolors color;
-            color.push_back( y );
+            color.push_back( static_cast<uint8_t>(y) );
             HorizontalLine( img, y, color );
          }
       }
@@ -441,7 +441,7 @@ namespace rlf {
       } // end of ns line
 
 
-      void rimginterface::OrthogonalCross( tImgPlanar& img, int32_xy pos, int size, vcolors const& colors ) {
+      void rimginterface::OrthogonalCross( tImgPlanar& img, int32_xy pos, uint32_t size, vcolors const& colors ) {
 
          assert( img.has_data() );
          assert( img.planes() == colors.size() );
@@ -477,27 +477,44 @@ namespace rlf {
 
 
 
-      void rimginterface::DiagonalCross( tImgPlanar& img, int32_xy xy, int const& c ) {
+      void rimginterface::DiagonalCross( tImgPlanar& img, int32_xy xy, uint32_t const& c ) {
          assert( img.is_mono8() );
-         int xp = xy.x();
-         int yp = xy.y();
-         int x = xy.x();
-         int y = xy.y();
 
-         img[0][yp][xp] = c ;
+         int32_t xp = xy.x();
+         int32_t yp = xy.y();
+
+         int32_t x = xy.x();
+         int32_t y = xy.y();
+
+         uint32_t sx = img.sx();
+         uint32_t sy = img.sy();
+         int32_t signed_sx = img.sx();
+         int32_t signed_sy = img.sy();
+
+         uint8_t color = static_cast<uint8_t>(c);
+
+         tPlane8 &plane = img[0];
+
+         assert( xp >= 0 );
+         assert( yp >= 0 );
+         assert( xp < signed_sx);
+         assert( yp < signed_sy );
+
+         plane[yp][xp] = color;
+
          xp = x + 1;
 
-         if( xp >= static_cast<int>(img.sx()) ) {
+         if( xp >= signed_sx ) {
             xp--;
          }
 
          yp = y + 1;
 
-         if( yp >= static_cast<int>(img.sy()) ) {
+         if( yp >= signed_sy ) {
             yp--;
          }
 
-         img[0][yp][xp] = c ;
+         img[0][yp][xp] = color;
 
          xp = x - 1;
 
@@ -505,7 +522,7 @@ namespace rlf {
             xp++;
          }
 
-         img[0][yp][xp] = c ;
+         img[0][yp][xp] = color ;
 
          yp = y - 1;
 
@@ -513,7 +530,7 @@ namespace rlf {
             yp++;
          }
 
-         img[0][yp][xp] = c ;
+         img[0][yp][xp] = color ;
 
          xp = x + 1;
 
@@ -521,7 +538,7 @@ namespace rlf {
             xp--;
          }
 
-         img[0][yp][xp] = c ;
+         img[0][yp][xp] = color ;
       }
 
 
@@ -745,7 +762,7 @@ namespace rlf {
             }
          }
 
-         return ( int )v.size();
+         return static_cast<int>(v.size());
       }
 
       // http://de.wikipedia.org/wiki/Codepage_437
