@@ -5,3 +5,4 @@
 /other/
 /Images/
 /svs/
+*.qmake.stash
